@@ -9,15 +9,11 @@ void ft_print_comb2(void) {
 	while (a < 99) {
 		int b = a + 1;
 		while (b < 100) {
-			int a_integer_part = a / 10;
-			int a_remainder = a % 10;
-			int b_integer_part = b / 10;
-			int b_remainder = b % 10;
-			ft_putchar('0' + a_integer_part);
-			ft_putchar('0' + a_remainder);
+			ft_putchar('0' + a / 10);
+			ft_putchar('0' + a % 10);
 			ft_putchar(' ');
-			ft_putchar('0' + b_integer_part);
-			ft_putchar('0' + b_remainder);
+			ft_putchar('0' + b / 10);
+			ft_putchar('0' + b % 10);
 			if (a != 98) {
 				ft_putchar(',');
 				ft_putchar(' ');
