@@ -1,0 +1,151 @@
+# 42 Piscina
+
+## Shell
+
+- [ ] Shell 00
+  - [ ] Z
+  - [ ] testShell00
+  - [ ] Sí, quiero más...
+  - [ ] ¡Conéctame por SSH!
+  - [ ] midLS
+  - [ ] GiT commit
+  - [ ] gitignore
+  - [ ] diff
+  - [ ] clean
+  - [ ] Illusions, not tricks, Michael...
+- [ ] Shell 01
+  - [ ] Exam machine
+  - [ ] print_groups
+  - [ ] find_sh
+  - [ ] count_files
+  - [ ] MAC
+  - [ ] Can you create it?
+  - [ ] Skip
+  - [ ] r_dwssap
+  - [ ] add_chelou
+
+## C
+
+- [ ] C 00
+	- [x] ft_putchar
+  - [x] ft_print_alphabet
+  - [x] ft_print_reverse_alphabet
+  - [x] ft_print_numbers
+  - [x] ft_is_negative
+  - [x] ft_print_comb
+  - [x] ft_print_comb2
+  - [x] ft_putnbr
+  - [ ] ft_print_combn
+- [ ] C 01
+  - [ ] ft_ft
+  - [ ] ft_ultimate_ft
+  - [ ] ft_swap
+  - [ ] ft_div_mod
+  - [ ] ft_ultimate_div_mod
+  - [ ] ft_putstr
+  - [ ] ft_strlen
+  - [ ] ft_rev_int_tab
+  - [ ] ft_sort_int_tab
+- [ ] C 02
+  - [ ] ft_strcpy
+  - [ ] ft_strncpy
+  - [ ] ft_str_is_alpha
+  - [ ] ft_str_is_numeric
+  - [ ] ft_str_is_lowercase
+  - [ ] ft_str_is_uppercase
+  - [ ] ft_str_is_printable
+  - [ ] ft_strupcase
+  - [ ] ft_strlowcase
+  - [ ] ft_strcapitalize
+  - [ ] ft_strlcpy
+  - [ ] ft_putstr_non_printable
+  - [ ] ft_print_memory
+- [ ] C 03
+  - [ ] ft_strcmp
+  - [ ] ft_strncmp
+  - [ ] ft_strcat
+  - [ ] ft_strncat
+  - [ ] ft_strstr
+  - [ ] ft_strlcat
+- [ ] C 04
+  - [ ] ft_strlen
+  - [ ] ft_putstr
+  - [ ] ft_putnbr
+  - [ ] ft_atoi
+  - [ ] ft_putnbr_base
+  - [ ] ft_atoi_base
+- [ ] C 05
+  - [ ] ft_iterative_factorial
+  - [ ] ft_recursive_factorial
+  - [ ] ft_iterative_power
+  - [ ] ft_recursive_power
+  - [ ] ft_fibonacci
+  - [ ] ft_sqrt
+  - [ ] ft_is_prime
+  - [ ] ft_find_next_prime
+  - [ ] Las diez damas
+- [ ] C 06
+  - [ ] ft_print_program_name
+  - [ ] ft_print_params
+  - [ ] ft_rev_params
+  - [ ] ft_sort_params
+- [ ] C 07
+  - [ ] ft_strdup
+  - [ ] ft_range
+  - [ ] ft_ultimate_range
+  - [ ] ft_strjoin
+  - [ ] ft_convert_base
+  - [ ] ft_split
+- [ ] C 08
+  - [ ] ft.h
+  - [ ] ft_boolean.h
+  - [ ] ft_abs.h
+  - [ ] ft_point.h
+  - [ ] ft_strs_to_tab
+  - [ ] ft_show_tab
+- [ ] C 09
+  - [ ] libft
+  - [ ] Makefile
+  - [ ] ft_split
+- [ ] C 10
+  - [ ] display_file
+  - [ ] cat
+  - [ ] tail
+  - [ ] hexdump
+- [ ] C 11
+  - [ ] ft_foreach
+  - [ ] ft_map
+  - [ ] ft_any
+  - [ ] ft_count_if
+  - [ ] ft_is_sort
+  - [ ] do-op
+  - [ ] ft_sort_string_tab
+  - [ ] ft_advanced_sort_string_tab
+- [ ] C 12
+  - [ ] ft_create_elem
+  - [ ] ft_list_push_front
+  - [ ] ft_list_size
+  - [ ] ft_list_last
+  - [ ] ft_list_push_back
+  - [ ] ft_list_push_strs
+  - [ ] ft_list_clear
+  - [ ] ft_list_at
+  - [ ] ft_list_reverse
+  - [ ] ft_list_foreach
+  - [ ] ft_list_foreach_if
+  - [ ] ft_list_find
+  - [ ] ft_list_remove_if
+  - [ ] ft_list_merge
+  - [ ] ft_list_sort
+  - [ ] ft_list_reverse_fun
+  - [ ] ft_sorted_list_insert
+  - [ ] ft_sorted_list_merge
+- [ ] C 13
+  - [ ] btree_create_node
+  - [ ] btree_apply_prefix
+  - [ ] btree_apply_infix
+  - [ ] btree_apply_suffix
+  - [ ] btree_insert_data
+  - [ ] btree_search_item
+  - [ ] btree_level_count
+  - [ ] btree_apply_by_level
