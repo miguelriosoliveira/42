@@ -39,7 +39,7 @@
 - [ ] C 01
   - [x] ft_ft
   - [x] ft_ultimate_ft
-  - [ ] ft_swap
+  - [x] ft_swap
   - [ ] ft_div_mod
   - [ ] ft_ultimate_div_mod
   - [ ] ft_putstr
