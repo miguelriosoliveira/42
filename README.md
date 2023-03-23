@@ -38,7 +38,7 @@
   - [x] ft_print_combn
 - [ ] C 01
   - [x] ft_ft
-  - [ ] ft_ultimate_ft
+  - [x] ft_ultimate_ft
   - [ ] ft_swap
   - [ ] ft_div_mod
   - [ ] ft_ultimate_div_mod
