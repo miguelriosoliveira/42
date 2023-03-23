@@ -35,7 +35,7 @@
   - [x] ft_print_comb
   - [x] ft_print_comb2
   - [x] ft_putnbr
-  - [ ] ft_print_combn
+  - [x] ft_print_combn
 - [ ] C 01
   - [ ] ft_ft
   - [ ] ft_ultimate_ft
