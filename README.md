@@ -40,7 +40,7 @@
   - [x] ft_ft
   - [x] ft_ultimate_ft
   - [x] ft_swap
-  - [ ] ft_div_mod
+  - [x] ft_div_mod
   - [ ] ft_ultimate_div_mod
   - [ ] ft_putstr
   - [ ] ft_strlen
