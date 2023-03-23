@@ -36,7 +36,7 @@
   - [x] ft_print_comb2
   - [x] ft_putnbr
   - [x] ft_print_combn
-- [ ] C 01
+- [x] C 01
   - [x] ft_ft
   - [x] ft_ultimate_ft
   - [x] ft_swap
@@ -45,7 +45,7 @@
   - [x] ft_putstr
   - [x] ft_strlen
   - [x] ft_rev_int_tab
-  - [ ] ft_sort_int_tab
+  - [x] ft_sort_int_tab
 - [ ] C 02
   - [ ] ft_strcpy
   - [ ] ft_strncpy
