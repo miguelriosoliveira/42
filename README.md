@@ -42,7 +42,7 @@
   - [x] ft_swap
   - [x] ft_div_mod
   - [x] ft_ultimate_div_mod
-  - [ ] ft_putstr
+  - [x] ft_putstr
   - [ ] ft_strlen
   - [ ] ft_rev_int_tab
   - [ ] ft_sort_int_tab
