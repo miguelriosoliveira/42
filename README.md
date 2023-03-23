@@ -26,7 +26,7 @@
 
 ## C
 
-- [ ] C 00
+- [x] C 00
 	- [x] ft_putchar
   - [x] ft_print_alphabet
   - [x] ft_print_reverse_alphabet
