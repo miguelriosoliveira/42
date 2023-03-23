@@ -37,7 +37,7 @@
   - [x] ft_putnbr
   - [x] ft_print_combn
 - [ ] C 01
-  - [ ] ft_ft
+  - [x] ft_ft
   - [ ] ft_ultimate_ft
   - [ ] ft_swap
   - [ ] ft_div_mod
