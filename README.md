@@ -48,7 +48,7 @@
   - [x] ft_sort_int_tab
 - [ ] C 02
   - [x] ft_strcpy
-  - [ ] ft_strncpy
+  - [x] ft_strncpy
   - [ ] ft_str_is_alpha
   - [ ] ft_str_is_numeric
   - [ ] ft_str_is_lowercase
