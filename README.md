@@ -47,7 +47,7 @@
   - [x] ft_rev_int_tab
   - [x] ft_sort_int_tab
 - [ ] C 02
-  - [ ] ft_strcpy
+  - [x] ft_strcpy
   - [ ] ft_strncpy
   - [ ] ft_str_is_alpha
   - [ ] ft_str_is_numeric
