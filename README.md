@@ -5,7 +5,7 @@
 - [ ] Shell 00
   - [x] Z
   - [x] testShell00
-  - [ ] Sí, quiero más...
+  - [x] Sí, quiero más...
   - [ ] ¡Conéctame por SSH!
   - [ ] midLS
   - [ ] GiT commit
