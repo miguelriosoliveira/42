@@ -3,8 +3,8 @@
 ## Shell
 
 - [ ] Shell 00
-  - [ ] Z
-  - [ ] testShell00
+  - [x] Z
+  - [x] testShell00
   - [ ] Sí, quiero más...
   - [ ] ¡Conéctame por SSH!
   - [ ] midLS
