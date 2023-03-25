@@ -8,7 +8,7 @@
   - [x] Sí, quiero más...
   - [x] ¡Conéctame por SSH!
   - [x] midLS
-  - [ ] GiT commit
+  - [x] GiT commit
   - [ ] gitignore
   - [ ] diff
   - [ ] clean
