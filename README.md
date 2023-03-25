@@ -7,7 +7,7 @@
   - [x] testShell00
   - [x] Sí, quiero más...
   - [x] ¡Conéctame por SSH!
-  - [ ] midLS
+  - [x] midLS
   - [ ] GiT commit
   - [ ] gitignore
   - [ ] diff
