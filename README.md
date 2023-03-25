@@ -9,7 +9,7 @@
   - [x] ¡Conéctame por SSH!
   - [x] midLS
   - [x] GiT commit
-  - [ ] gitignore
+  - [x] gitignore
   - [ ] diff
   - [ ] clean
   - [ ] Illusions, not tricks, Michael...
