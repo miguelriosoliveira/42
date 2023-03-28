@@ -10,7 +10,7 @@
   - [x] midLS
   - [x] GiT commit
   - [x] gitignore
-  - [ ] diff
+  - [x] diff
   - [ ] clean
   - [ ] Illusions, not tricks, Michael...
 - [ ] Shell 01
