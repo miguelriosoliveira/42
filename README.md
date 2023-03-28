@@ -11,7 +11,7 @@
   - [x] GiT commit
   - [x] gitignore
   - [x] diff
-  - [ ] clean
+  - [x] clean
   - [ ] Illusions, not tricks, Michael...
 - [ ] Shell 01
   - [ ] Exam machine
