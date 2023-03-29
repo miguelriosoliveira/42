@@ -14,7 +14,7 @@
   - [x] clean
   - [x] Illusions, not tricks, Michael...
 - [ ] Shell 01
-  - [ ] Exam machine
+  - [ ] ~Exam machine~
   - [ ] print_groups
   - [ ] find_sh
   - [ ] count_files
