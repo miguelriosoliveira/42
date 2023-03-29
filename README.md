@@ -2,7 +2,7 @@
 
 ## Shell
 
-- [ ] Shell 00
+- [x] Shell 00
   - [x] Z
   - [x] testShell00
   - [x] Sí, quiero más...
@@ -12,7 +12,7 @@
   - [x] gitignore
   - [x] diff
   - [x] clean
-  - [ ] Illusions, not tricks, Michael...
+  - [x] Illusions, not tricks, Michael...
 - [ ] Shell 01
   - [ ] Exam machine
   - [ ] print_groups
