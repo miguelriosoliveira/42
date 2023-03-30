@@ -16,7 +16,7 @@
 - [ ] Shell 01
   - [ ] ~Exam machine~
   - [x] print_groups
-  - [ ] find_sh
+  - [x] find_sh
   - [ ] count_files
   - [ ] MAC
   - [ ] Can you create it?
