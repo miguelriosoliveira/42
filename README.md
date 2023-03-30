@@ -15,7 +15,7 @@
   - [x] Illusions, not tricks, Michael...
 - [ ] Shell 01
   - [ ] ~Exam machine~
-  - [ ] print_groups
+  - [x] print_groups
   - [ ] find_sh
   - [ ] count_files
   - [ ] MAC
