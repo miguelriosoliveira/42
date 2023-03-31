@@ -17,7 +17,7 @@
   - [ ] ~Exam machine~
   - [x] print_groups
   - [x] find_sh
-  - [ ] count_files
+  - [x] count_files
   - [ ] MAC
   - [ ] Can you create it?
   - [ ] Skip
