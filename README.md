@@ -18,7 +18,7 @@
   - [x] print_groups
   - [x] find_sh
   - [x] count_files
-  - [ ] MAC
+  - [x] MAC
   - [ ] Can you create it?
   - [ ] Skip
   - [ ] r_dwssap
