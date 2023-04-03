@@ -49,7 +49,7 @@
 - [ ] C 02
   - [x] ft_strcpy
   - [x] ft_strncpy
-  - [ ] ft_str_is_alpha
+  - [x] ft_str_is_alpha
   - [ ] ft_str_is_numeric
   - [ ] ft_str_is_lowercase
   - [ ] ft_str_is_uppercase
