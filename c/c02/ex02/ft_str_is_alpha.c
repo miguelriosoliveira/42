@@ -20,6 +20,15 @@ int main(void) {
 	char* not_alpha_word = "yes1";
 	printf("\"%s\" is alpha? %d\n", not_alpha_word, ft_str_is_alpha(not_alpha_word));
 	
+	char* empty_word = "";
+	printf("\"%s\" is alpha? %d\n", empty_word, ft_str_is_alpha(empty_word));
+
+	char* uppercase_alpha_word = "POTATO";
+	printf("\"%s\" is alpha? %d\n", uppercase_alpha_word, ft_str_is_alpha(uppercase_alpha_word));
+	
+	char* uppercase_not_alpha_word = "P07470";
+	printf("\"%s\" is alpha? %d\n", uppercase_not_alpha_word, ft_str_is_alpha(uppercase_not_alpha_word));
+	
 	return 0;
 }
 
