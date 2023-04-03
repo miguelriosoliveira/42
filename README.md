@@ -13,7 +13,7 @@
   - [x] diff
   - [x] clean
   - [x] Illusions, not tricks, Michael...
-- [ ] Shell 01
+- [x] Shell 01
   - [ ] ~Exam machine~
   - [x] print_groups
   - [x] find_sh
@@ -22,7 +22,7 @@
   - [x] Can you create it?
   - [x] Skip
   - [x] r_dwssap
-  - [ ] add_chelou
+  - [x] add_chelou
 
 ## C
 
