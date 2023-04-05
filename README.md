@@ -54,7 +54,7 @@
   - [x] ft_str_is_lowercase
   - [x] ft_str_is_uppercase
   - [x] ft_str_is_printable
-  - [ ] ft_strupcase
+  - [x] ft_strupcase
   - [ ] ft_strlowcase
   - [ ] ft_strcapitalize
   - [ ] ft_strlcpy
