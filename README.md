@@ -53,7 +53,7 @@
   - [x] ft_str_is_numeric
   - [x] ft_str_is_lowercase
   - [x] ft_str_is_uppercase
-  - [ ] ft_str_is_printable
+  - [x] ft_str_is_printable
   - [ ] ft_strupcase
   - [ ] ft_strlowcase
   - [ ] ft_strcapitalize
