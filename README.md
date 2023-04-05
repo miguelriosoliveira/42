@@ -50,7 +50,7 @@
   - [x] ft_strcpy
   - [x] ft_strncpy
   - [x] ft_str_is_alpha
-  - [ ] ft_str_is_numeric
+  - [x] ft_str_is_numeric
   - [ ] ft_str_is_lowercase
   - [ ] ft_str_is_uppercase
   - [ ] ft_str_is_printable
