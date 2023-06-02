@@ -19,16 +19,19 @@ void	ft_putchar(char c)
 
 void	ft_putnbr(int nb)
 {
-	if (nb < 0)
+	long	nb_long;
+
+	nb_long = nb;
+	if (nb_long < 0)
 	{
 		ft_putchar('-');
-		nb = -nb;
+		nb_long = -nb_long;
 	}
-	if (nb >= 10)
+	if (nb_long >= 10)
 	{
-		ft_putnbr(nb / 10);
+		ft_putnbr(nb_long / 10);
 	}
-	ft_putchar('0' + nb % 10);
+	ft_putchar('0' + nb_long % 10);
 }
 
 /*
@@ -43,6 +46,15 @@ int main(void) {
 	ft_putchar('\n');
 	
 	ft_putnbr(12345);
+	ft_putchar('\n');
+	
+	ft_putnbr(2147483647);
+	ft_putchar('\n');
+	
+	ft_putnbr(-2147483647);
+	ft_putchar('\n');
+	
+	ft_putnbr(-2147483648);
 	ft_putchar('\n');
 	return 0;
 }
