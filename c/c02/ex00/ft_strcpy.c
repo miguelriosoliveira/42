@@ -1,13 +1,30 @@
-char *ft_strcpy(char *dest, char *src) {
-	int i = 0;
-	while (src[i] != '\0') {
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/05 09:40:27 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/05 09:40:30 by mrios-es         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+char	*ft_strcpy(char *dest, char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
 		dest[i] = src[i];
 		i++;
 	}
 	dest[i] = '\0';
-	return dest;
+	return (dest);
 }
 
+/*
 #include <stdio.h>
 #include <string.h>
 
@@ -49,4 +66,4 @@ int main(void) {
 	
 	return 0;
 }
-
+*/
