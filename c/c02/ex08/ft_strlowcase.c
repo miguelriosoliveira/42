@@ -1,15 +1,32 @@
-char *ft_strlowcase(char *str) {
-	int offset = 'a' - 'A';
-  int i = 0;
-	while (str[i]) {
-		if (str[i] >= 'A' && str[i] <= 'Z') {
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlowcase.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/05 12:18:45 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/05 12:18:47 by mrios-es         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+char	*ft_strlowcase(char *str)
+{
+	int	offset;
+	int	i;
+
+	offset = 'a' - 'A';
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 'A' && str[i] <= 'Z')
 			str[i] += offset;
-		}
 		i++;
 	}
-	return str;
+	return (str);
 }
 
+/*
 #include <stdio.h>
 
 int main(void) {
@@ -40,4 +57,4 @@ int main(void) {
 
 	return 0;
 }
-
+*/
