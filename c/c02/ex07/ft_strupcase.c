@@ -1,15 +1,32 @@
-char *ft_strupcase(char *str) {
-	int offset = 'a' - 'A';
-  int i = 0;
-	while (str[i]) {
-		if (str[i] >= 'a' && str[i] <= 'z') {
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strupcase.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/05 12:15:10 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/05 12:15:13 by mrios-es         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+char	*ft_strupcase(char *str)
+{
+	int	offset;
+	int	i;
+
+	offset = 'a' - 'A';
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 'a' && str[i] <= 'z')
 			str[i] -= offset;
-		}
 		i++;
 	}
-	return str;
+	return (str);
 }
 
+/*
 #include <stdio.h>
 
 int main(void) {
@@ -40,4 +57,4 @@ int main(void) {
 
 	return 0;
 }
-
+*/
