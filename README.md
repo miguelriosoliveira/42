@@ -56,9 +56,9 @@
   - [x] ft_str_is_printable
   - [x] ft_strupcase
   - [x] ft_strlowcase
-  - [ ] ft_strcapitalize
-  - [ ] ft_strlcpy
-  - [ ] ft_putstr_non_printable
+  - [x] ft_strcapitalize
+  - [x] ft_strlcpy
+  - [x] ft_putstr_non_printable
   - [ ] ft_print_memory
 - [ ] C 03
   - [ ] ft_strcmp
