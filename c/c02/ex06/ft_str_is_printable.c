@@ -1,16 +1,30 @@
-int ft_str_is_printable(char *str) {
-	int i = 0;
-	while (str[i]) {
-		int is_printable = str[i] >= 32 && str[i] <= 127;
-		if (!is_printable) {
-			return 0;
-		}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_str_is_printable.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/05 12:09:23 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/05 12:09:26 by mrios-es         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int	ft_str_is_printable(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!(str[i] >= 32 && str[i] <= 127))
+			return (0);
 		i++;
 	}
-
-	return 1;
+	return (1);
 }
 
+/*
 #include <stdio.h>
 
 int main(void) {
@@ -31,4 +45,4 @@ int main(void) {
 
 	return 0;
 }
-
+*/
