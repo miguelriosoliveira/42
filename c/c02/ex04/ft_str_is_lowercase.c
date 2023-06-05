@@ -1,16 +1,30 @@
-int ft_str_is_lowercase(char *str) {
-	int i = 0;
-	while (str[i]) {
-		int is_lowercase = str[i] >= 'a' && str[i] <= 'z';
-		if (!is_lowercase) {
-			return 0;
-		}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_str_is_lowercase.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/05 12:04:50 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/05 12:04:55 by mrios-es         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int	ft_str_is_lowercase(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!(str[i] >= 'a' && str[i] <= 'z'))
+			return (0);
 		i++;
 	}
-
-	return 1;
+	return (1);
 }
 
+/*
 #include <stdio.h>
 
 int main(void) {
@@ -28,4 +42,4 @@ int main(void) {
 
 	return 0;
 }
-
+*/
