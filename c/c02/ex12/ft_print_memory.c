@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_memory.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/05 18:03:12 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/05 18:03:15 by mrios-es         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 
 void	ft_putchar(char c)
@@ -5,65 +17,113 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void  *ft_print_memory(void *addr, unsigned int size)
+void	print_address(char var)
 {
-  char  *str;
-  char	*hex_digits;
-  unsigned int   i;
-  unsigned int   j;
+	long	address;
+	char	*hex_digits;
+	char	digit;
 
-  if (size == 0)
-    return "";
-  hex_digits = "0123456789abcdef";
-  str = (char*)addr;
-  i = 0;
-  while (i < size)
-  {
-    long address = (long)&str[i];
-    while (address > 0) {
-      char digit = address % 16;
-      ft_putchar(hex_digits[digit / 16]);
-      ft_putchar(hex_digits[digit % 16]);
-      address /= 16;
-    }
-    ft_putchar(':');
-    ft_putchar(' ');
-    j = i;
-    while (j < i + 15)
-    {
-      if (str[j])
-      {
-        ft_putchar(hex_digits[str[j] / 16]);
-        ft_putchar(hex_digits[str[j] % 16]);
-        ft_putchar(hex_digits[str[j+1] / 16]);
-        ft_putchar(hex_digits[str[j+1] % 16]);
-      }
-      else
-      {
-        ft_putchar(' ');
-        ft_putchar(' ');
-        ft_putchar(' ');
-        ft_putchar(' ');
-      }
-      ft_putchar(' ');
-      j++;
-    }
-    j = i;
-    while (j < i + 16 && str[j])
-    {
-      ft_putchar(str[j]);
-      j++;
-    }
-    ft_putchar('\n');
-    i += 16;
-  }
-  return addr;
+	address = (long)&var;
+	hex_digits = "0123456789abcdef";
+	while (address > 0)
+	{
+		digit = address % 16;
+		ft_putchar(hex_digits[digit / 16]);
+		ft_putchar(hex_digits[digit % 16]);
+		address /= 16;
+	}
+	ft_putchar(':');
 }
 
+void	print_hex(char *str, unsigned int start)
+{
+	unsigned int	j;
+	char			*hex_digits;
+
+	j = start;
+	hex_digits = "0123456789abcdef";
+	while (j < start + 15)
+	{
+		if (str[j])
+		{
+			ft_putchar(hex_digits[str[j] / 16]);
+			ft_putchar(hex_digits[str[j] % 16]);
+			ft_putchar(hex_digits[str[j + 1] / 16]);
+			ft_putchar(hex_digits[str[j + 1] % 16]);
+		}
+		else
+		{
+			ft_putchar(' ');
+			ft_putchar(' ');
+			ft_putchar(' ');
+			ft_putchar(' ');
+		}
+		ft_putchar(' ');
+		j += 2;
+	}
+}
+
+void	print_line(char *str, unsigned int start)
+{
+	unsigned int	j;
+
+	j = start;
+	while (j < start + 16 && str[j])
+	{
+		if (str[j] < 32 || str[j] > 126)
+			ft_putchar('.');
+		else
+			ft_putchar(str[j]);
+		j++;
+	}
+}
+
+void	*ft_print_memory(void *addr, unsigned int size)
+{
+	char			*str;
+	unsigned int	i;
+
+	if (size == 0)
+		return ("");
+	str = (char *)addr;
+	i = 0;
+	while (i < size - 16)
+	{
+		print_address(str[i]);
+		ft_putchar(' ');
+		print_hex(str, i);
+		print_line(str, i);
+		ft_putchar('\n');
+		i += 16;
+	}
+	print_address(str[i]);
+	ft_putchar(' ');
+	print_hex(str, i);
+	print_line(str, i);
+	ft_putchar('.');
+	ft_putchar('\n');
+	return (addr);
+}
+
+/*
 #include <string.h>
 
 int main() {
-  char *addr = "Bonjour les aminches...c. est fou.tout.ce qu on peut faire avec...print_memory....lol.lol. .";
-  ft_print_memory(addr, strlen(addr));
-  return 0;
+	char addr1[93] = "Bonjour les aminches...c. est fou.tout.ce qu on peut faire";
+	strcat(addr1, " avec...print_memory....lol.lol. .");
+	ft_print_memory(addr1, strlen(addr1));
+
+	ft_putchar('\n');
+
+	char addr2[107] = "Bonjour les aminches\t\n\tc\07 est fou\ttout\tce qu on pe";
+	strcat(addr2, "ut faire avec\t\n\tprint_memory\n\n\n\tlol.lol\n ");
+	ft_print_memory(addr2, strlen(addr2));
+
+	ft_putchar('\n');
+
+	char *addr3 = "Bonjour les aminches";
+	ft_print_memory(addr3, 0);
+
+	return 0;
 }
+*/
