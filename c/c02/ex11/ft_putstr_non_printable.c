@@ -17,21 +17,24 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void	ft_putstr_non_printable(char *str)
-{
-	int		i;
+void	print_hex(unsigned char c) {
 	char	*hex_digits;
 
 	hex_digits = "0123456789abcdef";
+	ft_putchar('\\');
+	ft_putchar(hex_digits[c / 16]);
+	ft_putchar(hex_digits[c % 16]);
+}
+
+void	ft_putstr_non_printable(char *str)
+{
+	int	i;
+
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] < 32 || str[i] > 126)
-		{
-			ft_putchar('\\');
-			ft_putchar(hex_digits[str[i] / 16]);
-			ft_putchar(hex_digits[str[i] % 16]);
-		}
+			print_hex(str[i]);
 		else
 			ft_putchar(str[i]);
 		i++;
@@ -39,26 +42,23 @@ void	ft_putstr_non_printable(char *str)
 }
 
 /*
-#include <stdio.h>
-
 int main(void) {
-	char str[] = "Coucou\ntu vas bien ?";
-  ft_putstr_non_printable(str);
+	ft_putstr_non_printable("Coucou\ntu vas bien ?");
 	write(1, "\n", 1);
 
 	// Caso de prueba 1: Cadena con caracteres no imprimibles
-	char str1[] = "Hello\tworld\n";
-	ft_putstr_non_printable(str1);
+	ft_putstr_non_printable("Hello\tworld\n");
 	write(1, "\n", 1);
 
 	// Caso de prueba 2: Cadena sin caracteres no imprimibles
-	char str2[] = "42 is awesome!";
-	ft_putstr_non_printable(str2);
+	ft_putstr_non_printable("42 is awesome!");
 	write(1, "\n", 1);
 
 	// Caso de prueba 3: Cadena vacía
-	char str3[] = "";
-	ft_putstr_non_printable(str3);
+	ft_putstr_non_printable("");
+	write(1, "\n", 1);
+
+	ft_putstr_non_printable("asdf\x7f\x1fhi\x01\xfflol");
 	write(1, "\n", 1);
 
 	return 0;

@@ -17,39 +17,40 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void	print_address(char var)
+void	print_address(char *c)
 {
 	long	address;
 	char	*hex_digits;
-	char	digit;
 
-	address = (long)&var;
+	address = (long)c;
 	hex_digits = "0123456789abcdef";
 	while (address > 0)
 	{
-		digit = address % 16;
-		ft_putchar(hex_digits[digit / 16]);
-		ft_putchar(hex_digits[digit % 16]);
+		ft_putchar(hex_digits[address % 16]);
 		address /= 16;
 	}
 	ft_putchar(':');
 }
 
+void print_hexa(unsigned char c) {
+	char	*hex_digits;
+
+	hex_digits = "0123456789abcdef";
+	ft_putchar(hex_digits[c / 16]);
+	ft_putchar(hex_digits[c % 16]);
+}
+
 void	print_hex(char *str, unsigned int start)
 {
 	unsigned int	j;
-	char			*hex_digits;
 
 	j = start;
-	hex_digits = "0123456789abcdef";
 	while (j < start + 15)
 	{
 		if (str[j])
 		{
-			ft_putchar(hex_digits[str[j] / 16]);
-			ft_putchar(hex_digits[str[j] % 16]);
-			ft_putchar(hex_digits[str[j + 1] / 16]);
-			ft_putchar(hex_digits[str[j + 1] % 16]);
+      print_hexa(str[j]);
+      print_hexa(str[j + 1]);
 		}
 		else
 		{
@@ -85,18 +86,18 @@ void	*ft_print_memory(void *addr, unsigned int size)
 
 	if (size == 0)
 		return ("");
-	str = (char *)addr;
+	str = addr;
 	i = 0;
 	while (i < size - 16)
 	{
-		print_address(str[i]);
+		print_address(&str[i]);
 		ft_putchar(' ');
 		print_hex(str, i);
 		print_line(str, i);
 		ft_putchar('\n');
 		i += 16;
 	}
-	print_address(str[i]);
+	print_address(&str[i]);
 	ft_putchar(' ');
 	print_hex(str, i);
 	print_line(str, i);

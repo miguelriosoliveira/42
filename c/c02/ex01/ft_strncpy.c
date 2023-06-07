@@ -15,9 +15,14 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
 	unsigned int	i;
 
 	i = 0;
-	while (i < n)
+	while (i < n && src[i])
 	{
 		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
 		i++;
 	}
 	return (dest);
@@ -35,7 +40,7 @@ int main(void) {
 	char *ft_strncpy_res1 = ft_strncpy(dst1, src1, n1);
 	printf("   strncpy \"%s\" \"%s\" %d: %s\n", dst1, src1, n1,    strncpy_res1);
 	printf("ft_strncpy \"%s\" \"%s\" %d: %s\n", dst1, src1, n1, ft_strncpy_res1);
-	
+
 	printf("\n");
 
 	char dst2[] = "World1";
@@ -47,7 +52,7 @@ int main(void) {
 	printf("ft_strncpy \"%s\" \"%s\" %d: %s\n", dst2, src2, n2, ft_strncpy_res2);
 
 	printf("\n");
-	
+
 	char dst3[] = "World1";
 	char src3[] = "Hello";
 	int n3 = 7;
@@ -55,7 +60,7 @@ int main(void) {
 	char *ft_strncpy_res3 = ft_strncpy(dst3, src3, n3);
 	printf("   strncpy \"%s\" \"%s\" %d: %s\n", dst3, src3, n3,    strncpy_res3);
 	printf("ft_strncpy \"%s\" \"%s\" %d: %s\n", dst3, src3, n3, ft_strncpy_res3);
-	 
+
 	return 0;
 }
 */
