@@ -17,7 +17,8 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void	print_hex(unsigned char c) {
+void	print_hex(unsigned char c)
+{
 	char	*hex_digits;
 
 	hex_digits = "0123456789abcdef";

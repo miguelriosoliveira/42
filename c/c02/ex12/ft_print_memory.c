@@ -32,25 +32,21 @@ void	print_address(char *c)
 	ft_putchar(':');
 }
 
-void print_hexa(unsigned char c) {
-	char	*hex_digits;
-
-	hex_digits = "0123456789abcdef";
-	ft_putchar(hex_digits[c / 16]);
-	ft_putchar(hex_digits[c % 16]);
-}
-
-void	print_hex(char *str, unsigned int start)
+void	print_hex_line(char *str, unsigned int start)
 {
 	unsigned int	j;
+	char			*hex_digits;
 
 	j = start;
+	hex_digits = "0123456789abcdef";
 	while (j < start + 15)
 	{
 		if (str[j])
 		{
-      print_hexa(str[j]);
-      print_hexa(str[j + 1]);
+			ft_putchar(hex_digits[str[j] / 16]);
+			ft_putchar(hex_digits[str[j] % 16]);
+			ft_putchar(hex_digits[str[j + 1] / 16]);
+			ft_putchar(hex_digits[str[j + 1] % 16]);
 		}
 		else
 		{
@@ -92,14 +88,14 @@ void	*ft_print_memory(void *addr, unsigned int size)
 	{
 		print_address(&str[i]);
 		ft_putchar(' ');
-		print_hex(str, i);
+		print_hex_line(str, i);
 		print_line(str, i);
 		ft_putchar('\n');
 		i += 16;
 	}
 	print_address(&str[i]);
 	ft_putchar(' ');
-	print_hex(str, i);
+	print_hex_line(str, i);
 	print_line(str, i);
 	ft_putchar('.');
 	ft_putchar('\n');
