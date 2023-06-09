@@ -27,7 +27,7 @@ char	*ft_strncat(char *dest, char *src, unsigned int nb)
 
 	i = 0;
 	dest_len = ft_strlen(dest);
-	while (i < nb && src[i])
+	while (src[i] && i < nb)
 	{
 		dest[dest_len + i] = src[i];
 		i++;
@@ -35,3 +35,43 @@ char	*ft_strncat(char *dest, char *src, unsigned int nb)
 	dest[dest_len + i] = '\0';
 	return (dest);
 }
+
+/* 
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+	char dest1_1[11] = "hello";
+	char dest1_2[11] = "hello";
+	char *src = "world";
+	int n = 3;
+	printf("   strncat(\"%s\"", dest1_1);
+	printf(", \"%s\", %d): %s", src, n,    strncat(dest1_1, src, n));
+	printf("\n");
+	printf("ft_strncat(\"%s\"", dest1_2);
+	printf(", \"%s\", %d): %s", src, n, ft_strncat(dest1_2, src, n));
+	printf("\n");
+
+	char dest2_1[10] = "hola";
+	char dest2_2[10] = "hola";
+	src = "mundo";
+	n = 4;
+	printf("   strncat(\"%s\"", dest2_1);
+	printf(", \"%s\", %d): %s", src, n,    strncat(dest2_1, src, n));
+	printf("\n");
+	printf("ft_strncat(\"%s\"", dest2_2);
+	printf(", \"%s\", %d): %s", src, n, ft_strncat(dest2_2, src, n));
+	printf("\n");
+
+	char dest3_1[10] = "hola";
+	char dest3_2[10] = "hola";
+	src = "mundo";
+	n = 7;
+	printf("   strncat(\"%s\"", dest3_1);
+	printf(", \"%s\", %d): %s", src, n,    strncat(dest3_1, src, n));
+	printf("\n");
+	printf("ft_strncat(\"%s\"", dest3_2);
+	printf(", \"%s\", %d): %s", src, n, ft_strncat(dest3_2, src, n));
+	printf("\n");
+}
+*/

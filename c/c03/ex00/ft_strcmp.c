@@ -19,3 +19,45 @@ int	ft_strcmp(char *s1, char *s2)
 		i++;
 	return (s1[i] - s2[i]);
 }
+
+/*
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+	char *s1 = "hello";
+	char *s2 = "hello";
+	printf("   strcmp(\"%s\", \"%s\"): %d", s1, s2,    strcmp(s1, s2));
+	printf("\n");
+	printf("ft_strcmp(\"%s\", \"%s\"): %d", s1, s2, ft_strcmp(s1, s2));
+	printf("\n");
+
+	s1 = "hola";
+	s2 = "hello";
+	printf("   strcmp(\"%s\", \"%s\"): %d", s1, s2,    strcmp(s1, s2));
+	printf("\n");
+	printf("ft_strcmp(\"%s\", \"%s\"): %d", s1, s2, ft_strcmp(s1, s2));
+	printf("\n");
+
+	s1 = "hello";
+	s2 = "hola";
+	printf("   strcmp(\"%s\", \"%s\"): %d", s1, s2,    strcmp(s1, s2));
+	printf("\n");
+	printf("ft_strcmp(\"%s\", \"%s\"): %d", s1, s2, ft_strcmp(s1, s2));
+	printf("\n");
+
+	s1 = "holi";
+	s2 = "hola";
+	printf("   strcmp(\"%s\", \"%s\"): %d", s1, s2,    strcmp(s1, s2));
+	printf("\n");
+	printf("ft_strcmp(\"%s\", \"%s\"): %d", s1, s2, ft_strcmp(s1, s2));
+	printf("\n");
+
+	s1 = "hol1";
+	s2 = "hola";
+	printf("   strcmp(\"%s\", \"%s\"): %d", s1, s2,    strcmp(s1, s2));
+	printf("\n");
+	printf("ft_strcmp(\"%s\", \"%s\"): %d", s1, s2, ft_strcmp(s1, s2));
+	printf("\n");
+}
+*/
