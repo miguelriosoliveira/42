@@ -46,7 +46,7 @@
   - [x] ft_strlen
   - [x] ft_rev_int_tab
   - [x] ft_sort_int_tab
-- [ ] C 02
+- [x] C 02
   - [x] ft_strcpy
   - [x] ft_strncpy
   - [x] ft_str_is_alpha
@@ -59,13 +59,13 @@
   - [x] ft_strcapitalize
   - [x] ft_strlcpy
   - [x] ft_putstr_non_printable
-  - [ ] ft_print_memory
+  - [x] ft_print_memory
 - [ ] C 03
-  - [ ] ft_strcmp
-  - [ ] ft_strncmp
-  - [ ] ft_strcat
-  - [ ] ft_strncat
-  - [ ] ft_strstr
+  - [x] ft_strcmp
+  - [x] ft_strncmp
+  - [x] ft_strcat
+  - [x] ft_strncat
+  - [x] ft_strstr
   - [ ] ft_strlcat
 - [ ] C 04
   - [ ] ft_strlen
@@ -149,3 +149,7 @@
   - [ ] btree_search_item
   - [ ] btree_level_count
   - [ ] btree_apply_by_level
+- [x] Rush 00
+- [ ] Rush 01
+- [ ] Rush 02
+- [ ] BSQ
