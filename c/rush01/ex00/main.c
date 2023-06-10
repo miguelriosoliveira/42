@@ -46,6 +46,70 @@ void	print_map(int **map)
 	}
 }
 
+void	print_map_with_hints(int **map, char *hints)
+{
+	int	i;
+	int	j;
+
+	ft_putchar(' ');
+	i = 0;
+  while (i < SIDE)
+  {
+    ft_putchar(' ');
+	  ft_putchar(hints[i]);
+    i++;
+  }
+	ft_putchar('\n');
+	i = 0;
+	while (i < SIDE)
+	{
+		ft_putchar(hints[SIDE * 2 + i]);
+    ft_putchar(' ');
+		ft_putchar(map[i][1] + '0');
+		j = 1;
+		while (j < SIDE)
+		{
+			ft_putchar(' ');
+			ft_putchar(map[i][j] + '0');
+			j++;
+		}
+		ft_putchar(' ');
+		ft_putchar(hints[SIDE * 3 + i]);
+		ft_putchar('\n');
+		i++;
+	}
+  ft_putchar(' ');
+	i = 0;
+  while (i < SIDE)
+  {
+    ft_putchar(' ');
+	  ft_putchar(hints[SIDE + i]);
+    i++;
+  }
+	ft_putchar('\n');
+}
+
+void parse_hints(char *raw_hints)
+{
+  int i;
+  int j;
+
+  i = 0;
+  while (raw_hints[i])
+  {
+    if (raw_hints[i] == ' ')
+    {
+      j = i;
+      while (raw_hints[j])
+      {
+        raw_hints[j] = raw_hints[j + 1];
+        j++;
+      }
+    }
+    i++;
+  }
+}
+
 int	**create_map(void)
 {
 	int	i;
@@ -97,12 +161,14 @@ int	ft_strlen(char *str)
 
 // void	solve_puzzle(int **map, char *hints)
 // {
-	
+
 // }
+
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
-	char	*input;
+	char	*hints;
 	int		**map;
 
 	if (argc != 2)
@@ -110,15 +176,17 @@ int	main(int argc, char **argv)
 		print_error();
 		return (0);
 	}
-	input = argv[1];
-	// if (ft_strlen(input) != SIDE * SIDE)
-	// {
-	// 	print_error();
-	// 	return (0);
-	// }
+	hints = argv[1];
+	if (ft_strlen(hints) != SIDE * SIDE * 2 - 1)
+	{
+		print_error();
+		return (0);
+	}
+  parse_hints(hints);
 	map = create_map();
-	// solve_puzzle(map, input);
-	print_map(map);
+	// solve_puzzle(map, hints);
+	// print_map(map);
+	print_map_with_hints(map, hints);
 	free_map(map);
 	return (0);
 }
