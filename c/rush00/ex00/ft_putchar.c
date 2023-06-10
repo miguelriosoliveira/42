@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: albsilva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 14:37:28 by mrios-es          #+#    #+#             */
-/*   Updated: 2023/06/02 14:37:32 by mrios-es         ###   ########.fr       */
+/*   Created: 2023/06/03 11:03:04 by albsilva          #+#    #+#             */
+/*   Updated: 2023/06/03 11:52:24 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <unistd.h>
 
-void	ft_swap(int *a, int *b)
+void	ft_putchar(char c)
 {
-	int	aux;
-
-	aux = *a;
-	*a = *b;
-	*b = aux;
+	write(1, &c, 1);
 }
-
-/*
-int main(void) {
-	int a = 11;
-	int b = 22;
-	printf("Antes: %d %d\n", a, b);
-	ft_swap(&a, &b);
-	printf("Luego: %d %d\n", a, b);
-
-	return 0;
-}
-*/

@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_div_mod.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 14:40:00 by mrios-es          #+#    #+#             */
-/*   Updated: 2023/06/02 14:40:01 by mrios-es         ###   ########.fr       */
+/*   Created: 2023/06/03 11:52:31 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/03 15:41:14 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+void	rush(int x, int y);
 
-void	ft_div_mod(int a, int b, int *div, int *mod)
+int	main(void)
 {
-	*div = a / b;
-	*mod = a % b;
+	rush(5, 3);
+	return (0);
 }
-
-/*
-int main(void) {
-	int a = 7;
-	int b = 3;
-	int div;
-	int mod;
-
-	ft_div_mod(a, b, &div, &mod);
-	printf("%d / %d = %d\n", a, b, div);
-	printf("%d %% %d = %d\n", a, b, mod);
-	
-	return 0;
-}
-*/
