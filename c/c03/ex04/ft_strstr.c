@@ -10,39 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
-}
-
 char	*ft_strstr(char *str, char *to_find)
 {
 	int	i;
 	int	j;
-	int	k;
-	int	to_find_len;
-	int	match_pos;
 
-	to_find_len = ft_strlen(to_find);
-	if (to_find_len == 0)
-		return (str);
 	i = 0;
+	if (to_find[0] == '\0')
+		return (str);
 	while (str[i])
 	{
-		j = i;
-		while (str[j] != to_find[0])
-			j++;
-		match_pos = j;
-		k = 0;
-		while (str[j + k] && str[j + k] == to_find[k])
-			k++;
-		if (k == to_find_len)
-			return (&str[match_pos]);
+		if (str[i] == to_find[0])
+		{
+			j = 0;
+			while (to_find[j] && str[i + j] == to_find[j])
+				j++;
+			if (to_find[j] == '\0')
+				return (&str[i]);
+		}
 		i++;
 	}
 	return (0);

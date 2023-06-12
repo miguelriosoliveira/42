@@ -25,13 +25,14 @@ char	*ft_strcat(char *dest, char *src)
 	int	i;
 	int	dest_len;
 
-	i = 0;
 	dest_len = ft_strlen(dest);
+	i = 0;
 	while (src[i])
 	{
 		dest[dest_len + i] = src[i];
 		i++;
 	}
+	dest[dest_len + i] = '\0';
 	return (dest);
 }
 
@@ -43,21 +44,33 @@ int main() {
 	char dest1_1[11] = "hello";
 	char dest1_2[11] = "hello";
 	char *src = "world";
-	printf("   strcat(\"%s\"", dest1_1);
-	printf(", \"%s\"): %s", src,    strcat(dest1_1, src));
+	printf("   strcat(\"%s\", \"%s\")", dest1_1, src);
+	printf(": \"%s\"",    strcat(dest1_1, src));
 	printf("\n");
-	printf("ft_strcat(\"%s\"", dest1_2);
-	printf(", \"%s\"): %s", src, ft_strcat(dest1_2, src));
+	printf("ft_strcat(\"%s\", \"%s\")", dest1_2, src);
+	printf(": \"%s\"", ft_strcat(dest1_2, src));
+	printf("\n");
 	printf("\n");
 
 	char dest2_1[10] = "hola";
 	char dest2_2[10] = "hola";
 	src = "mundo";
-	printf("   strcat(\"%s\"", dest2_1);
-	printf(", \"%s\"): %s", src,    strcat(dest2_1, src));
+	printf("   strcat(\"%s\", \"%s\")", dest2_1, src);
+	printf(": \"%s\"",    strcat(dest2_1, src));
 	printf("\n");
-	printf("ft_strcat(\"%s\"", dest2_2);
-	printf(", \"%s\"): %s", src, ft_strcat(dest2_2, src));
+	printf("ft_strcat(\"%s\", \"%s\")", dest2_2, src);
+	printf(": \"%s\"", ft_strcat(dest2_2, src));
+	printf("\n");
+	printf("\n");
+
+	char dest3_1[11] = "42l33r";
+	char dest3_2[] = "42l33r";
+	src = "l33r";
+	printf("   strcat(\"%s\", \"%s\")", dest3_1, src);
+	printf(": \"%s\"",    strcat(dest3_1, src));
+	printf("\n");
+	printf("ft_strcat(\"%s\", \"%s\")", dest3_2, src);
+	printf(": \"%s\"", ft_strcat(dest3_2, src));
 	printf("\n");
 }
 */

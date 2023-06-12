@@ -10,6 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
+#include <stdio.h>
+
+
+
+
 #include <unistd.h>
 
 void	ft_putchar(char c)
@@ -75,6 +81,8 @@ void	print_line(char *str, unsigned int start)
 	}
 }
 
+
+
 void	*ft_print_memory(void *addr, unsigned int size)
 {
 	char			*str;
@@ -84,43 +92,90 @@ void	*ft_print_memory(void *addr, unsigned int size)
 		return ("");
 	str = addr;
 	i = 0;
-	while (i < size - 16)
+
+	// printf("%d\n", i);
+	// printf("%d\n", size);
+	// printf("%d\n", size - 16);
+
+	if (size < 16)
 	{
 		print_address(&str[i]);
 		ft_putchar(' ');
 		print_hex_line(str, i);
 		print_line(str, i);
+		ft_putchar('.');
 		ft_putchar('\n');
-		i += 16;
 	}
-	print_address(&str[i]);
-	ft_putchar(' ');
-	print_hex_line(str, i);
-	print_line(str, i);
-	ft_putchar('.');
-	ft_putchar('\n');
+	else
+	{
+		while (i < size - 16)
+		{
+			print_address(&str[i]);
+			ft_putchar(' ');
+			print_hex_line(str, i);
+			print_line(str, i);
+			ft_putchar('\n');
+			i += 16;
+		}
+		print_address(&str[i]);
+		ft_putchar(' ');
+		print_hex_line(str, i);
+		print_line(str, i);
+		ft_putchar('.');
+		ft_putchar('\n');
+	}
+
 	return (addr);
 }
 
-/*
+
 #include <string.h>
 
 int main() {
-	char addr1[93] = "Bonjour les aminches...c. est fou.tout.ce qu on peut faire";
-	strcat(addr1, " avec...print_memory....lol.lol. .");
-	ft_print_memory(addr1, strlen(addr1));
-
-	ft_putchar('\n');
+	// char addr1[93] = "Bonjour les aminches...c. est fou.tout.ce qu on peut faire";
+	// strcat(addr1, " avec...print_memory....lol.lol. .");
+	// ft_print_memory(addr1, strlen(addr1));
+	// ft_putchar('\n');
 
 	char addr2[107] = "Bonjour les aminches\t\n\tc\07 est fou\ttout\tce qu on pe";
 	strcat(addr2, "ut faire avec\t\n\tprint_memory\n\n\n\tlol.lol\n ");
 	ft_print_memory(addr2, strlen(addr2));
-
 	ft_putchar('\n');
 
-	char *addr3 = "Bonjour les aminches";
-	ft_print_memory(addr3, 0);
+	char addr3[107] = "Bonjour les aminches\t\n\tc\07 est fou\ttout\tce qu on pe";
+	strcat(addr3, "ut faire avec\t\n\tprint_memory\n\n\n\tlol.lol\n ");
+	ft_print_memory(addr3, 2);
+	ft_putchar('\n');
+
+	// char *addr4 = "Bonjour les aminches";
+	// ft_print_memory(addr4, 0);
 
 	return 0;
+}
+
+
+/*
+int	main(void)
+{
+	char src[0xFF + 10];
+	int	i;
+
+	i = 0;
+	while (i <= 0xFF)
+	{
+		src[i] = i;
+		i++;
+	}
+	src[i] = 0;
+
+	// i = 0;
+	// while (i < 30)
+	// {
+	// 	ft_print_memory((void *)src, i);
+	// 	i++;
+	// }
+	ft_print_memory((void *)src, 2);
+
+	// ft_print_memory((void *)src, 0x101);
 }
 */
