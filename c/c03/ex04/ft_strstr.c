@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
 int	ft_strlen(char *str)
 {
 	int	len;
@@ -22,36 +20,11 @@ int	ft_strlen(char *str)
 	return (len);
 }
 
-// char	*ft_strstr(char *str, char *to_find)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	to_find_len;
-// 	int	match_pos;
-
-// 	to_find_len = ft_strlen(to_find);
-// 	if (to_find_len == 0)
-// 		return (str);
-// 	i = 0;
-// 	while (str[i] != to_find[0])
-// 		i++;
-// 	match_pos = i;
-// 	j = 0;
-// 	while (str[i + j] && str[i + j] == to_find[j])
-// 		j++;
-	
-// 	printf("  match_pos: %d\n", match_pos);
-// 	printf("          j: %d\n", j);
-// 	printf("to_find_len: %d\n", to_find_len);
-
-// 	if (j == to_find_len)
-// 		return (&str[match_pos]);
-// 	return (0);
-// }
 char	*ft_strstr(char *str, char *to_find)
 {
 	int	i;
 	int	j;
+	int	k;
 	int	to_find_len;
 	int	match_pos;
 
@@ -61,14 +34,23 @@ char	*ft_strstr(char *str, char *to_find)
 	i = 0;
 	while (str[i])
 	{
-		int	k;
-		while (s1)
+		j = i;
+		while (str[j] != to_find[0])
+			j++;
+		match_pos = j;
+		k = 0;
+		while (str[j + k] && str[j + k] == to_find[k])
+			k++;
+		if (k == to_find_len)
+			return (&str[match_pos]);
 		i++;
 	}
 	return (0);
 }
 
+/*
 #include <string.h>
+#include <stdio.h>
 
 int main() {
 	char *str = "hello";
@@ -84,4 +66,12 @@ int main() {
 	printf("\n");
 	printf("ft_strstr(\"%s\", \"%s\"): %s", str, to_find, ft_strstr(str, to_find));
 	printf("\n");
+	
+	str = "yhellooooo";
+	to_find = "hello";
+	printf("   strstr(\"%s\", \"%s\"): %s", str, to_find,    strstr(str, to_find));
+	printf("\n");
+	printf("ft_strstr(\"%s\", \"%s\"): %s", str, to_find, ft_strstr(str, to_find));
+	printf("\n");
 }
+*/
