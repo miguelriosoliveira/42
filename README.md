@@ -60,13 +60,13 @@
   - [x] ft_strlcpy
   - [x] ft_putstr_non_printable
   - [x] ft_print_memory
-- [ ] C 03
+- [x] C 03
   - [x] ft_strcmp
   - [x] ft_strncmp
   - [x] ft_strcat
   - [x] ft_strncat
   - [x] ft_strstr
-  - [ ] ft_strlcat
+  - [x] ft_strlcat
 - [ ] C 04
   - [ ] ft_strlen
   - [ ] ft_putstr
