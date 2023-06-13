@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_memory.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/05 18:03:12 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/05 18:03:15 by mrios-es         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 
 void	print_address(void *ptr)
@@ -25,8 +37,6 @@ void	print_hex_line(unsigned int size, unsigned int i, unsigned char *ptr)
 	char			*hex;
 	unsigned int	j;
 	unsigned char	byte;
-	char			hex_left;
-	char			hex_right;
 
 	hex = "0123456789abcdef";
 	j = 0;
@@ -35,10 +45,8 @@ void	print_hex_line(unsigned int size, unsigned int i, unsigned char *ptr)
 		if (j % 2 == 0)
 			write(1, " ", 1);
 		byte = ptr[i + j];
-		hex_left = hex[byte / 16];
-		hex_right = hex[byte % 16];
-		write(1, &hex_left, 1);
-		write(1, &hex_right, 1);
+		write(1, &hex[byte / 16], 1);
+		write(1, &hex[byte % 16], 1);
 		j++;
 	}
 	while (j < 16)
@@ -68,14 +76,16 @@ void	print_chars(unsigned int size, unsigned int i, unsigned char *ptr)
 	}
 }
 
-void *ft_print_memory(void *addr, unsigned int size) {
+void	*ft_print_memory(void *addr, unsigned int size)
+{
 	unsigned char	*ptr;
 	unsigned int	i;
 
 	ptr = (unsigned char *)addr;
 	i = 0;
-	while (i < size) {
-		print_address(ptr+i);
+	while (i < size)
+	{
+		print_address(ptr + i);
 		print_hex_line(size, i, ptr);
 		print_chars(size, i, ptr);
 		write(1, "\n", 1);
@@ -83,3 +93,22 @@ void *ft_print_memory(void *addr, unsigned int size) {
 	}
 	return (addr);
 }
+
+/*
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+	char addr1[107] = "Bonjour les aminches\t\n\tc\07 est fou\ttout\tce qu on pe";
+	strcat(addr1, "ut faire avec\t\n\tprint_memory\n\n\n\tlol.lol\n ");
+	ft_print_memory(addr1, strlen(addr1));
+	printf("\n");
+
+	char addr2[107] = "Bonjour les aminches\t\n\tc\07 est fou\ttout\tce qu on pe";
+	strcat(addr2, "ut faire avec\t\n\tprint_memory\n\n\n\tlol.lol\n ");
+	ft_print_memory(addr2, 3);
+	printf("\n");
+
+	return 0;
+}
+*/
