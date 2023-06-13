@@ -68,11 +68,11 @@
   - [x] ft_strstr
   - [x] ft_strlcat
 - [ ] C 04
-  - [ ] ft_strlen
-  - [ ] ft_putstr
-  - [ ] ft_putnbr
-  - [ ] ft_atoi
-  - [ ] ft_putnbr_base
+  - [x] ft_strlen
+  - [x] ft_putstr
+  - [x] ft_putnbr
+  - [x] ft_atoi
+  - [x] ft_putnbr_base
   - [ ] ft_atoi_base
 - [ ] C 05
   - [ ] ft_iterative_factorial
