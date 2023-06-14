@@ -1,21 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/13 17:41:04 by mrios-es          #+#    #+#             */
-/*   Updated: 2023/06/13 17:41:06 by mrios-es         ###   ########.fr       */
+/*   Created: 2023/06/14 12:39:50 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/14 12:39:51 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <unistd.h>
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
 
 int	ft_strlen(char *str)
 {
@@ -41,35 +34,61 @@ int	includes(char c, char *str)
 	return (0);
 }
 
-void	to_base(int nbr, char *base)
+int	is_numeric(char c)
 {
-	long	nbr_long;
-	int		base_len;
-
-	nbr_long = nbr;
-	if (nbr_long < 0)
-	{
-		ft_putchar('-');
-		nbr_long = -nbr_long;
-	}
-	base_len = ft_strlen(base);
-	if (nbr_long >= base_len)
-		to_base(nbr_long / base_len, base);
-	ft_putchar(base[nbr_long % base_len]);
+	return (c >= '0' && c <= '9');
 }
 
-void	ft_putnbr_base(int nbr, char *base)
+int	ft_atoi(char *str, char *base)
 {
 	int		i;
-	int		base_len;
+	int		j;
+	long	result;
+	int		sign;
+	int		base_size;
+
+	i = 0;
+	sign = 1;
+	while (!is_numeric(str[i]))
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	result = 0;
+	base_size = ft_strlen(base);
+	while (str[i])
+	{
+		j = 0;
+		while (j < base_size)
+		{
+			if (str[i] == base[j])
+			{
+				result *= base_size;
+				result += j;
+				break ;
+			}
+			j++;
+		}
+		if (j == base_size)
+			return (0);
+		i++;
+	}
+	return (sign * result);
+}
+
+int	ft_atoi_base(char *str, char *base)
+{
+	int		i;
+	int		base_size;
 	int		is_printable;
 	char	c;
 	char	*forbidden_chars;
 
-	forbidden_chars = "+-";
-	base_len = ft_strlen(base);
-	if (base_len < 2)
-		return ;
+	forbidden_chars = "+- ";
+	base_size = ft_strlen(base);
+	if (base_size < 2)
+		return (0);
 	i = 0;
 	while (base[i])
 	{
@@ -78,8 +97,8 @@ void	ft_putnbr_base(int nbr, char *base)
 		if (!is_printable
 			|| includes(c, forbidden_chars)
 			|| includes(c, &base[i + 1]))
-			return ;
+			return (0);
 		i++;
 	}
-	to_base(nbr, base);
+	return (ft_atoi(str, base));
 }
