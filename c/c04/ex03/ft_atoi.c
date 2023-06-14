@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 int	is_numeric(char c)
 {
 	return (c >= '0' && c <= '9');
@@ -19,36 +20,42 @@ int	ft_atoi(char *str)
 {
 	int	i;
 	int	result;
-	int	minus_count;
+	int	sign;
 
 	i = 0;
-	minus_count = 0;
-	while (!is_numeric(str[i]))
+	sign = 1;
+	while (str[i] && !is_numeric(str[i]))
 	{
 		if (str[i] == '-')
-			minus_count++;
+			sign *= -1;
 		i++;
 	}
 	result = 0;
-	while (is_numeric(str[i]))
+	while (str[i] && is_numeric(str[i]))
 	{
 		result *= 10;
 		result += str[i] - '0';
 		i++;
 	}
-	if (minus_count % 2)
-		return (-result);
-	return (result);
+	return (sign * result);
 }
 
 /*
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
-	char *str = " ---+--+1234ab567";
-	printf("\"%s\"\n%d\n", str, ft_atoi(str));
+	char *str;
+	str = " ---+--+1234ab567";
+	printf("ft_atoi(\"%s\"): %d\n\n", str, ft_atoi(str));
+
 	str = " ---+-+1234ab567";
-	printf("\"%s\"\n%d\n", str, ft_atoi(str));
+	printf("ft_atoi(\"%s\"): %d\n\n", str, ft_atoi(str));
+
+	str = "a";
+	printf("   atoi(\"%s\"): %d\n",   str,    atoi(str));
+	str = "a";
+	printf("ft_atoi(\"%s\"): %d\n", str, ft_atoi(str));
 	return 0;
 }
 */
