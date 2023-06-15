@@ -10,21 +10,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+int	is_printable(char c)
+{
+	return (c >= 32 && c <= 126);
+}
 
 int	is_numeric(char c)
 {
 	return (c >= '0' && c <= '9');
 }
 
-int	ft_atoi(char *str)
+int	includes(char c, char *str)
 {
 	int	i;
-	int	result;
-	int	sign;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	ft_atoi(char *str)
+{
+	int		i;
+	int		result;
+	int		sign;
+	char	*allowed_prefixes;
 
 	i = 0;
 	sign = 1;
-	while (str[i] && !is_numeric(str[i]))
+	allowed_prefixes = " +-";
+	while (str[i] && !is_printable(str[i]))
+		i++;
+	while (str[i] && includes(str[i], allowed_prefixes))
 	{
 		if (str[i] == '-')
 			sign *= -1;
@@ -47,15 +69,27 @@ int	ft_atoi(char *str)
 int main() {
 	char *str;
 	str = " ---+--+1234ab567";
-	printf("ft_atoi(\"%s\"): %d\n\n", str, ft_atoi(str));
+	printf("ft_atoi(\"%s\"): %d", str, ft_atoi(str));
+	printf("\n");
+	printf("\n");
 
 	str = " ---+-+1234ab567";
-	printf("ft_atoi(\"%s\"): %d\n\n", str, ft_atoi(str));
+	printf("ft_atoi(\"%s\"): %d", str, ft_atoi(str));
+	printf("\n");
+	printf("\n");
 
 	str = "a";
-	printf("   atoi(\"%s\"): %d\n",   str,    atoi(str));
-	str = "a";
-	printf("ft_atoi(\"%s\"): %d\n", str, ft_atoi(str));
+	printf("   atoi(\"%s\"): %d", str,    atoi(str));
+	printf("\n");
+	printf("ft_atoi(\"%s\"): %d", str, ft_atoi(str));
+	printf("\n");
+	printf("\n");
+
+	str = "abc123";
+	printf("   atoi(\"%s\"): %d", str,    atoi(str));
+	printf("\n");
+	printf("ft_atoi(\"%s\"): %d", str, ft_atoi(str));
+	printf("\n");
 	return 0;
 }
 */
