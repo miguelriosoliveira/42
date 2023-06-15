@@ -43,8 +43,10 @@ int	ft_atoi(char *str)
 
 	i = 0;
 	sign = 1;
-	allowed_prefixes = " +-";
+	allowed_prefixes = "+-";
 	while (str[i] && !is_printable(str[i]))
+		i++;
+	while (str[i] && str[i] == ' ')
 		i++;
 	while (str[i] && includes(str[i], allowed_prefixes))
 	{
