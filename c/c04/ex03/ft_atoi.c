@@ -37,18 +37,16 @@ int	includes(char c, char *str)
 int	ft_atoi(char *str)
 {
 	int		i;
-	int		result;
+	long	result;
 	int		sign;
-	char	*allowed_prefixes;
 
 	i = 0;
 	sign = 1;
-	allowed_prefixes = "+-";
 	while (str[i] && !is_printable(str[i]))
 		i++;
 	while (str[i] && str[i] == ' ')
 		i++;
-	while (str[i] && includes(str[i], allowed_prefixes))
+	while (str[i] && includes(str[i], "+-"))
 	{
 		if (str[i] == '-')
 			sign *= -1;
