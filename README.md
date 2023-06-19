@@ -84,11 +84,11 @@
   - [x] ft_is_prime
   - [x] ft_find_next_prime
   - [ ] Las diez damas
-- [ ] C 06
-  - [ ] ft_print_program_name
-  - [ ] ft_print_params
-  - [ ] ft_rev_params
-  - [ ] ft_sort_params
+- [x] C 06
+  - [x] ft_print_program_name
+  - [x] ft_print_params
+  - [x] ft_rev_params
+  - [x] ft_sort_params
 - [ ] C 07
   - [ ] ft_strdup
   - [ ] ft_range
