@@ -5,6 +5,23 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
+void	ft_putnbr(int nb)
+{
+	long	nb_long;
+
+	nb_long = nb;
+	if (nb_long < 0)
+	{
+		ft_putchar('-');
+		nb_long = -nb_long;
+	}
+	if (nb_long >= 10)
+	{
+		ft_putnbr(nb_long / 10);
+	}
+	ft_putchar('0' + nb_long % 10);
+}
+
 void  print_solution(int *queens_positions)
 {
   int i;
@@ -12,7 +29,7 @@ void  print_solution(int *queens_positions)
   i = 0;
   while (i < 10)
   {
-    ft_putchar(queens_positions[i] + '0');
+    ft_putnbr(queens_positions[i]);
     i++;
   }
   ft_putchar('\n');
@@ -55,7 +72,6 @@ int	solve(int *queens_positions, int step, int *solution_count)
 		queens_positions[step]++;
     print_solution(queens_positions);
 		if (is_valid(queens_positions, step)) {
-      ft_putchar('\n');
       ft_putchar('v');
       ft_putchar('\n');
 			if (step != 10)
