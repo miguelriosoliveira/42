@@ -67,22 +67,22 @@
   - [x] ft_strncat
   - [x] ft_strstr
   - [x] ft_strlcat
-- [ ] C 04
+- [x] C 04
   - [x] ft_strlen
   - [x] ft_putstr
   - [x] ft_putnbr
   - [x] ft_atoi
   - [x] ft_putnbr_base
-  - [ ] ft_atoi_base
+  - [x] ft_atoi_base
 - [ ] C 05
-  - [ ] ft_iterative_factorial
-  - [ ] ft_recursive_factorial
-  - [ ] ft_iterative_power
-  - [ ] ft_recursive_power
-  - [ ] ft_fibonacci
-  - [ ] ft_sqrt
-  - [ ] ft_is_prime
-  - [ ] ft_find_next_prime
+  - [x] ft_iterative_factorial
+  - [x] ft_recursive_factorial
+  - [x] ft_iterative_power
+  - [x] ft_recursive_power
+  - [x] ft_fibonacci
+  - [x] ft_sqrt
+  - [x] ft_is_prime
+  - [x] ft_find_next_prime
   - [ ] Las diez damas
 - [ ] C 06
   - [ ] ft_print_program_name
