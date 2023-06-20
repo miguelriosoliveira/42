@@ -1,32 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fibonacci.c                                     :+:      :+:    :+:   */
+/*   ft_is_prime.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 14:42:33 by mrios-es          #+#    #+#             */
-/*   Updated: 2023/06/16 14:42:35 by mrios-es         ###   ########.fr       */
+/*   Created: 2023/06/19 18:31:30 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/19 18:31:32 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_fibonacci(int index)
+int	ft_is_prime(int nb)
 {
-	if (index < 0)
-		return (-1);
-	if (index == 0 || index == 1)
-		return (index);
-	return (ft_fibonacci(index - 1) + ft_fibonacci(index - 2));
+	int	i;
+
+	if (nb <= 1)
+		return (0);
+	i = 2;
+	while (i < nb)
+	{
+		if (nb % i == 0)
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 /*
 #include <stdio.h>
-
 int main() {
-	int index = -2;
-	while (index <= 10) {
-		printf("ft_fibonacci(%2d): %d\n", index, ft_fibonacci(index));
-		index++;
+	int nb = 0;
+	int result = 0;
+	while (nb < 100) {
+		result = ft_is_prime(nb);
+		if (result)
+			printf("%3d is prime\n", nb);
+		nb++;
 	}
+	nb = 999983; // largest prime number under 1000000
+	printf("%3d is prime? %s\n", nb, ft_is_prime(999983) ? "yes" : "no");
 }
 */

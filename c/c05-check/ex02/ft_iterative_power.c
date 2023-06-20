@@ -1,43 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   ft_iterative_power.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 14:50:15 by mrios-es          #+#    #+#             */
-/*   Updated: 2023/06/16 14:50:17 by mrios-es         ###   ########.fr       */
+/*   Created: 2023/06/15 18:05:58 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/15 18:06:00 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_sqrt(int nb)
+int	ft_iterative_power(int nb, int power)
 {
-	long	result;
+	int	result;
 
-	if (nb == 1)
+	if (power < 0)
+		return (0);
+	if (power == 0)
 		return (1);
-	result = nb / 2;
-	while (result > 0 && result * result > nb)
+	result = 1;
+	while (power)
 	{
-		result += nb / result;
-		result /= 2;
+		result *= nb;
+		power--;
 	}
-	if (result * result == nb)
-		return (result);
-	return (0);
+	return (result);
 }
 
 /*
+#include <math.h>
 #include <stdio.h>
+
 int main() {
-	int nb = 0;
-	int result = 0;
-	while (nb < 1000) {
-		result = ft_sqrt(nb);
-		if (result)
-			printf("ft_sqrt(%3d): %d\n", nb, result);
+	int nb = -2;
+	int power = -2;
+	while (nb <= 10) {
+		printf("             pow  (%2d, %2d)", nb, power);
+		printf(": %ld\n", (long)pow  (nb, power));
+		printf("ft_iterative_power(%2d, %2d)", nb, power);
+		printf(": %d\n\n", ft_iterative_power(nb, power));
 		nb++;
+		power++;
 	}
-	printf("%d\n", ft_sqrt(4000000));
 }
 */

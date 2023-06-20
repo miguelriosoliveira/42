@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   ft_find_next_prime.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 14:50:15 by mrios-es          #+#    #+#             */
-/*   Updated: 2023/06/16 14:50:17 by mrios-es         ###   ########.fr       */
+/*   Created: 2023/06/19 18:32:21 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/19 18:32:38 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_sqrt(int nb)
+int	ft_is_prime(int nb)
 {
-	long	result;
+	int	i;
 
-	if (nb == 1)
-		return (1);
-	result = nb / 2;
-	while (result > 0 && result * result > nb)
+	if (nb <= 1)
+		return (0);
+	i = 2;
+	while (i < nb)
 	{
-		result += nb / result;
-		result /= 2;
+		if (nb % i == 0)
+			return (0);
+		i++;
 	}
-	if (result * result == nb)
-		return (result);
-	return (0);
+	return (1);
+}
+
+int	ft_find_next_prime(int nb)
+{
+	while (!ft_is_prime(nb))
+		nb++;
+	return (nb);
 }
 
 /*
@@ -32,12 +38,13 @@ int	ft_sqrt(int nb)
 int main() {
 	int nb = 0;
 	int result = 0;
-	while (nb < 1000) {
-		result = ft_sqrt(nb);
+	while (nb < 100) {
+		result = ft_is_prime(nb);
 		if (result)
-			printf("ft_sqrt(%3d): %d\n", nb, result);
+			printf("%3d is prime, the next prime is %d\n", nb, ft_find_next_prime(nb+1));
 		nb++;
 	}
-	printf("%d\n", ft_sqrt(4000000));
+	nb = 999983; // largest prime number under 1000000
+	printf("the next prime after %3d is %d\n", nb, ft_find_next_prime(nb+1));
 }
 */
