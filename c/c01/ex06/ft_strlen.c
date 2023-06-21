@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 
 int	ft_strlen(char *str)
 {
@@ -25,6 +24,7 @@ int	ft_strlen(char *str)
 }
 
 /*
+#include <stdio.h>
 int main(void) {
 	char* word = "0123456789";
 	int len = ft_strlen(word);
