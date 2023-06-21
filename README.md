@@ -90,9 +90,9 @@
   - [x] ft_rev_params
   - [x] ft_sort_params
 - [ ] C 07
-  - [ ] ft_strdup
-  - [ ] ft_range
-  - [ ] ft_ultimate_range
+  - [x] ft_strdup
+  - [x] ft_range
+  - [x] ft_ultimate_range
   - [ ] ft_strjoin
   - [ ] ft_convert_base
   - [ ] ft_split
