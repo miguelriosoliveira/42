@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/22 15:47:10 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/22 15:47:12 by mrios-es         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 
 int	*ft_range(int min, int max)
@@ -45,7 +57,8 @@ int main() {
 	min = 0;
 	max = 0;
 	range_len = ft_ultimate_range(&range, min, max);
-	printf("ft_ultimate_range(range, %3i, %3i): %s (size: %i)", min, max, range == NULL ? "NULL" : "NOT NULL", range_len);
+	printf("ft_ultimate_range(range, %3i, %3i)", min, max);
+	printf(": %s (size: %i)", range == NULL ? "NULL" : "NOT NULL", range_len);
 	printf("\n");
 
 	min = 0;
@@ -90,19 +103,22 @@ int main() {
 	min = 5;
 	max = 0;
 	range_len = ft_ultimate_range(&range, min, max);
-	printf("ft_ultimate_range(range, %3i, %3i): %s (size: %i)", min, max, range == NULL ? "NULL" : "NOT NULL", range_len);
+	printf("ft_ultimate_range(range, %3i, %3i)", min, max);
+	printf(": %s (size: %i)", range == NULL ? "NULL" : "NOT NULL", range_len);
 	printf("\n");
 
 	min = 2147483647;
 	max = 2147483647;
 	range_len = ft_ultimate_range(&range, min, max);
-	printf("ft_ultimate_range(range,  %3i,  %3i): %s (size: %i)", min, max, range == NULL ? "NULL" : "NOT NULL", range_len);
+	printf("ft_ultimate_range(range, %3i, %3i)", min, max);
+	printf(": %s (size: %i)", range == NULL ? "NULL" : "NOT NULL", range_len);
 	printf("\n");
 
 	min = -2147483648;
 	max = -2147483648;
 	range_len = ft_ultimate_range(&range, min, max);
-	printf("ft_ultimate_range(range, %3i, %3i): %s (size: %i)", min, max, range == NULL ? "NULL" : "NOT NULL", range_len);
+	printf("ft_ultimate_range(range, %3i, %3i)", min, max);
+	printf(": %s (size: %i)", range == NULL ? "NULL" : "NOT NULL", range_len);
 	printf("\n");
 }
 */
