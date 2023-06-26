@@ -55,7 +55,7 @@ void	print_relleno(int x)
 }
 
 void	rush(int x, int y)
-{	
+{
 	int	i;
 
 	if (x <= 0 || y <= 0)

@@ -10,17 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 int	ft_strlen(char *str)
 {
-	int	count;
+	int	i;
 
-	count = 0;
-	while (str[count])
-	{
-		count++;
-	}
-	return (count);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 /*
