@@ -14,26 +14,23 @@
 
 #define SIZE 10
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
 void	ft_putnbr(int nb)
 {
 	long	nb_long;
+	char	nb_char;
 
 	nb_long = nb;
 	if (nb_long < 0)
 	{
-		ft_putchar('-');
+		write(1, "-", 1);
 		nb_long = -nb_long;
 	}
 	if (nb_long >= 10)
 	{
 		ft_putnbr(nb_long / 10);
 	}
-	ft_putchar('0' + nb_long % 10);
+	nb_char = nb_long % 10 + '0';
+	write(1, &nb_char, 1);
 }
 
 void	print_solution(int *solution)
@@ -46,51 +43,58 @@ void	print_solution(int *solution)
 		ft_putnbr(solution[i]);
 		i++;
 	}
-	ft_putchar('\n');
+	write(1, "\n", 1);
 }
 
-int	is_valid(int *solution, int i)
+int	is_valid(int *solution, int step)
 {
-	int	j;
-	int	is_same_pos;
-	int	diff_pos;
-	int	diff_index;
-	int	is_in_the_way;
+	int	i;
+	int	is_in_row;
+	int	row_distance;
+	int	col_distance;
+	int	is_in_diagonal;
 
-	j = i - 1;
-  q_row = solution[i];
-	while (j > 0)
+	i = 0;
+	while (i < step)
 	{
-		if (solution[j] == q_row)
+		is_in_row = solution[i] == solution[step];
+		row_distance = solution[i] - solution[step];
+		if (row_distance < 0)
+			row_distance = -row_distance;
+		col_distance = i - step;
+		if (col_distance < 0)
+			col_distance = -col_distance;
+		is_in_diagonal = row_distance == col_distance;
+		if (is_in_row || is_in_diagonal)
 			return (0);
-		j--;
-	}
-	j = i - 1;
-  q_row = solution[i];
-	while (j > 0)
-	{
-		if (solution[j] == q_row)
-			return (0);
-		j--;
+		i++;
 	}
 	return (1);
 }
 
-int	solve(int *solution, int i, int *solution_count)
+void	solve(int *solution, int i, int *solution_count)
 {
-  int step;
+	int	step;
 
 	if (i == SIZE)
-		return (*solution_count);
-  step = 0;
+	{
+		if (is_valid(solution, SIZE - 1))
+		{
+			*solution_count += 1;
+			print_solution(solution);
+		}
+		return ;
+	}
+	step = 0;
 	while (step < SIZE)
 	{
-    solution[i] = step;
-    if (is_valid(solution, step))
-			*solution_count += solve(solution, i + 1, solution_count);
-    step++;
+		solution[i] = step;
+		if (is_valid(solution, i))
+		{
+			solve(solution, i + 1, solution_count);
+		}
+		step++;
 	}
-	return (*solution_count);
 }
 
 int	ft_ten_queens_puzzle(void)
@@ -106,12 +110,14 @@ int	ft_ten_queens_puzzle(void)
 		i++;
 	}
 	solution_count = 0;
-	return (solve(solution, 0, &solution_count));
+	solve(solution, 0, &solution_count);
+	return (solution_count);
 }
 
-
+/*
 #include <stdio.h>
 int	main(void)
 {
-	printf("\n%d solutions\n", ft_ten_queens_puzzle());
+	printf("%d solutions\n", ft_ten_queens_puzzle());
 }
+*/
