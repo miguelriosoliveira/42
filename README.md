@@ -3,152 +3,152 @@
 ## Shell
 
 - [x] Shell 00
-  - [x] Z
-  - [x] testShell00
-  - [x] Sí, quiero más...
-  - [x] ¡Conéctame por SSH!
-  - [x] midLS
-  - [x] GiT commit
-  - [x] gitignore
-  - [x] diff
-  - [x] clean
-  - [x] Illusions, not tricks, Michael...
+	- [x] Z
+	- [x] testShell00
+	- [x] Sí, quiero más...
+	- [x] ¡Conéctame por SSH!
+	- [x] midLS
+	- [x] GiT commit
+	- [x] gitignore
+	- [x] diff
+	- [x] clean
+	- [x] Illusions, not tricks, Michael...
 - [x] Shell 01
-  - [ ] ~Exam machine~
-  - [x] print_groups
-  - [x] find_sh
-  - [x] count_files
-  - [x] MAC
-  - [x] Can you create it?
-  - [x] Skip
-  - [x] r_dwssap
-  - [x] add_chelou
+	- [ ] ~Exam machine~
+	- [x] print_groups
+	- [x] find_sh
+	- [x] count_files
+	- [x] MAC
+	- [x] Can you create it?
+	- [x] Skip
+	- [x] r_dwssap
+	- [x] add_chelou
 
 ## C
 
 - [x] C 00
 	- [x] ft_putchar
-  - [x] ft_print_alphabet
-  - [x] ft_print_reverse_alphabet
-  - [x] ft_print_numbers
-  - [x] ft_is_negative
-  - [x] ft_print_comb
-  - [x] ft_print_comb2
-  - [x] ft_putnbr
-  - [x] ft_print_combn
+	- [x] ft_print_alphabet
+	- [x] ft_print_reverse_alphabet
+	- [x] ft_print_numbers
+	- [x] ft_is_negative
+	- [x] ft_print_comb
+	- [x] ft_print_comb2
+	- [x] ft_putnbr
+	- [x] ft_print_combn
 - [x] C 01
-  - [x] ft_ft
-  - [x] ft_ultimate_ft
-  - [x] ft_swap
-  - [x] ft_div_mod
-  - [x] ft_ultimate_div_mod
-  - [x] ft_putstr
-  - [x] ft_strlen
-  - [x] ft_rev_int_tab
-  - [x] ft_sort_int_tab
+	- [x] ft_ft
+	- [x] ft_ultimate_ft
+	- [x] ft_swap
+	- [x] ft_div_mod
+	- [x] ft_ultimate_div_mod
+	- [x] ft_putstr
+	- [x] ft_strlen
+	- [x] ft_rev_int_tab
+	- [x] ft_sort_int_tab
 - [x] C 02
-  - [x] ft_strcpy
-  - [x] ft_strncpy
-  - [x] ft_str_is_alpha
-  - [x] ft_str_is_numeric
-  - [x] ft_str_is_lowercase
-  - [x] ft_str_is_uppercase
-  - [x] ft_str_is_printable
-  - [x] ft_strupcase
-  - [x] ft_strlowcase
-  - [x] ft_strcapitalize
-  - [x] ft_strlcpy
-  - [x] ft_putstr_non_printable
-  - [x] ft_print_memory
+	- [x] ft_strcpy
+	- [x] ft_strncpy
+	- [x] ft_str_is_alpha
+	- [x] ft_str_is_numeric
+	- [x] ft_str_is_lowercase
+	- [x] ft_str_is_uppercase
+	- [x] ft_str_is_printable
+	- [x] ft_strupcase
+	- [x] ft_strlowcase
+	- [x] ft_strcapitalize
+	- [x] ft_strlcpy
+	- [x] ft_putstr_non_printable
+	- [x] ft_print_memory
 - [x] C 03
-  - [x] ft_strcmp
-  - [x] ft_strncmp
-  - [x] ft_strcat
-  - [x] ft_strncat
-  - [x] ft_strstr
-  - [x] ft_strlcat
+	- [x] ft_strcmp
+	- [x] ft_strncmp
+	- [x] ft_strcat
+	- [x] ft_strncat
+	- [x] ft_strstr
+	- [x] ft_strlcat
 - [x] C 04
-  - [x] ft_strlen
-  - [x] ft_putstr
-  - [x] ft_putnbr
-  - [x] ft_atoi
-  - [x] ft_putnbr_base
-  - [x] ft_atoi_base
+	- [x] ft_strlen
+	- [x] ft_putstr
+	- [x] ft_putnbr
+	- [x] ft_atoi
+	- [x] ft_putnbr_base
+	- [x] ft_atoi_base
 - [ ] C 05
-  - [x] ft_iterative_factorial
-  - [x] ft_recursive_factorial
-  - [x] ft_iterative_power
-  - [x] ft_recursive_power
-  - [x] ft_fibonacci
-  - [x] ft_sqrt
-  - [x] ft_is_prime
-  - [x] ft_find_next_prime
-  - [ ] Las diez damas
+	- [x] ft_iterative_factorial
+	- [x] ft_recursive_factorial
+	- [x] ft_iterative_power
+	- [x] ft_recursive_power
+	- [x] ft_fibonacci
+	- [x] ft_sqrt
+	- [x] ft_is_prime
+	- [x] ft_find_next_prime
+	- [x] Las diez damas
 - [x] C 06
-  - [x] ft_print_program_name
-  - [x] ft_print_params
-  - [x] ft_rev_params
-  - [x] ft_sort_params
+	- [x] ft_print_program_name
+	- [x] ft_print_params
+	- [x] ft_rev_params
+	- [x] ft_sort_params
 - [ ] C 07
-  - [x] ft_strdup
-  - [x] ft_range
-  - [x] ft_ultimate_range
-  - [ ] ft_strjoin
-  - [ ] ft_convert_base
-  - [ ] ft_split
+	- [x] ft_strdup
+	- [x] ft_range
+	- [x] ft_ultimate_range
+	- [x] ft_strjoin
+	- [x] ft_convert_base
+	- [ ] ft_split
 - [ ] C 08
-  - [ ] ft.h
-  - [ ] ft_boolean.h
-  - [ ] ft_abs.h
-  - [ ] ft_point.h
-  - [ ] ft_strs_to_tab
-  - [ ] ft_show_tab
+	- [ ] ft.h
+	- [ ] ft_boolean.h
+	- [ ] ft_abs.h
+	- [ ] ft_point.h
+	- [ ] ft_strs_to_tab
+	- [ ] ft_show_tab
 - [ ] C 09
-  - [ ] libft
-  - [ ] Makefile
-  - [ ] ft_split
+	- [ ] libft
+	- [ ] Makefile
+	- [ ] ft_split
 - [ ] C 10
-  - [ ] display_file
-  - [ ] cat
-  - [ ] tail
-  - [ ] hexdump
+	- [ ] display_file
+	- [ ] cat
+	- [ ] tail
+	- [ ] hexdump
 - [ ] C 11
-  - [ ] ft_foreach
-  - [ ] ft_map
-  - [ ] ft_any
-  - [ ] ft_count_if
-  - [ ] ft_is_sort
-  - [ ] do-op
-  - [ ] ft_sort_string_tab
-  - [ ] ft_advanced_sort_string_tab
+	- [ ] ft_foreach
+	- [ ] ft_map
+	- [ ] ft_any
+	- [ ] ft_count_if
+	- [ ] ft_is_sort
+	- [ ] do-op
+	- [ ] ft_sort_string_tab
+	- [ ] ft_advanced_sort_string_tab
 - [ ] C 12
-  - [ ] ft_create_elem
-  - [ ] ft_list_push_front
-  - [ ] ft_list_size
-  - [ ] ft_list_last
-  - [ ] ft_list_push_back
-  - [ ] ft_list_push_strs
-  - [ ] ft_list_clear
-  - [ ] ft_list_at
-  - [ ] ft_list_reverse
-  - [ ] ft_list_foreach
-  - [ ] ft_list_foreach_if
-  - [ ] ft_list_find
-  - [ ] ft_list_remove_if
-  - [ ] ft_list_merge
-  - [ ] ft_list_sort
-  - [ ] ft_list_reverse_fun
-  - [ ] ft_sorted_list_insert
-  - [ ] ft_sorted_list_merge
+	- [ ] ft_create_elem
+	- [ ] ft_list_push_front
+	- [ ] ft_list_size
+	- [ ] ft_list_last
+	- [ ] ft_list_push_back
+	- [ ] ft_list_push_strs
+	- [ ] ft_list_clear
+	- [ ] ft_list_at
+	- [ ] ft_list_reverse
+	- [ ] ft_list_foreach
+	- [ ] ft_list_foreach_if
+	- [ ] ft_list_find
+	- [ ] ft_list_remove_if
+	- [ ] ft_list_merge
+	- [ ] ft_list_sort
+	- [ ] ft_list_reverse_fun
+	- [ ] ft_sorted_list_insert
+	- [ ] ft_sorted_list_merge
 - [ ] C 13
-  - [ ] btree_create_node
-  - [ ] btree_apply_prefix
-  - [ ] btree_apply_infix
-  - [ ] btree_apply_suffix
-  - [ ] btree_insert_data
-  - [ ] btree_search_item
-  - [ ] btree_level_count
-  - [ ] btree_apply_by_level
+	- [ ] btree_create_node
+	- [ ] btree_apply_prefix
+	- [ ] btree_apply_infix
+	- [ ] btree_apply_suffix
+	- [ ] btree_insert_data
+	- [ ] btree_search_item
+	- [ ] btree_level_count
+	- [ ] btree_apply_by_level
 - [x] Rush 00
 - [ ] Rush 01
 - [ ] Rush 02
