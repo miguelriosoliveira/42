@@ -97,7 +97,7 @@
 	- [x] ft_convert_base
 	- [x] ft_split
 - [ ] C 08
-	- [ ] ft.h
+	- [x] ft.h
 	- [ ] ft_boolean.h
 	- [ ] ft_abs.h
 	- [ ] ft_point.h
