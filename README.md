@@ -74,7 +74,7 @@
 	- [x] ft_atoi
 	- [x] ft_putnbr_base
 	- [x] ft_atoi_base
-- [ ] C 05
+- [x] C 05
 	- [x] ft_iterative_factorial
 	- [x] ft_recursive_factorial
 	- [x] ft_iterative_power
@@ -89,13 +89,13 @@
 	- [x] ft_print_params
 	- [x] ft_rev_params
 	- [x] ft_sort_params
-- [ ] C 07
+- [x] C 07
 	- [x] ft_strdup
 	- [x] ft_range
 	- [x] ft_ultimate_range
 	- [x] ft_strjoin
 	- [x] ft_convert_base
-	- [ ] ft_split
+	- [x] ft_split
 - [ ] C 08
 	- [ ] ft.h
 	- [ ] ft_boolean.h
