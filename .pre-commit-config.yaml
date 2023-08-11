@@ -13,6 +13,14 @@ repos:
     -   id: norminette
         name: Norminette 42
         description: School 42 Norm checker
-        entry: norminette
+        entry: norminette -R CheckForbiddenSourceHeader
         language: python
         types: [text]
+        exclude: c/c08/
+    -   id: norminette
+        name: Norminette 42
+        description: School 42 Norm checker
+        entry: norminette -R CheckDefine
+        language: python
+        types: [text]
+        include: c/c08/
