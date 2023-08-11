@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_boolean.h                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <mrios-es@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 13:15:26 by mrios-es          #+#    #+#             */
-/*   Updated: 2023/08/11 13:15:26 by mrios-es         ###   ########.fr       */
+/*   Created: 2023/08/11 13:52:41 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/08/11 13:52:41 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_BOOLEAN
-# define FT_BOOLEAN
+#include "ft_boolean.h"
 
-#include <unistd.h>
-# define TRUE 1
-# define FALSE 0
-# define SUCCESS 0
-# define EVEN(n) (n % 2 == 0)
-# define EVEN_MSG "I have an even number of arguments.\n"
-# define ODD_MSG "I have an odd number of arguments.\n"
+void	ft_putstr(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
 
-typedef int	t_bool;
+t_bool	ft_is_even(int nbr)
+{
+	return ((EVEN(nbr)) ? TRUE : FALSE);
+}
 
-#endif
+int	main(int argc, char **argv)
+{
+	(void)argv;
+	if (ft_is_even(argc - 1) == TRUE)
+		ft_putstr(EVEN_MSG);
+	else
+		ft_putstr(ODD_MSG);
+	return (SUCCESS);
+}
