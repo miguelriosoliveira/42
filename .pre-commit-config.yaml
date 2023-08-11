@@ -10,17 +10,17 @@ repos:
     -   id: check-added-large-files
 -   repo: local
     hooks:
-    -   id: norminette
+    -   id: norminette-default
         name: Norminette 42
         description: School 42 Norm checker
         entry: norminette -R CheckForbiddenSourceHeader
         language: python
         types: [text]
         exclude: c/c08/
-    -   id: norminette
+    -   id: norminette-check-define
         name: Norminette 42
         description: School 42 Norm checker
-        entry: norminette -R CheckDefine
+        entry: norminette -R CheckForbiddenSourceHeader -R CheckDefine
         language: python
         types: [text]
         include: c/c08/
