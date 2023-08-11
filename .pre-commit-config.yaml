@@ -23,4 +23,4 @@ repos:
         entry: norminette -R CheckForbiddenSourceHeader -R CheckDefine
         language: python
         types: [text]
-        include: c/c08/
+        files: c/c08/
