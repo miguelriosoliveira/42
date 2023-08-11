@@ -11,14 +11,14 @@ repos:
 -   repo: local
     hooks:
     -   id: norminette-default
-        name: Norminette 42
+        name: Norminette 42 (default)
         description: School 42 Norm checker
         entry: norminette -R CheckForbiddenSourceHeader
         language: python
         types: [text]
         exclude: c/c08/
     -   id: norminette-check-define
-        name: Norminette 42
+        name: Norminette 42 (CheckDefine)
         description: School 42 Norm checker
         entry: norminette -R CheckForbiddenSourceHeader -R CheckDefine
         language: python
