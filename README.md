@@ -98,9 +98,9 @@
 	- [x] ft_split
 - [ ] C 08
 	- [x] ft.h
-	- [ ] ft_boolean.h
-	- [ ] ft_abs.h
-	- [ ] ft_point.h
+	- [x] ft_boolean.h
+	- [x] ft_abs.h
+	- [x] ft_point.h
 	- [ ] ft_strs_to_tab
 	- [ ] ft_show_tab
 - [ ] C 09
