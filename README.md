@@ -96,13 +96,13 @@
 	- [x] ft_strjoin
 	- [x] ft_convert_base
 	- [x] ft_split
-- [ ] C 08
+- [x] C 08
 	- [x] ft.h
 	- [x] ft_boolean.h
 	- [x] ft_abs.h
 	- [x] ft_point.h
-	- [ ] ft_strs_to_tab
-	- [ ] ft_show_tab
+	- [x] ft_strs_to_tab
+	- [x] ft_show_tab
 - [ ] C 09
 	- [ ] libft
 	- [ ] Makefile
