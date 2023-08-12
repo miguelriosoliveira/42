@@ -24,4 +24,4 @@ repos:
         language: python
         types: [text]
         files: c/c08/
-        exclude: main.c
+        exclude: (main.c|ft_stock_str.h)
