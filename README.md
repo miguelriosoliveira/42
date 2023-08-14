@@ -108,7 +108,7 @@
 	- [x] Makefile
 	- [x] ft_split
 - [ ] C 10
-	- [ ] display_file
+	- [x] display_file
 	- [ ] cat
 	- [ ] tail
 	- [ ] hexdump

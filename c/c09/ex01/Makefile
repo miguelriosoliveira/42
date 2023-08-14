@@ -6,9 +6,6 @@ SRC = $(addprefix $(SRC_DIR),$(SRC_FILES))
 
 OBJ = $(SRC:.c=.o)
 
-HEADERS_DIR = includes/
-HEADERS = ft.h
-
 CC = cc -Wall -Wextra -Werror
 AR = ar -rcs
 RM = rm -rf
@@ -29,9 +26,9 @@ fclean: clean
 
 re: fclean all
 
-test: re
-	$(CC) main.c -L. -lft
-	./a.out
-	./a.out test
-	./a.out "larger test"
-	make fclean
+# test: re
+# 	$(CC) main.c -L. -lft
+# 	./a.out
+# 	./a.out test
+# 	./a.out "larger test"
+# 	make fclean
