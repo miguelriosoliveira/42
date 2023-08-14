@@ -70,3 +70,8 @@ Sessionx.vim
 tags
 # Persistent undo
 [._]*.un~
+
+ft_display_file
+ft_cat
+ft_tail
+ft_hexdump
