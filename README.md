@@ -109,7 +109,7 @@
 	- [x] ft_split
 - [ ] C 10
 	- [x] display_file
-	- [ ] cat
+	- [x] cat
 	- [ ] tail
 	- [ ] hexdump
 - [ ] C 11
