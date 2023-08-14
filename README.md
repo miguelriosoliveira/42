@@ -105,7 +105,7 @@
 	- [x] ft_show_tab
 - [ ] C 09
 	- [x] libft
-	- [ ] Makefile
+	- [x] Makefile
 	- [ ] ft_split
 - [ ] C 10
 	- [ ] display_file
