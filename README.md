@@ -103,10 +103,10 @@
 	- [x] ft_point.h
 	- [x] ft_strs_to_tab
 	- [x] ft_show_tab
-- [ ] C 09
+- [x] C 09
 	- [x] libft
 	- [x] Makefile
-	- [ ] ft_split
+	- [x] ft_split
 - [ ] C 10
 	- [ ] display_file
 	- [ ] cat
