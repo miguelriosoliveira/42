@@ -16,7 +16,7 @@ repos:
         entry: norminette -R CheckForbiddenSourceHeader
         language: python
         types: [text]
-        exclude: c/c08/
+        exclude: c/c08/|main.c
     -   id: norminette-check-define
         name: Norminette 42 (CheckDefine)
         description: School 42 Norm checker
