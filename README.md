@@ -104,7 +104,7 @@
 	- [x] ft_strs_to_tab
 	- [x] ft_show_tab
 - [ ] C 09
-	- [ ] libft
+	- [x] libft
 	- [ ] Makefile
 	- [ ] ft_split
 - [ ] C 10
