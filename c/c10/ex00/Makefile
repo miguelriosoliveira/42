@@ -25,8 +25,18 @@ fclean: clean
 
 re: fclean all
 
-# test: re
-# 	./$(NAME)
-# 	./$(NAME) test/1.txt
-# 	./$(NAME) test/2.txt
-# 	./$(NAME) test/1.txt test/2.txt
+test: re
+	printf     "" > expected.txt
+	-./$(NAME)    > received.txt
+	diff -s expected.txt received.txt
+	cat       test/small.txt > expected.txt
+	./$(NAME) test/small.txt > received.txt
+	diff -s expected.txt received.txt
+	cat       test/large.txt > expected.txt
+	./$(NAME) test/large.txt > received.txt
+	diff -s expected.txt received.txt
+	printf                                "" > expected.txt
+	-./$(NAME) test/small.txt test/large.txt > received.txt
+	diff -s expected.txt received.txt
+	make fclean
+	$(RM) expected.txt received.txt

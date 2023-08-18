@@ -17,6 +17,11 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
+void	ft_putchar_error(char c)
+{
+	write(2, &c, 1);
+}
+
 /*
 int main(void) {
   ft_putchar('h');

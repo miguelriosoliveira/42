@@ -18,19 +18,19 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 	{
-		ft_putstr("File name missing.\n");
-		return (0);
+		ft_putstr_error("File name missing.\n");
+		return (1);
 	}
 	if (argc > 2)
 	{
-		ft_putstr("Too many arguments.\n");
-		return (0);
+		ft_putstr_error("Too many arguments.\n");
+		return (1);
 	}
 	failed_reading_file = ft_display_file(argv[1]);
 	if (failed_reading_file)
 	{
-		ft_putstr("Cannot read file.\n");
-		return (0);
+		ft_putstr_error("Cannot read file.\n");
+		return (1);
 	}
 	return (0);
 }

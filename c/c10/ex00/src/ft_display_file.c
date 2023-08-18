@@ -15,13 +15,13 @@
 int	ft_display_file(char *filename)
 {
 	int		file_descriptor;
-	char	buffer[1];
+	char	buffer;
 
 	file_descriptor = open(filename, O_RDONLY);
 	if (file_descriptor == -1)
 		return (1);
-	while (read(file_descriptor, buffer, sizeof(buffer)) > 0)
-		ft_putstr(buffer);
+	while (read(file_descriptor, &buffer, sizeof(buffer)) > 0)
+		ft_putchar(buffer);
 	close(file_descriptor);
 	return (0);
 }

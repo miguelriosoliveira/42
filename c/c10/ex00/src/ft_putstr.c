@@ -24,6 +24,18 @@ void	ft_putstr(char *str)
 	}
 }
 
+void	ft_putstr_error(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		ft_putchar_error(str[i]);
+		i++;
+	}
+}
+
 /*
 #include <stdio.h>
 
