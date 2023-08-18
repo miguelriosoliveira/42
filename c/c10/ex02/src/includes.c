@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cat.c                                           :+:      :+:    :+:   */
+/*   includes.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <mrios-es@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 16:24:29 by mrios-es          #+#    #+#             */
-/*   Updated: 2023/08/14 16:24:29 by mrios-es         ###   ########.fr       */
+/*   Created: 2023/08/17 21:58:24 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/08/17 21:58:24 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft.h"
-
-int	ft_cat(char *filename)
+int	includes(char c, char *str)
 {
-	int		file_descriptor;
-	char	buffer[1];
+	int	i;
 
-	if (filename[0] == '-')
+	i = 0;
+	while (str[i])
 	{
-		file_descriptor = 0;
-		while (read(file_descriptor, buffer, sizeof(buffer)) > 0)
-			ft_putstr(buffer);
-		return (0);
+		if (str[i] == c)
+			return (1);
+		i++;
 	}
-	return (ft_display_file(filename));
+	return (0);
 }

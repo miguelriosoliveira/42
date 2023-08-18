@@ -1,35 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrios-es <mrios-es@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 16:24:29 by mrios-es          #+#    #+#             */
-/*   Updated: 2023/08/14 16:24:29 by mrios-es         ###   ########.fr       */
+/*   Created: 2023/06/02 14:46:03 by mrios-es          #+#    #+#             */
+/*   Updated: 2023/06/02 14:46:05 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft.h"
 
-int	main(int argc, char **argv)
+void	ft_putstr(char *str)
 {
 	int	i;
-	int	failed_reading_file;
 
-	if (argc < 2)
-		ft_cat("-");
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (str[i])
 	{
-		failed_reading_file = ft_cat(argv[i]);
-		if (failed_reading_file)
-		{
-			ft_putstr("Cannot read file: ");
-			ft_putstr(argv[i]);
-			ft_putstr("\n");
-		}
+		ft_putchar(str[i]);
 		i++;
 	}
-	return (0);
 }
+
+void	ft_putstr_error(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		ft_putchar_error(str[i]);
+		i++;
+	}
+}
+
+/*
+#include <stdio.h>
+
+int main(void) {
+	ft_putstr("patatas bravas!");
+
+	return 0;
+}
+*/

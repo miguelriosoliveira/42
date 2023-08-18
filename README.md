@@ -110,7 +110,7 @@
 - [ ] C 10
 	- [x] display_file
 	- [x] cat
-	- [ ] tail
+	- [x] tail
 	- [ ] hexdump
 - [ ] C 11
 	- [ ] ft_foreach
