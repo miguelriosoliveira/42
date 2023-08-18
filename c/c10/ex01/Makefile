@@ -1,7 +1,7 @@
 NAME = ft_cat
 
 SRC_DIR = src/
-SRC_FILES = ft_putstr.c ft_display_file.c $(NAME).c main.c
+SRC_FILES = ft_display_file.c ft_putchar.c ft_putstr.c $(NAME).c main.c
 SRC = $(addprefix $(SRC_DIR),$(SRC_FILES))
 
 OBJ = $(SRC:.c=.o)
@@ -26,10 +26,35 @@ fclean: clean
 re: fclean all
 
 # test: re
-# 	./$(NAME) test/1.txt
-# 	./$(NAME) test/2.txt
-# 	./$(NAME) test/1.txt test/2.txt
-# 	echo "testint stdinput 1" | ./$(NAME)
-# 	echo "testint stdinput 2" | ./$(NAME) -
-# 	# ./$(NAME) test/1.txt - test/2.txt - test/3.txt
+# 	cat       test/1.txt > expected.txt
+# 	./$(NAME) test/1.txt > received.txt
+# 	diff -s expected.txt received.txt
+# 	cat       test/2.txt > expected.txt
+# 	./$(NAME) test/2.txt > received.txt
+# 	diff -s expected.txt received.txt
+# 	cat       test/1.txt test/2.txt > expected.txt
+# 	./$(NAME) test/1.txt test/2.txt > received.txt
+# 	diff -s expected.txt received.txt
+# 	-cat       test/wrong.txt > expected.txt
+# 	-./$(NAME) test/wrong.txt > received.txt
+# 	diff -s expected.txt received.txt
+# 	-cat       test/wrong.txt test/1.txt > expected.txt
+# 	-./$(NAME) test/wrong.txt test/1.txt > received.txt
+# 	diff -s expected.txt received.txt
+# 	-cat       test/1.txt test/wrong.txt > expected.txt
+# 	-./$(NAME) test/1.txt test/wrong.txt > received.txt
+# 	diff -s expected.txt received.txt
+# 	cat test/1.txt | cat       > expected.txt
+# 	cat test/1.txt | ./$(NAME) > received.txt
+# 	diff -s expected.txt received.txt
+# 	cat test/1.txt | cat       - > expected.txt
+# 	cat test/1.txt | ./$(NAME) - > received.txt
+# 	diff -s expected.txt received.txt
+# 	cat test/2.txt | cat       test/1.txt - > expected.txt
+# 	cat test/2.txt | ./$(NAME) test/1.txt - > received.txt
+# 	diff -s expected.txt received.txt
+# 	# printf "" | cat       test/1.txt - <(cat       test/1.txt) test/2.txt - <(cat       test/1.txt) test/1.txt > expected.txt
+# 	# printf "" | ./$(NAME) test/1.txt - <(./$(NAME) test/1.txt) test/2.txt - <(./$(NAME) test/1.txt) test/1.txt > received.txt
+# 	# diff -s expected.txt received.txt
 # 	make fclean
+# 	$(RM) expected.txt received.txt

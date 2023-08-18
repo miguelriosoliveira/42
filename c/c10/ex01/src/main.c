@@ -25,11 +25,14 @@ int	main(int argc, char **argv)
 		failed_reading_file = ft_cat(argv[i]);
 		if (failed_reading_file)
 		{
-			ft_putstr("Cannot read file: ");
-			ft_putstr(argv[i]);
-			ft_putstr("\n");
+			ft_putstr_error(argv[0]);
+			ft_putstr_error(": ");
+			ft_putstr_error(argv[i]);
+			ft_putstr_error(": ");
+			ft_putstr_error(strerror(errno));
+			ft_putstr_error("\n");
 		}
 		i++;
 	}
-	return (0);
+	return (errno > 0);
 }

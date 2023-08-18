@@ -15,9 +15,14 @@
 
 # include <unistd.h>
 # include <fcntl.h>
+# include <string.h>
+# include <sys/errno.h>
 
-void	ft_putstr(char *str);
-int		ft_display_file(char *filename);
 int		ft_cat(char *filename);
+int		ft_display_file(char *filename);
+void	ft_putchar(char c);
+void	ft_putchar_error(char c);
+void	ft_putstr(char *str);
+void	ft_putstr_error(char *str);
 
 #endif
