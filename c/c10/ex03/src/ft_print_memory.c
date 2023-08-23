@@ -10,27 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-void	print_address(void *ptr)
-{
-	unsigned long	address;
-	char			*hex;
-	char			buffer[16];
-	int				i;
-
-	address = (unsigned long)ptr;
-	hex = "0123456789abcdef";
-	i = 15;
-	while (i >= 0)
-	{
-		buffer[i] = hex[address % 16];
-		address /= 16;
-		i--;
-	}
-	write(1, buffer + i + 1, 15 - i);
-	write(1, ":", 1);
-}
+#include "ft.h"
 
 void	print_hex_line(unsigned int size, unsigned int i, unsigned char *ptr)
 {
@@ -42,21 +22,25 @@ void	print_hex_line(unsigned int size, unsigned int i, unsigned char *ptr)
 	j = 0;
 	while (j < 16 && i + j < size)
 	{
-		if (j % 2 == 0)
+		if (j % 8 == 0)
 			write(1, " ", 1);
+		write(1, " ", 1);
 		byte = ptr[i + j];
-		write(1, &hex[byte / 16], 1);
-		write(1, &hex[byte % 16], 1);
+		if (byte)
+		{
+			write(1, &hex[byte / 16], 1);
+			write(1, &hex[byte % 16], 1);
+		}
+		else
+			write(1, "  ", 2);
 		j++;
 	}
 	while (j < 16)
 	{
-		if (j % 2 == 0)
-			write(1, " ", 1);
-		write(1, "  ", 2);
+		write(1, "   ", 3);
 		j++;
 	}
-	write(1, " ", 1);
+	write(1, "  |", 3);
 }
 
 void	print_chars(unsigned int size, unsigned int i, unsigned char *ptr)
@@ -68,12 +52,16 @@ void	print_chars(unsigned int size, unsigned int i, unsigned char *ptr)
 	while (j < 16 && i + j < size)
 	{
 		byte = ptr[i + j];
-		if (byte >= 32 && byte <= 126)
-			write(1, &byte, 1);
-		else
-			write(1, ".", 1);
+		if (byte)
+		{
+			if (byte >= 32 && byte <= 126)
+				write(1, &byte, 1);
+			else
+				write(1, ".", 1);
+		}
 		j++;
 	}
+	write(1, "|", 1);
 }
 
 void	*ft_print_memory(void *addr, unsigned int size)
@@ -85,7 +73,6 @@ void	*ft_print_memory(void *addr, unsigned int size)
 	i = 0;
 	while (i < size)
 	{
-		print_address(ptr + i);
 		print_hex_line(size, i, ptr);
 		print_chars(size, i, ptr);
 		write(1, "\n", 1);
