@@ -33,9 +33,10 @@ re: fclean all
 	./$(NAME) -C $< > received.txt
 	diff -s expected.txt received.txt
 
-test: re small.txt 1024.txt 1025.txt #large.txt
-	hexdump	  -C test/small.txt test/1024.txt > expected.txt
-	./$(NAME) -C test/small.txt test/1024.txt > received.txt
+# test: re small.txt 1024.txt 1025.txt #large.txt
+test: re
+	hexdump	  -C test/a.txt test/B.txt > expected.txt
+	./$(NAME) -C test/a.txt test/B.txt > received.txt
 	diff -s expected.txt received.txt
 	# make fclean
 	# $(RM) expected.txt received.txt

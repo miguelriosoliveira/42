@@ -19,7 +19,7 @@
 # include <string.h>
 # include <sys/errno.h>
 
-# define BLOCK_SIZE 1024
+# define BLOCK_SIZE 128
 # define LINE_SIZE 16
 
 int		check_file(char *filename);
