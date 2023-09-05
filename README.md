@@ -113,7 +113,7 @@
 	- [x] tail
 	- [x] hexdump
 - [ ] C 11
-	- [ ] ft_foreach
+	- [x] ft_foreach
 	- [ ] ft_map
 	- [ ] ft_any
 	- [ ] ft_count_if
