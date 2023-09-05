@@ -15,101 +15,56 @@
 int	min(int a, int b)
 {
 	if (a < b)
-		return a;
-	return b;
+		return (a);
+	return (b);
 }
 
-void	hexdump(int filecount, char **filenames)
+void	print_offset(int offset)
 {
-	int		file_descriptor;
-	int		i;
-	int		j;
-	int		k;
-	char	buffer[BLOCK_SIZE];
-	int		bytes_read;
-	char 	*filename;
-
-	file_descriptor = 0;
-	k = 0;
-	while (k < filecount)
-	{
-		filename = filenames[k];
-
-		if (filename)
-			file_descriptor = open(filename, O_RDONLY);
-		bytes_read = read(file_descriptor, buffer, sizeof(buffer));
-		i = 0;
-		while (bytes_read > 0)
-		{
-			j = 0;
-			while (buffer[j] && j < min(bytes_read, BLOCK_SIZE))
-			{
-				if (ft_strlen(&buffer[j]) < LINE_SIZE && bytes_read < BLOCK_SIZE)
-				{
-					// ft_putstr("[antes ] &buffer[j]: ");
-					// ft_putstr(&buffer[j]);
-					// ft_putstr("\n");
-
-					close(file_descriptor);
-					k++;
-					filename = filenames[k];
-					file_descriptor = open(filename, O_RDONLY);
-					bytes_read = read(file_descriptor, &buffer[j + ft_strlen(&buffer[j])], LINE_SIZE - ft_strlen(&buffer[j]));
-
-					// ft_putstr("- j: ");
-					// ft_putnbr_base(j, "0123456789", 3);
-					// ft_putstr(" - time to open a new file?\n");
-					// ft_putstr("[depois] &buffer[j]: ");
-					// ft_putstr(&buffer[j]);
-					// ft_putstr("\n");
-				}
-
-				ft_putnbr_base(i, "0123456789abcdef", 8);
-				ft_print_memory(&buffer[j], LINE_SIZE);
-				i += min(ft_strlen(&buffer[j]), LINE_SIZE);
-				j += min(ft_strlen(&buffer[j]), LINE_SIZE);
-			}
-			if (ft_strlen(&buffer[j]) < LINE_SIZE)
-			{
-				// if (bytes_read < BLOCK_SIZE)
-				// {
-				// 	k++;
-				// 	filename = filenames[k];
-				// 	file_descriptor = open(filename, O_RDONLY);
-				// 	bytes_read = read(file_descriptor, &buffer[j], LINE_SIZE - ft_strlen(&buffer[j]));
-
-				// 	ft_putstr("- j: ");
-				// 	ft_putnbr_base(j, "0123456789", 3);
-				// 	ft_putstr(" - time to open a new file?\n");
-				// }
-				ft_strncpy(buffer, "", sizeof(buffer));
-			}
-			bytes_read = read(file_descriptor, buffer, sizeof(buffer));
-		}
-		ft_putnbr_base(i, "0123456789abcdef", 8);
-		ft_putchar('\n');
-		if (filename)
-			close(file_descriptor);
-
-		k++;
-	}
+	ft_putnbr_base(offset, "0123456789abcdef", 8);
 }
 
-// void	ft_hexdump(int filecount, char **filenames)
-// {
-// 	char	*filename;
-// 	int		i;
+void	hexdump(int *filecount, char ***filenames, int *file_descriptor)
+{
+	int		bytes_read;
+	int		bytes_offset;
+	char	buffer[LINE_SIZE];
 
-// 	i = 0;
-// 	while (i < filecount)
-// 	{
-// 		filename = filenames[i];
-// 		if (check_file(filename))
-// 			hexdump(filename);
-// 		i++;
-// 	}
-// }
+	bytes_offset = 0;
+	bytes_read = read(*file_descriptor, buffer, sizeof(buffer));
+	while (bytes_read > 0)
+	{
+		if (bytes_read < LINE_SIZE && *filecount > 0)
+		{
+			*filecount -= 1;
+			*filenames += 1;
+			close(*file_descriptor);
+			*file_descriptor = open(**filenames, O_RDONLY);
+			bytes_read += read(*file_descriptor,
+					&buffer[bytes_read], LINE_SIZE - bytes_read);
+		}
+		print_offset(bytes_offset);
+		ft_print_memory(buffer, LINE_SIZE);
+		bytes_offset += bytes_read;
+		ft_strncpy(buffer, "", sizeof(buffer));
+		bytes_read = read(*file_descriptor, buffer, sizeof(buffer));
+	}
+	print_offset(bytes_offset);
+	ft_putchar('\n');
+}
+
 void	ft_hexdump(int filecount, char **filenames)
 {
-	hexdump(filecount, filenames);
+	int		file_descriptor;
+
+	file_descriptor = 0;
+	while (filecount--)
+	{
+		if (*filenames)
+			file_descriptor = open(*filenames, O_RDONLY);
+		hexdump(&filecount, &filenames, &file_descriptor);
+		if (*filenames)
+			close(file_descriptor);
+		filenames++;
+	}
 }

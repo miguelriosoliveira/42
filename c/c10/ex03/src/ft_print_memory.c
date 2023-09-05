@@ -14,11 +14,9 @@
 
 void	print_hex_line(unsigned int size, unsigned int i, unsigned char *ptr)
 {
-	char			*hex;
 	unsigned int	j;
 	unsigned char	byte;
 
-	hex = "0123456789abcdef";
 	j = 0;
 	while (j < 16 && i + j < size)
 	{
@@ -28,8 +26,8 @@ void	print_hex_line(unsigned int size, unsigned int i, unsigned char *ptr)
 		byte = ptr[i + j];
 		if (byte)
 		{
-			write(1, &hex[byte / 16], 1);
-			write(1, &hex[byte % 16], 1);
+			write(1, &HEX_BASE[byte / 16], 1);
+			write(1, &HEX_BASE[byte % 16], 1);
 		}
 		else
 			write(1, "  ", 2);
@@ -80,22 +78,3 @@ void	*ft_print_memory(void *addr, unsigned int size)
 	}
 	return (addr);
 }
-
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main() {
-	char addr1[107] = "Bonjour les aminches\t\n\tc\07 est fou\ttout\tce qu on pe";
-	strcat(addr1, "ut faire avec\t\n\tprint_memory\n\n\n\tlol.lol\n ");
-	ft_print_memory(addr1, strlen(addr1));
-	printf("\n");
-
-	char addr2[107] = "Bonjour les aminches\t\n\tc\07 est fou\ttout\tce qu on pe";
-	strcat(addr2, "ut faire avec\t\n\tprint_memory\n\n\n\tlol.lol\n ");
-	ft_print_memory(addr2, 3);
-	printf("\n");
-
-	return 0;
-}
-*/

@@ -21,6 +21,7 @@
 
 # define BLOCK_SIZE 128
 # define LINE_SIZE 16
+# define HEX_BASE "0123456789abcdef"
 
 int		check_file(char *filename);
 void	*ft_print_memory(void *addr, unsigned int size);
