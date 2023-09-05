@@ -107,11 +107,11 @@
 	- [x] libft
 	- [x] Makefile
 	- [x] ft_split
-- [ ] C 10
+- [x] C 10
 	- [x] display_file
 	- [x] cat
 	- [x] tail
-	- [ ] hexdump
+	- [x] hexdump
 - [ ] C 11
 	- [ ] ft_foreach
 	- [ ] ft_map
