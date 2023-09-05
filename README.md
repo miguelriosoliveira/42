@@ -114,7 +114,7 @@
 	- [x] hexdump
 - [ ] C 11
 	- [x] ft_foreach
-	- [ ] ft_map
+	- [x] ft_map
 	- [ ] ft_any
 	- [ ] ft_count_if
 	- [ ] ft_is_sort
