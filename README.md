@@ -115,7 +115,7 @@
 - [ ] C 11
 	- [x] ft_foreach
 	- [x] ft_map
-	- [ ] ft_any
+	- [x] ft_any
 	- [ ] ft_count_if
 	- [ ] ft_is_sort
 	- [ ] do-op
