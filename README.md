@@ -112,11 +112,11 @@
 	- [x] cat
 	- [x] tail
 	- [x] hexdump
-- [ ] C 11
+- [x] C 11
 	- [x] ft_foreach
 	- [x] ft_map
 	- [x] ft_any
-	- [ ] ft_count_if
+	- [x] ft_count_if
 	- [ ] ft_is_sort
 	- [ ] do-op
 	- [ ] ft_sort_string_tab
