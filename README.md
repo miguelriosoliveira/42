@@ -125,7 +125,7 @@
 	- [x] ft_create_elem
 	- [x] ft_list_push_front
 	- [x] ft_list_size
-	- [ ] ft_list_last
+	- [x] ft_list_last
 	- [ ] ft_list_push_back
 	- [ ] ft_list_push_strs
 	- [ ] ft_list_clear
