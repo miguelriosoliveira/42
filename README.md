@@ -119,7 +119,7 @@
 	- [x] ft_count_if
 	- [x] ft_is_sort
 	- [x] do-op
-	- [ ] ft_sort_string_tab
+	- [x] ft_sort_string_tab
 	- [ ] ft_advanced_sort_string_tab
 - [ ] C 12
 	- [ ] ft_create_elem
