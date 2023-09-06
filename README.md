@@ -118,7 +118,7 @@
 	- [x] ft_any
 	- [x] ft_count_if
 	- [x] ft_is_sort
-	- [ ] do-op
+	- [x] do-op
 	- [ ] ft_sort_string_tab
 	- [ ] ft_advanced_sort_string_tab
 - [ ] C 12
