@@ -127,7 +127,7 @@
 	- [x] ft_list_size
 	- [x] ft_list_last
 	- [x] ft_list_push_back
-	- [ ] ft_list_push_strs
+	- [x] ft_list_push_strs
 	- [ ] ft_list_clear
 	- [ ] ft_list_at
 	- [ ] ft_list_reverse
