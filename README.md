@@ -122,8 +122,8 @@
 	- [x] ft_sort_string_tab
 	- [x] ft_advanced_sort_string_tab
 - [ ] C 12
-	- [ ] ft_create_elem
-	- [ ] ft_list_push_front
+	- [x] ft_create_elem
+	- [x] ft_list_push_front
 	- [ ] ft_list_size
 	- [ ] ft_list_last
 	- [ ] ft_list_push_back
