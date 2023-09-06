@@ -14,6 +14,8 @@
 
 t_list	*ft_list_last(t_list *begin_list)
 {
+	if (!begin_list)
+		return (begin_list);
 	while (begin_list->next)
 		begin_list = begin_list->next;
 	return (begin_list);
@@ -34,9 +36,13 @@ int main() {
 	t_list *elem = ft_create_elem("usopp");
 	ft_list_push_front(&elem, "captain");
 	ft_list_push_front(&elem, "great");
-
 	t_list *last = ft_list_last(elem);
 	printf("last element is: \"%s\"\n", (char*)last->data);
+
+	elem = NULL;
+	last = ft_list_last(elem);
+	printf("last element is: \"%s\"\n", (char*)last); // should be null
+
 	return 0;
 }
 */

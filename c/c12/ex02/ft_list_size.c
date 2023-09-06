@@ -40,8 +40,11 @@ int main() {
 	t_list *elem = ft_create_elem("usopp");
 	ft_list_push_front(&elem, "captain");
 	ft_list_push_front(&elem, "great");
-
 	printf("list size: %d\n", ft_list_size(elem));
+
+	elem = NULL;
+	printf("list size: %d\n", ft_list_size(elem));
+
 	return 0;
 }
 */
