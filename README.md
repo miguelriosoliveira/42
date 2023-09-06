@@ -112,7 +112,7 @@
 	- [x] cat
 	- [x] tail
 	- [x] hexdump
-- [ ] C 11
+- [x] C 11
 	- [x] ft_foreach
 	- [x] ft_map
 	- [x] ft_any
@@ -120,7 +120,7 @@
 	- [x] ft_is_sort
 	- [x] do-op
 	- [x] ft_sort_string_tab
-	- [ ] ft_advanced_sort_string_tab
+	- [x] ft_advanced_sort_string_tab
 - [ ] C 12
 	- [ ] ft_create_elem
 	- [ ] ft_list_push_front
