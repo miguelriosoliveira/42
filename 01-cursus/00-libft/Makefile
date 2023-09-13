@@ -31,5 +31,7 @@ test: re
 	./test/a.out
 	$(CC) test/ft_isalnum.c -L. -lft -o test/a.out
 	./test/a.out
+	$(CC) test/ft_isascii.c -L. -lft -o test/a.out
+	./test/a.out
 	# make fclean
 	# $(RM) test/a.out
