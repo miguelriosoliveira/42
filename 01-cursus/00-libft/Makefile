@@ -27,5 +27,7 @@ re: fclean all
 test: re
 	$(CC) test/ft_isalpha.c -L. -lft -o test/a.out
 	./test/a.out
+	$(CC) test/ft_isdigit.c -L. -lft -o test/a.out
+	./test/a.out
 	# make fclean
 	# $(RM) test/a.out
