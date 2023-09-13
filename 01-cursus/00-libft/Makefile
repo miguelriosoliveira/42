@@ -24,13 +24,8 @@ fclean: clean
 
 re: fclean all
 
-%_test: %_main.c
-	$(CC) test/$@ -L. -lft -o test/a.out
-	./test/a.out > test/expected.txt
-	$(CC) test/ft_$@ -L. -lft -o test/a.out
-	./test/a.out > test/received.txt
-
-test: re isalpha_test
-	# $(CC) test/main.c -L. -lft -o test/a.out
-	# ./test/a.out
+test: re
+	$(CC) test/ft_isalpha.c -L. -lft -o test/a.out
+	./test/a.out
 	# make fclean
+	# $(RM) test/a.out
