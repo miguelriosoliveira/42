@@ -3,29 +3,15 @@
 #include "../libft.h"
 
 int main() {
-	int c;
-	c = 'F';
-	printf("   isprint('%c'): %d\n", c,    isprint(c));
-	printf("ft_isprint('%c'): %d\n", c, ft_isprint(c));
-	c = '2';
-	printf("   isprint('%c'): %d\n", c,    isprint(c));
-	printf("ft_isprint('%c'): %d\n", c, ft_isprint(c));
-	c = 'f';
-	printf("   isprint('%c'): %d\n", c,    isprint(c));
-	printf("ft_isprint('%c'): %d\n", c, ft_isprint(c));
-	c = ')';
-	printf("   isprint('%c'): %d\n", c,    isprint(c));
-	printf("ft_isprint('%c'): %d\n", c, ft_isprint(c));
-	c = 31;
-	printf("   isprint('%c'): %d\n", c,    isprint(c));
-	printf("ft_isprint('%c'): %d\n", c, ft_isprint(c));
-	c = 32;
-	printf("   isprint('%c'): %d\n", c,    isprint(c));
-	printf("ft_isprint('%c'): %d\n", c, ft_isprint(c));
-	c = 127;
-	printf("   isprint('%c'): %d\n", c,    isprint(c));
-	printf("ft_isprint('%c'): %d\n", c, ft_isprint(c));
-	c = 128;
-	printf("   isprint('%c'): %d\n", c,    isprint(c));
-	printf("ft_isprint('%c'): %d\n", c, ft_isprint(c));
+	for (int c = 0; c < 130; c++) {
+		int expected = isprint(c);
+		int received = ft_isprint(c);
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("[%d] ft_isdigit('%c'): %d | %s\n", c, c, received, result);
+			return 1;
+		}
+	}
+	printf("✅ ft_isdigit\n");
 }

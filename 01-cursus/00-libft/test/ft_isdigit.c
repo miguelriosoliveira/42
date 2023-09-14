@@ -3,17 +3,15 @@
 #include "../libft.h"
 
 int main() {
-	int c;
-	c = 'F';
-	printf("   isdigit('%c'): %d\n", c,    isdigit(c));
-	printf("ft_isdigit('%c'): %d\n", c, ft_isdigit(c));
-	c = '2';
-	printf("   isdigit('%c'): %d\n", c,    isdigit(c));
-	printf("ft_isdigit('%c'): %d\n", c, ft_isdigit(c));
-	c = 'f';
-	printf("   isdigit('%c'): %d\n", c,    isdigit(c));
-	printf("ft_isdigit('%c'): %d\n", c, ft_isdigit(c));
-	c = ')';
-	printf("   isdigit('%c'): %d\n", c,    isdigit(c));
-	printf("ft_isdigit('%c'): %d\n", c, ft_isdigit(c));
+	for (int c = 0; c < 130; c++) {
+		int expected = isdigit(c);
+		int received = ft_isdigit(c);
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("[%d] ft_isdigit('%c'): %d | %s\n", c, c, received, result);
+			return 1;
+		}
+	}
+	printf("✅ ft_isdigit\n");
 }

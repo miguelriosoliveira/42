@@ -3,23 +3,15 @@
 #include "../libft.h"
 
 int main() {
-	int c;
-	c = 'F';
-	printf("   isascii('%c'): %d\n", c,    isascii(c));
-	printf("ft_isascii('%c'): %d\n", c, ft_isascii(c));
-	c = '2';
-	printf("   isascii('%c'): %d\n", c,    isascii(c));
-	printf("ft_isascii('%c'): %d\n", c, ft_isascii(c));
-	c = 'f';
-	printf("   isascii('%c'): %d\n", c,    isascii(c));
-	printf("ft_isascii('%c'): %d\n", c, ft_isascii(c));
-	c = ')';
-	printf("   isascii('%c'): %d\n", c,    isascii(c));
-	printf("ft_isascii('%c'): %d\n", c, ft_isascii(c));
-	c = 127;
-	printf("   isascii('%c'): %d\n", c,    isascii(c));
-	printf("ft_isascii('%c'): %d\n", c, ft_isascii(c));
-	c = 128;
-	printf("   isascii('%c'): %d\n", c,    isascii(c));
-	printf("ft_isascii('%c'): %d\n", c, ft_isascii(c));
+	for (int c = 0; c < 130; c++) {
+		int expected = isascii(c);
+		int received = ft_isascii(c);
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("[%d] ft_isascii('%c'): %d | %s\n", c, c, received, result);
+			return 1;
+		}
+	}
+	printf("✅ ft_isascii\n");
 }

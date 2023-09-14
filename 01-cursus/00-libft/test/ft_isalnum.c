@@ -3,17 +3,15 @@
 #include "../libft.h"
 
 int main() {
-	int c;
-	c = 'F';
-	printf("   isalnum('%c'): %d\n", c,    isalnum(c));
-	printf("ft_isalnum('%c'): %d\n", c, ft_isalnum(c));
-	c = '2';
-	printf("   isalnum('%c'): %d\n", c,    isalnum(c));
-	printf("ft_isalnum('%c'): %d\n", c, ft_isalnum(c));
-	c = 'f';
-	printf("   isalnum('%c'): %d\n", c,    isalnum(c));
-	printf("ft_isalnum('%c'): %d\n", c, ft_isalnum(c));
-	c = ')';
-	printf("   isalnum('%c'): %d\n", c,    isalnum(c));
-	printf("ft_isalnum('%c'): %d\n", c, ft_isalnum(c));
+	for (int c = 0; c < 130; c++) {
+		int expected = isalnum(c);
+		int received = ft_isalnum(c);
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("[%d] ft_isalnum('%c'): %d | %s\n", c, c, received, result);
+			return 1;
+		}
+	}
+	printf("✅ ft_isalnum\n");
 }
