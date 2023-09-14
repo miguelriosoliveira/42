@@ -35,5 +35,7 @@ test: re
 	./test/a.out
 	$(CC) test/ft_isprint.c -L. -lft -o test/a.out
 	./test/a.out
+	$(CC) test/ft_strlen.c -L. -lft -o test/a.out
+	./test/a.out
 	# make fclean
 	# $(RM) test/a.out

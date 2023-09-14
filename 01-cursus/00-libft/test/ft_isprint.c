@@ -9,9 +9,9 @@ int main() {
 		int passed = expected == received;
 		if (!passed) {
 			char *result = passed ? "✅" : "❌";
-			printf("[%d] ft_isdigit('%c'): %d | %s\n", c, c, received, result);
+			printf("[%d] ft_isprint('%c'): %d | %s\n", c, c, received, result);
 			return 1;
 		}
 	}
-	printf("✅ ft_isdigit\n");
+	printf("✅ ft_isprint\n");
 }
