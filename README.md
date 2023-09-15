@@ -1,6 +1,8 @@
-# 42 Piscina
+# 42 Projects
 
-## Shell
+## Piscina
+
+### Shell
 
 - [x] Shell 00
 	- [x] Z
@@ -24,7 +26,7 @@
 	- [x] r_dwssap
 	- [x] add_chelou
 
-## C
+### C
 
 - [x] C 00
 	- [x] ft_putchar
@@ -153,3 +155,7 @@
 - [ ] Rush 01
 - [ ] Rush 02
 - [ ] BSQ
+
+## Cursus
+
+- [ ] Libft
