@@ -6,14 +6,15 @@ int main() {
 	{
 		char *s = "great captain usopp";
 		char c = 'u';
+		int n = 16;
 
-		char *expected = strchr(s, c);
-		char *received = ft_strchr(s, c);
+		char *expected = memchr(s, c, n);
+		char *received = ft_memchr(s, c, n);
 
 		int passed = strcmp(expected, received) == 0;
 		if (!passed) {
 			char *result = passed ? "✅" : "❌";
-			printf("%s ft_strchr(\"%s\")\n", result, s);
+			printf("%s ft_memchr(\"%s\")\n", result, s);
 			printf("expected: \"%s\"\n", expected);
 			printf("received: \"%s\"\n", received);
 			return 1;
@@ -22,14 +23,15 @@ int main() {
 	{
 		char *s = "great captain usopp";
 		char c = 'z';
+		int n = 5;
 
-		char *expected = strchr(s, c);
-		char *received = ft_strchr(s, c);
+		char *expected = memchr(s, c, n);
+		char *received = ft_memchr(s, c, n);
 
-		int passed = expected == received;
+		int passed = expected == received; // NULL
 		if (!passed) {
 			char *result = passed ? "✅" : "❌";
-			printf("%s ft_strchr(\"%s\")\n", result, s);
+			printf("%s ft_memchr(\"%s\")\n", result, s);
 			printf("expected: \"%s\"\n", expected);
 			printf("received: \"%s\"\n", received);
 			return 1;
@@ -38,19 +40,20 @@ int main() {
 	{
 		char *s = "great captain usopp";
 		char c = '\0';
+		int n = 50;
 
-		char *expected = strchr(s, c);
-		char *received = ft_strchr(s, c);
+		char *expected = memchr(s, c, n);
+		char *received = ft_memchr(s, c, n);
 
-		int passed = strcmp(expected, received) == 0;
+		int passed = expected == received; // NULL
 		if (!passed) {
 			char *result = passed ? "✅" : "❌";
-			printf("%s ft_strchr(\"%s\")\n", result, s);
+			printf("%s ft_memchr(\"%s\")\n", result, s);
 			printf("expected: \"%s\"\n", expected);
 			printf("received: \"%s\"\n", received);
 			return 1;
 		}
 	}
 
-	printf("✅ ft_strchr\n");
+	printf("✅ ft_memchr\n");
 }
