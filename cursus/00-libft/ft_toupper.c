@@ -10,4 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_toupper(int c);
+int	is_lower(char c)
+{
+	return (c >= 'a' && c <= 'z');
+}
+
+int	ft_toupper(int c)
+{
+	int	offset;
+
+	offset = 'a' - 'A';
+	if (is_lower(c))
+		c -= offset;
+	return (c);
+}
