@@ -24,12 +24,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	source = src;
 	if (dest > source)
 	{
-		i = len;
-		while (i > 0)
-		{
-			i--;
-			dest[i] = source[i];
-		}
+		while (len--)
+			dest[len] = source[len];
 	}
 	else
 	{
