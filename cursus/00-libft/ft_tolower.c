@@ -10,4 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	tolower(int c);
+static int	is_upper(char c)
+{
+	return (c >= 'A' && c <= 'Z');
+}
+
+int	ft_tolower(int c)
+{
+	int	offset;
+
+	offset = 'a' - 'A';
+	if (is_upper(c))
+		c += offset;
+	return (c);
+}
