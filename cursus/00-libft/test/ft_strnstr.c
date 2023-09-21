@@ -62,10 +62,16 @@ int main() {
 		char *expected = strnstr(haystack, needle, len);
 		char *received = ft_strnstr(haystack, needle, len);
 
-		int passed = strcmp(expected, received) == 0;
+		// printf("1\n");
+
+		// printf("expected: \"%s\"\n", expected);
+			// printf("received: \"%s\"\n", received);
+
+		int passed = expected == received;
+		// printf("2\n");
 		if (!passed) {
 			char *result = passed ? "✅" : "❌";
-			printf("%s ft_strnstr(\"%s\")\n", result, haystack);
+			printf("%s ft_strnstr(\"%s\", \"%s\", %d)\n", result, haystack, needle, len);
 			printf("expected: \"%s\"\n", expected);
 			printf("received: \"%s\"\n", received);
 			return 1;
