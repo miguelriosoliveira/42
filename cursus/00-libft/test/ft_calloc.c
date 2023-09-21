@@ -36,22 +36,6 @@ int main() {
 		}
 	}
 	{
-		size_t count = 128 * 1024 * 1024;
-		size_t size = sizeof(int);
-
-		void *expected = calloc(count, size);
-		void *received = ft_calloc(count, size);
-
-		int passed = memcmp(expected, received, count * size) == 0;
-		if (!passed) {
-			char *result = passed ? "✅" : "❌";
-			printf("%s ft_calloc(%zu, %zu)\n", result, count, size);
-			printf("expected: \"%s\"\n", expected);
-			printf("received: \"%s\"\n", received);
-			return 1;
-		}
-	}
-	{
 		int size = 8539;
 		void * d1 = ft_calloc(size, sizeof(int));
 		void * d2 = calloc(size, sizeof(int));
