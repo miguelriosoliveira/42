@@ -9,7 +9,7 @@ void print_array(char **arr) {
 }
 
 int compare_arrays(char **a, char **b) {
-  for(int i = 0; a[i]; i++) {
+  for(int i = 0; a[i] || b[i]; i++) {
     if (strcmp(a[i], b[i]) != 0) {
 		printf("a[%d]: \"%s\"\n", i, a[i]);
 		printf("b[%d]: \"%s\"\n", i, b[i]);
@@ -26,6 +26,13 @@ int main() {
 
 		char **expected = (char *[]){"great", "captain", "usopp", NULL};
 		char **received = ft_split(s1, c);
+
+		printf(">>>>> expected <<<<<\n\n");
+		print_array(expected);
+		printf("\n");
+		printf(">>>>> received <<<<<\n\n");
+		print_array(received);
+		printf("\n");
 
 		int passed = compare_arrays(expected, received);
 		if (!passed) {
@@ -47,6 +54,13 @@ int main() {
 		char **expected = (char *[]){"split", "this", "for", "me", "!", NULL};
 		char **received = ft_split(s1, c);
 
+		printf(">>>>> expected <<<<<\n\n");
+		print_array(expected);
+		printf("\n");
+		printf(">>>>> received <<<<<\n\n");
+		print_array(received);
+		printf("\n");
+
 		int passed = compare_arrays(expected, received);
 		if (!passed) {
 			char *result = passed ? "✅" : "❌";
@@ -60,6 +74,58 @@ int main() {
 			return 1;
 		}
 	}
+	{
+		char *s1 = "";
+		char c = ' ';
+
+		char **expected = (char *[]){"", NULL};
+		char **received = ft_split(s1, c);
+
+		printf("1\n");
+
+		printf(">>>>> expected <<<<<\n\n");
+		print_array(expected);
+		printf("\n");
+		printf(">>>>> received <<<<<\n\n");
+		print_array(received);
+		printf("\n");
+
+		int passed = compare_arrays(expected, received);
+
+		printf("2\n");
+
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_split(\"%s\", '%c')\n", result, s1, c);
+			printf(">>>>> expected <<<<<\n\n");
+			print_array(expected);
+			printf("\n");
+			printf(">>>>> received <<<<<\n\n");
+			print_array(received);
+			printf("\n");
+			return 1;
+		}
+	}
+	// {
+	// 	char *s1 = NULL;
+	// 	char c = ' ';
+
+	// 	char **expected = NULL;
+	// 	char **received = ft_split(s1, c);
+
+	// 	int passed = compare_arrays(expected, received);
+	// 	if (!passed) {
+	// 		char *result = passed ? "✅" : "❌";
+	// 		printf("%s ft_split(\"%s\", '%c')\n", result, s1, c);
+	// 		printf(">>>>> expected <<<<<\n\n");
+	// 		print_array(expected);
+	// 		printf("\n");
+	// 		printf(">>>>> received <<<<<\n\n");
+	// 		print_array(received);
+	// 		printf("\n");
+	// 		return 1;
+	// 	}
+	// }
 
 	printf("✅ ft_split\n");
 }
