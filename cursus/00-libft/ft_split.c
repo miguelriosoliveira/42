@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	**alloc_parts(char *str, char c)
+static char	**alloc_parts(char *str, char c)
 {
 	int		i;
 	int		parts_count;
@@ -36,7 +36,7 @@ char	**alloc_parts(char *str, char c)
 	return (parts);
 }
 
-int	count_valid_chars(char *str, char c)
+static int	count_valid_chars(char *str, char c)
 {
 	int	i;
 
@@ -46,7 +46,7 @@ int	count_valid_chars(char *str, char c)
 	return (i);
 }
 
-char	*alloc_word(char *str, char c)
+static char	*alloc_word(char *str, char c)
 {
 	int		i;
 	int		size;
