@@ -12,39 +12,55 @@
 
 #include "libft.h"
 
-#include <stdio.h>
-
-int	count_chars(int nb)
+static int	count_chars(int nb)
 {
 	long	nbr;
 	int		count;
 
 	nbr = nb;
 	count = 1;
-
-	printf("nbr: %ld\n", nbr);
-
 	if (nbr < 0)
 	{
-		printf("is negative!\n");
-		printf("nbr: %ld\n", nbr);
 		count++;
 		nbr = -nbr;
 	}
 	while (nbr >= 10)
 	{
-		printf("nbr: %ld\n", nbr);
 		count++;
 		nbr /= 10;
 	}
-
-		printf("nbr: %ld\n", nbr);
-
 	return (count);
+}
+
+static void	fill_str(char *str, int nb, int size)
+{
+	long	nbr;
+	int		is_negative;
+
+	nbr = nb;
+	is_negative = nbr < 0;
+	if (is_negative)
+	{
+		str[0] = '-';
+		nbr = -nbr;
+	}
+	while (size > is_negative)
+	{
+		size--;
+		str[size] = nbr % 10 + '0';
+		nbr /= 10;
+	}
 }
 
 char	*ft_itoa(int n)
 {
-	printf("char_count: %d\n", count_chars(n));
-	return "";
+	int		size;
+	char	*n_str;
+
+	size = count_chars(n);
+	n_str = ft_calloc((size + 1), sizeof(char));
+	if (!n_str)
+		return (NULL);
+	fill_str(n_str, n, size);
+	return (n_str);
 }
