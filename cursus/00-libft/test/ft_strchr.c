@@ -51,6 +51,22 @@ int main() {
 			return 1;
 		}
 	}
+	{
+		char *s = "teste";
+		int c = 'e' + 256;
+
+		char *expected = strchr(s, c);
+		char *received = ft_strchr(s, c);
+
+		int passed = strcmp(expected, received) == 0;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_strchr(\"%s\")\n", result, s);
+			printf("expected: \"%s\"\n", expected);
+			printf("received: \"%s\"\n", received);
+			return 1;
+		}
+	}
 
 	printf("✅ ft_strchr\n");
 }
