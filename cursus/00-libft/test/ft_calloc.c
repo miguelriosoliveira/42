@@ -7,8 +7,8 @@ int main() {
 		size_t count = 3;
 		size_t size = sizeof(char);
 
-		void *expected = calloc(count, size);
-		void *received = ft_calloc(count, size);
+		char *expected = calloc(count, size);
+		char *received = ft_calloc(count, size);
 
 		int passed = memcmp(expected, received, count * size) == 0;
 		if (!passed) {
@@ -23,8 +23,8 @@ int main() {
 		size_t count = 0;
 		size_t size = sizeof(char);
 
-		void *expected = calloc(count, size);
-		void *received = ft_calloc(count, size);
+		char *expected = calloc(count, size);
+		char *received = ft_calloc(count, size);
 
 		int passed = memcmp(expected, received, count * size) == 0;
 		if (!passed) {
@@ -37,8 +37,8 @@ int main() {
 	}
 	{
 		int size = 8539;
-		void * d1 = ft_calloc(size, sizeof(int));
-		void * d2 = calloc(size, sizeof(int));
+		char * d1 = ft_calloc(size, sizeof(int));
+		char * d2 = calloc(size, sizeof(int));
 		if (memcmp(d1, d2, size * sizeof(int)))
 			return 1;
 		free(d1);
