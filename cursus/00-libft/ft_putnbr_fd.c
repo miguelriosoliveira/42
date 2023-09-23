@@ -24,9 +24,5 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 	if (nbr >= 10)
 		ft_putnbr_fd(nbr / 10, fd);
-
-	// char num = nbr % 10 + '0';
-	// write(1, &num, 1);
-
 	ft_putchar_fd(nbr % 10 + '0', fd);
 }
