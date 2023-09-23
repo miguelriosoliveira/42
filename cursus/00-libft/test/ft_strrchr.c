@@ -93,6 +93,22 @@ int main() {
 			return 1;
 		}
 	}
+	{
+		char *s = "tripouille";
+		int c = 't' + 256;
+
+		char *expected = strrchr(s, c);
+		char *received = ft_strrchr(s, c);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_strrchr(\"%s\")\n", result, s);
+			printf("expected: \"%s\"\n", expected);
+			printf("received: \"%s\"\n", received);
+			return 1;
+		}
+	}
 
 	printf("✅ ft_strrchr\n");
 }
