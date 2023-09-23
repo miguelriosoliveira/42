@@ -78,8 +78,6 @@ char	**ft_split(char const *s, char c)
 	parts = alloc_parts(str, c);
 	if (!parts)
 		return (NULL);
-	if (ft_strlen(str) == 0)
-		return (parts);
 	i = 0;
 	j = 0;
 	while (str[i])
