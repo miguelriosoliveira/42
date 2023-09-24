@@ -104,6 +104,26 @@ int main() {
 			return 1;
 		}
 	}
+	{
+		char *s1 = "nonempty";
+		char c = '\0';
+
+		char **expected = (char *[]){"nonempty", NULL};
+		char **received = ft_split(s1, c);
+
+		int passed = compare_arrays(expected, received);
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_split(\"%s\", '%c')\n", result, s1, c);
+			printf(">>>>> expected <<<<<\n\n");
+			print_array(expected);
+			printf("\n");
+			printf(">>>>> received <<<<<\n\n");
+			print_array(received);
+			printf("\n");
+			return 1;
+		}
+	}
 
 	printf("✅ ft_split\n");
 }

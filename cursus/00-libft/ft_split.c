@@ -30,9 +30,9 @@ static char	**alloc_parts(char *str, char c)
 			i++;
 		parts_count += i > checkpoint;
 	}
-	if (parts_count == 0)
-		parts_count++;
-	parts = ft_calloc((parts_count + 1), sizeof(char *));
+	parts = ft_calloc(parts_count + 1, sizeof(char *));
+	if (!parts)
+		return (NULL);
 	return (parts);
 }
 
@@ -46,48 +46,53 @@ static int	count_valid_chars(char *str, char c)
 	return (i);
 }
 
-static char	*alloc_word(char *str, char c)
+static void	free_parts(char **parts, int j)
 {
-	int		i;
-	int		size;
-	char	*word;
-
-	size = count_valid_chars(str, c);
-	if (size == 0)
-		return (NULL);
-	word = ft_calloc(size + 1, sizeof(char));
-	if (!word)
-		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		word[i] = str[i];
-		i++;
-	}
-	return (word);
+	while (j--)
+		free(parts[j]);
+	free(parts);
 }
 
-char	**ft_split(char const *s, char c)
+static char	**fill_parts(char **parts, char *str, char c)
 {
 	int		i;
 	int		j;
-	char	**parts;
-	char	*str;
+	int		valid_char_count;
 
-	str = (char *)s;
-	parts = alloc_parts(str, c);
-	if (!parts)
-		return (NULL);
 	i = 0;
 	j = 0;
 	while (str[i])
 	{
 		while (str[i] && str[i] == c)
 			i++;
-		parts[j] = alloc_word(&str[i], c);
-		j++;
+		valid_char_count = count_valid_chars(&str[i], c);
+		if (valid_char_count > 0)
+		{
+			parts[j] = ft_substr(str, i, valid_char_count);
+			if (!parts[j])
+			{
+				free_parts(parts, j);
+				return (NULL);
+			}
+			j++;
+		}
 		while (str[i] && str[i] != c)
 			i++;
 	}
+	return (parts);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**parts;
+	char	*str;
+
+	str = (char *)s;
+	if (!str)
+		return (NULL);
+	parts = alloc_parts(str, c);
+	if (!parts)
+		return (NULL);
+	parts = fill_parts(parts, str, c);
 	return (parts);
 }
