@@ -24,16 +24,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*substr;
 	int		i;
 	int		start_int;
-	int		length;
 	int		size;
 
 	if (start >= ft_strlen(s))
 		return (ft_calloc(1, sizeof(char)));
 	start_int = start;
-	length = len;
-	if (length < 0)
-		length = ft_strlen(s);
-	size = min(start_int + length, ft_strlen(s)) - start_int;
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+	size = min(start_int + len, ft_strlen(s)) - start_int;
 	substr = ft_calloc(size + 1, sizeof(char));
 	if (!substr)
 		return (NULL);
