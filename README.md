@@ -216,7 +216,7 @@
 	- [x]  ft_lstnew
 	- [x]  ft_lstadd_front
 	- [x]  ft_lstsize
-	- [ ]  ft_lstlast
+	- [x]  ft_lstlast
 	- [ ]  ft_lstadd_back
 	- [ ]  ft_lstdelone
 	- [ ]  ft_lstclear
