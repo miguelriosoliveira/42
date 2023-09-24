@@ -168,7 +168,7 @@
 
 	## Mandatory part
 
-	### Parte 1 - `libc` functions
+	### Part 1 - `libc` functions
 
 	- [x]  isalpha
 	- [x]  isdigit
@@ -197,7 +197,7 @@
 	- [x]  calloc
 	- [x]  strdup
 
-	### Parte 2 - Additional functions
+	### Part 2 - Additional functions
 
 	- [x]  ft_substr
 	- [x]  ft_strjoin
