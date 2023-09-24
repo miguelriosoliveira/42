@@ -22,25 +22,23 @@ static int	min(int a, int b)
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
-	int		i;
-	int		start_int;
-	int		size;
 	size_t	str_len;
+	int		substr_len;
+	int		i;
 
 	str_len = ft_strlen(s);
 	if (start >= str_len)
 		return (ft_calloc(1, sizeof(char)));
-	start_int = start;
 	if (len > str_len)
 		len = str_len;
-	size = min(start_int + len, str_len) - start_int;
-	substr = ft_calloc(size + 1, sizeof(char));
+	substr_len = min(start + len, str_len) - start;
+	substr = ft_calloc(substr_len + 1, sizeof(char));
 	if (!substr)
 		return (NULL);
 	i = 0;
-	while (i < size)
+	while (i < substr_len)
 	{
-		substr[i] = s[i + start_int];
+		substr[i] = s[i + start];
 		i++;
 	}
 	return (substr);
