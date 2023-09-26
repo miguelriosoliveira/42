@@ -16,6 +16,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
 	t_list	*curr;
 
+	if (!lst || !f)
+		return ;
 	curr = lst;
 	while (curr)
 	{
