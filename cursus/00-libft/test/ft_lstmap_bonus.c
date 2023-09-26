@@ -38,11 +38,24 @@ t_list *alloc_word(char *str) {
 	return node;
 }
 
-void *f(void* node) {
-	t_list *n = node;
-	char *content = strdup(n->content);
-	content[0] = '*';
-	return ft_lstnew(content);
+char	*ft_strupcase(char *str)
+{
+	int	offset;
+	int	i;
+
+	offset = 'a' - 'A';
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= 'a' && str[i] <= 'z')
+			str[i] -= offset;
+		i++;
+	}
+	return (str);
+}
+
+void *f(void* content) {
+	return ft_strupcase(content);
 }
 
 void del(void* content) {
@@ -55,9 +68,9 @@ int main() {
 		lst->next = alloc_word("captain");
 		lst->next->next = alloc_word("usopp");
 
-		t_list *expected = alloc_word("*reat");
-		expected->next = alloc_word("*aptain");
-		expected->next->next = alloc_word("*sopp");
+		t_list *expected = alloc_word(ft_strupcase(lst->content));
+		expected->next = alloc_word(ft_strupcase(lst->next->content));
+		expected->next->next = alloc_word(ft_strupcase(lst->next->next->content));
 
 		t_list *received = ft_lstmap(lst, f, del);
 
@@ -71,7 +84,33 @@ int main() {
 				printf("\t");
 				print_list(n1);
 				printf("\t");
-				printf("void (*del)(void*)\n");
+				printf("void *(*f)(void *)\n");
+				printf("void (*del)(void *)\n");
+			printf(")\n");
+			printf(">>>>> expected <<<<<\n\n");
+			print_list(expected);
+			printf("\n");
+			printf(">>>>> received <<<<<\n\n");
+			print_list(received);
+			printf("\n");
+			return 1;
+		}
+	}
+	{
+		t_list *lst = NULL;
+
+		t_list *expected = NULL;
+		t_list *received = ft_lstmap(lst, f, del);
+
+		int passed = compare_lists(expected, received);
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_lstmap(\n", result);
+				printf("\t");
+				print_list(lst);
+				printf("\t");
+				printf("void *(*f)(void *)\n");
+				printf("void (*del)(void *)\n");
 			printf(")\n");
 			printf(">>>>> expected <<<<<\n\n");
 			print_list(expected);
