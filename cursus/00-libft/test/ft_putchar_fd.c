@@ -5,11 +5,23 @@
 #include "../libft.h"
 
 char *read_file(char *filename) {
-	int fd = open(filename, O_RDONLY);
-	char buffer[100];
-	read(fd, buffer, sizeof(buffer));
-	close(fd);
-	return strdup(buffer);
+	char * buffer = 0;
+	long length;
+	FILE * f = fopen (filename, "rb");
+
+	if (f)
+	{
+		fseek (f, 0, SEEK_END);
+		length = ftell (f);
+		fseek (f, 0, SEEK_SET);
+		buffer = malloc (length);
+		if (buffer)
+		{
+			fread (buffer, 1, length, f);
+		}
+		fclose (f);
+	}
+	return buffer;
 }
 
 int main() {
