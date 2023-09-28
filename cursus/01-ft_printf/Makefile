@@ -3,6 +3,7 @@ NAME = libftprintf.a
 SRC = ft_printf.c
 
 OBJ = $(SRC:.c=.o)
+LIBFT_OBJ = libft/*.o
 
 CC = cc -Wall -Werror -Wextra
 AR = ar -rcs
@@ -14,7 +15,7 @@ libft:
 	make -C ./libft all
 
 $(NAME): $(OBJ)
-	$(AR) $(NAME) $(OBJ)
+	$(AR) $(NAME) $(OBJ) $(LIBFT_OBJ)
 
 %.o: %.c
 	$(CC) -c $< -o $@
