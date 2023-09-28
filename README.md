@@ -7,4 +7,5 @@
 
 ## Cursus
 
-- [Libft](cursus/00-libft/)
+- [Libft](./cursus/00-libft/)
+- [ft_printf](./cursus/01-ft_printf/)
