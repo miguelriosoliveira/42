@@ -41,9 +41,9 @@ You have to implement the following conversions:
 - [x] `%d` Prints a decimal (base 10) number.
 - [x] `%i` Prints an integer in base 10.
 - [x] `%u` Prints an unsigned decimal (base 10) number.
-- [ ] `%x` Prints a number in hexadecimal (base 16) lowercase format.
-- [ ] `%X` Prints a number in hexadecimal (base 16) uppercase format.
-- [ ] `%%` Prints a percent sign.
+- [x] `%x` Prints a number in hexadecimal (base 16) lowercase format.
+- [x] `%X` Prints a number in hexadecimal (base 16) uppercase format.
+- [x] `%%` Prints a percent sign.
 
 ## Bonus part
 

@@ -30,7 +30,8 @@ int main() {
 	{
 		char *format = "king of pirates\n";
 		printf("[   printf] ");
-		int expected = printf("king of pirates\n");
+		#pragma clang diagnostic ignored "-Wformat-security"
+		int expected = printf(format);
 		ft_putstr_fd("[ft_printf] ", 1);
 		int received = ft_printf(format);
 
@@ -47,7 +48,7 @@ int main() {
 		char *format = "great %captain usopp\n";
 		char param = 'c';
 		printf("[   printf] ");
-		int expected = printf("great %captain usopp\n", param);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
 		int received = ft_printf(format, param);
 
@@ -64,7 +65,7 @@ int main() {
 		char *format = "the %s hunter\n";
 		char *param = "pirate";
 		printf("[   printf] ");
-		int expected = printf("the %s hunter\n", param);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
 		int received = ft_printf(format, param);
 
@@ -81,7 +82,7 @@ int main() {
 		char *format = "the %s hunter\n";
 		char *param = "";
 		printf("[   printf] ");
-		int expected = printf("the %s hunter\n", param);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
 		int received = ft_printf(format, param);
 
@@ -98,7 +99,7 @@ int main() {
 		char *format = "this is a pointer address: %p\n";
 		char *param = "pointer";
 		printf("[   printf] ");
-		int expected = printf("this is a pointer address: %p\n", param);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
 		int received = ft_printf(format, param);
 
@@ -115,7 +116,7 @@ int main() {
 		char *format = "Chopper's current bounty is %d berries\n";
 		int param = 1000;
 		printf("[   printf] ");
-		int expected = printf("Chopper's current bounty is %d berries\n", param);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
 		int received = ft_printf(format, param);
 
@@ -132,7 +133,7 @@ int main() {
 		char *format = "Drum's average temperature is around %i°C\n";
 		int param = -45;
 		printf("[   printf] ");
-		int expected = printf("Drum's average temperature is around %i°C\n", param);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
 		int received = ft_printf(format, param);
 
@@ -149,7 +150,7 @@ int main() {
 		char *format = "The lowest temperature ever recorded is %u°C... Wait, is that right?\n";
 		int param = -89;
 		printf("[   printf] ");
-		int expected = printf("The lowest temperature ever recorded is %u°C... Wait, is that right?\n", param);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
 		int received = ft_printf(format, param);
 
@@ -164,11 +165,68 @@ int main() {
 	}
 	{
 		char *format = "This is %d in hexadecimal: %x\n";
-		int param = 4242;
+		int param = 51966;
 		printf("[   printf] ");
-		int expected = printf("This is %d in hexadecimal: %x\n", param, param);
+		int expected = printf(format, param, param);
 		ft_putstr_fd("[ft_printf] ", 1);
 		int received = ft_printf(format, param, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = "THIS IS %d IN HEXADECIMAL: %X\n";
+		int param = 12648430;
+		printf("[   printf] ");
+		int expected = printf(format, param, param);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = "This is the percent symbol: %%\n";
+		printf("[   printf] ");
+		int expected = printf(format);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = "This is madness: %c %s %p %d %i %u %x %X %%\n";
+		printf("[   printf] ");
+		char c = 'c';
+		char *s = "string";
+		void *p = s;
+		int d = 42;
+		int i = -42;
+		unsigned int u = -42;
+		int x = 51966;
+		int X = 12648430;
+		int expected = printf(format, c, s, p, d, i, u, x, X);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, c, s, p, d, i, u, x, X);
 
 		int passed = expected == received;
 		if (!passed) {
