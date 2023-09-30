@@ -1,6 +1,6 @@
 # 42 Projects
 
-## [Piscine](./piscine/)
+## Piscine
 
 - [Shell](./piscine/shell/)
 - [C](./piscine/c/)
