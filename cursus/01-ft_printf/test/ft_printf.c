@@ -181,8 +181,42 @@ int main() {
 		}
 	}
 	{
+		char *format = "This is %d in hexadecimal: %x\n";
+		int param = -42;
+		printf("[   printf] ");
+		int expected = printf(format, param, param);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
 		char *format = "THIS IS %d IN HEXADECIMAL: %X\n";
 		int param = 12648430;
+		printf("[   printf] ");
+		int expected = printf(format, param, param);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = "THIS IS %d IN HEXADECIMAL: %X\n";
+		int param = -42;
 		printf("[   printf] ");
 		int expected = printf(format, param, param);
 		ft_putstr_fd("[ft_printf] ", 1);
