@@ -21,9 +21,11 @@ $(NAME): $(OBJ)
 	$(CC) -c $< -o $@
 
 clean:
+	make -C ./libft clean
 	$(RM) $(OBJ)
 
 fclean: clean
+	make -C ./libft fclean
 	$(RM) $(NAME)
 
 re: fclean all

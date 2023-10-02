@@ -12,18 +12,12 @@
 
 #include "ft_printf.h"
 
-static int	ft_putnbr_base(long nbr, char *base)
+static int	ft_putnbr_base(unsigned long nbr, char *base)
 {
-	int			base_len;
-	static int	char_count;
+	unsigned int	base_len;
+	static int		char_count;
 
 	char_count = 0;
-	if (nbr < 0)
-	{
-		ft_putchar_fd('-', 1);
-		nbr = -nbr;
-		char_count++;
-	}
 	base_len = ft_strlen(base);
 	if (nbr >= base_len)
 	{
@@ -39,8 +33,29 @@ static int	ft_putptr(void *ptr)
 	int		char_count;
 
 	char_count = ft_putstr_fd("0x", 1);
-	char_count += ft_putnbr_base((long)ptr, HEX_BASE_LOWER);
+	char_count += ft_putnbr_base((unsigned long)ptr, HEX_BASE_LOWER);
 	return (char_count);
+}
+
+static int	print_formatted(char format, va_list *args)
+{
+	if (format == 'c')
+		return (ft_putchar_fd(va_arg(*args, int), 1));
+	if (format == 's')
+		return (ft_putstr_fd(va_arg(*args, char *), 1));
+	if (format == 'p')
+		return (ft_putptr(va_arg(*args, void *)));
+	if (format == 'd' || format == 'i')
+		return (ft_putnbr_fd(va_arg(*args, int), 1));
+	if (format == 'u')
+		return (ft_putnbr_fd(va_arg(*args, unsigned int), 1));
+	if (format == 'x')
+		return (ft_putnbr_base(va_arg(*args, unsigned int), HEX_BASE_LOWER));
+	if (format == 'X')
+		return (ft_putnbr_base(va_arg(*args, unsigned int), HEX_BASE_UPPER));
+	if (format == '%')
+		return (ft_putchar_fd('%', 1));
+	return (0);
 }
 
 int	ft_printf(const char *format, ...)
@@ -58,22 +73,7 @@ int	ft_printf(const char *format, ...)
 		{
 			i++;
 			char_count--;
-			if (format[i] == 'c')
-				char_count += ft_putchar_fd(va_arg(args, int), 1);
-			else if (format[i] == 's')
-				char_count += ft_putstr_fd(va_arg(args, char *), 1);
-			else if (format[i] == 'p')
-				char_count += ft_putptr(va_arg(args, void *));
-			else if (format[i] == 'd' || format[i] == 'i')
-				char_count += ft_putnbr_fd(va_arg(args, int), 1);
-			else if (format[i] == 'u')
-				char_count += ft_putnbr_fd(va_arg(args, unsigned int), 1);
-			else if (format[i] == 'x')
-				char_count += ft_putnbr_base(va_arg(args, unsigned int), HEX_BASE_LOWER);
-			else if (format[i] == 'X')
-				char_count += ft_putnbr_base(va_arg(args, unsigned int), HEX_BASE_UPPER);
-			else if (format[i] == '%')
-				char_count += ft_putchar_fd('%', 1);
+			char_count += print_formatted(format[i], &args);
 		}
 		else
 			ft_putchar_fd(format[i], 1);
