@@ -45,6 +45,40 @@ int main() {
 		}
 	}
 	{
+		char *format = "";
+		printf("[   printf] \"");
+		int expected = printf(format);
+		printf("\"\n");
+		ft_putstr_fd("[ft_printf] \"", 1);
+		int received = ft_printf(format);
+		ft_putstr_fd("\"\n", 1);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = "\001\002\007\v\010\f\r\n";
+		printf("[   printf] ");
+		int expected = printf(format);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
 		char *format = "great %captain usopp\n";
 		char param = 'c';
 		printf("[   printf] ");
