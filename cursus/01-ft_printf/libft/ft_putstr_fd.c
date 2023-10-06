@@ -17,11 +17,12 @@ int	ft_putstr_fd(char *s, int fd)
 	int	i;
 
 	if (!s)
-		return (ft_putstr_fd("(null)", 1));
+		return (ft_putstr_fd("(null)", fd));
 	i = 0;
 	while (s[i])
 	{
-		ft_putchar_fd(s[i], fd);
+		if (ft_putchar_fd(s[i], fd) == -1)
+			return (-1);
 		i++;
 	}
 	return (i);

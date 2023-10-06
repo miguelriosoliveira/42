@@ -1,0 +1,13 @@
+{
+	"files.associations": {
+		"*.tsx": "typescriptreact",
+		".env*": "dotenv",
+		".gitconfig-*": "properties",
+		".nycrc": "json",
+		".prettierrc": "json",
+		".sequelizerc": "javascript",
+		".stylelintrc": "json",
+		".zsh*": "shellscript",
+		"libft.h": "c"
+	}
+}

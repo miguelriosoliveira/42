@@ -14,7 +14,18 @@
 
 int	ft_putendl_fd(char *s, int fd)
 {
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
-	return (ft_strlen(s) + 1);
+	int	char_count;
+	int	n_written;
+
+	char_count = 0;
+	n_written = 0;
+	n_written = ft_putstr_fd(s, fd);
+	if (n_written == -1)
+		return (-1);
+	char_count += n_written;
+	n_written = ft_putchar_fd('\n', fd);
+	if (n_written == -1)
+		return (-1);
+	char_count += n_written;
+	return (char_count);
 }
