@@ -1,11 +1,9 @@
 # ft_printf
 
-Because `ft_putnbr()` and `ft_putstr()` aren’t enough
+> Because `ft_putnbr()` and `ft_putstr()` aren’t enough.
 
-## Summary
-
-The goal of this project is pretty straightforward. You will recode `printf()`.
-You will mainly learn about using a variable number of arguments. How cool is that??
+The goal of this project is pretty straightforward. You will recode `printf()`.<br/>
+You will mainly learn about using a variable number of arguments. How cool is that??<br/>
 It is actually pretty cool :)
 
 ## Mandatory part
@@ -24,12 +22,12 @@ You have to recode the `printf()` function from `libc`.
 The prototype of `ft_printf()` is:
 
 ```c
-int ft_printf(const char *, ...);
+int	ft_printf(const char *, ...);
 ```
 
 ### Requirements
 - Don’t implement the buffer management of the original `printf()`.
-- Your function has to handle the following conversions: `cspdiuxX%`
+- Your function has to handle the following conversions: `c`, `s`, `p`, `d`, `i`, `u`, `x`, `X` and `%`
 - Your function will be compared against the original `printf()`.
 - You must use the command `ar` to create your library. Using the `libtool` command is forbidden.
 - Your `libftprintf.a` has to be created at the root of your repository.
