@@ -12,8 +12,6 @@
 
 #include "libft.h"
 
-#include <stdio.h>
-
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
@@ -23,8 +21,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if (n == 0)
 		return (0);
 	i = 0;
-	c1 = s1[0];
-	c2 = s2[0];
+	c1 = 1;
+	c2 = 1;
 	while (i < n && c1 && c2 && c1 == c2)
 	{
 		c1 = s1[i];
