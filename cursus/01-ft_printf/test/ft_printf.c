@@ -389,11 +389,12 @@ int main() {
 		}
 	}
 	{
-		char *format = "\001\002\007\v\010\f\r\n";
+		char *format = "dgs%dxx\n";
+		int param = 10;
 		printf("[   printf] ");
-		int expected = printf(format);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
-		int received = ft_printf(format);
+		int received = ft_printf(format, param);
 
 		int passed = expected == received;
 		if (!passed) {

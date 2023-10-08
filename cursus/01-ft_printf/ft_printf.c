@@ -16,13 +16,18 @@ static int	ft_putnbr_base(unsigned long nbr, char *base)
 {
 	unsigned int	base_len;
 	int				n_written;
-	static int		char_count;
+	int				char_count;
 
 	base_len = ft_strlen(base);
 	n_written = 0;
 	char_count = 0;
 	if (nbr >= base_len)
-		ft_putnbr_base(nbr / base_len, base);
+	{
+		n_written = ft_putnbr_base(nbr / base_len, base);
+		if (n_written == -1)
+			return (-1);
+		char_count += n_written;
+	}
 	n_written = ft_putchar_fd(base[nbr % base_len], 1);
 	if (n_written == -1)
 		return (-1);
@@ -72,25 +77,27 @@ static int	print_formatted(char format, va_list *args)
 int	ft_printf(const char *format, ...)
 {
 	va_list			args;
+	int				n_written;
 	int				char_count;
 	int				i;
 
-	if (!format)
-		return (-1);
 	va_start(args, format);
+	n_written = 0;
 	char_count = 0;
 	i = 0;
 	while (format[i])
 	{
 		if (format[i] == '%')
-		{
-			i++;
-			char_count += print_formatted(format[i], &args);
-		}
+			n_written = print_formatted(format[++i], &args);
 		else
-			char_count += ft_putchar_fd(format[i], 1);
+			n_written = ft_putchar_fd(format[i], 1);
+		if (n_written == -1)
+			break ;
+		char_count += n_written;
 		i++;
 	}
 	va_end(args);
+	if (n_written == -1)
+		return (-1);
 	return (char_count);
 }
