@@ -76,10 +76,10 @@ static int	print_formatted(char format, va_list *args)
 
 int	ft_printf(const char *format, ...)
 {
-	va_list			args;
-	int				n_written;
-	int				char_count;
-	int				i;
+	va_list	args;
+	int		n_written;
+	int		char_count;
+	int		i;
 
 	va_start(args, format);
 	n_written = 0;
