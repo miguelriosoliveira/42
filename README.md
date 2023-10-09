@@ -7,5 +7,7 @@
 
 ## Cursus
 
-- [Libft](./cursus/00-libft/)
-- [ft_printf](./cursus/01-ft_printf/)
+### Circle 00
+- [Libft](./cursus/circle-00/libft/)
+### Circle 01
+- [ft_printf](./cursus/circle-01/ft_printf/)
