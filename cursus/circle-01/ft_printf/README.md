@@ -48,7 +48,7 @@ You have to implement the following conversions:
 You don’t have to do all the bonuses.
 
 Bonus list:
-- [ ] Manage any combination of the following flags: `'-0.'` and the field minimum width under all conversions.
+- [ ] Manage any combination of the following flags: `'-0.'` and the field `minimum width` under all conversions.
 - [ ] Manage all the following flags: `'# +'` (Yes, one of them is a space)
 
 > If you plan to complete the bonus part, think about the implementation of your extra features from the start. This way, you will avoid the pitfalls of a naive approach.
