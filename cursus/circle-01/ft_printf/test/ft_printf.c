@@ -307,29 +307,18 @@ int main() {
 		}
 	}
 	{
-		char *format = "";
-		printf("[   printf] \"");
-		int expected = printf(format);
-		printf("\"\n");
-		ft_putstr_fd("[ft_printf] \"", 1);
-		int received = ft_printf(format);
-		ft_putstr_fd("\"\n", 1);
+		char *format = "-%c-%c-%c-\n";
+		char param1 = '0';
+		int param2 = 0;
+		char param3 = '1';
 
-		int passed = expected == received;
-		if (!passed) {
-			char *result = passed ? "✅" : "❌";
-			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
-			printf("expected: %d\n", expected);
-			printf("received: %d\n", received);
-			return 1;
-		}
-	}
-	{
-		char *format = "%X\n";
+		printf("[   printf] %d\n", printf(""));
+		printf("[   printf] %d\n", printf("%c", 0));
+
 		printf("[   printf] ");
-		int expected = printf(format, INT_MAX);
+		int expected = printf(format, param1, param2, param3);
 		ft_putstr_fd("[ft_printf] ", 1);
-		int received = ft_printf(format, INT_MAX);
+		int received = ft_printf(format, param1, param2, param3);
 
 		int passed = expected == received;
 		if (!passed) {
@@ -341,11 +330,12 @@ int main() {
 		}
 	}
 	{
-		char *format = "%d\n";
+		char *format = "Number [%12c]\n";
+		char param = 'Z';
 		printf("[   printf] ");
-		int expected = printf(format, INT_MAX);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
-		int received = ft_printf(format, INT_MAX);
+		int received = ft_printf(format, param);
 
 		int passed = expected == received;
 		if (!passed) {
@@ -357,11 +347,12 @@ int main() {
 		}
 	}
 	{
-		char *format = "%X\n";
+		char *format = "Number [%012c]\n";
+		char param = 'Z';
 		printf("[   printf] ");
-		int expected = printf(format, INT_MIN);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
-		int received = ft_printf(format, INT_MIN);
+		int received = ft_printf(format, param);
 
 		int passed = expected == received;
 		if (!passed) {
@@ -373,11 +364,12 @@ int main() {
 		}
 	}
 	{
-		char *format = "%d\n";
+		char *format = "Number [%-12c]\n";
+		char param = 'Z';
 		printf("[   printf] ");
-		int expected = printf(format, INT_MIN);
+		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);
-		int received = ft_printf(format, INT_MIN);
+		int received = ft_printf(format, param);
 
 		int passed = expected == received;
 		if (!passed) {
@@ -389,8 +381,8 @@ int main() {
 		}
 	}
 	{
-		char *format = "dgs%dxx\n";
-		int param = 10;
+		char *format = "Number [%-012c]\n";
+		char param = 'Z';
 		printf("[   printf] ");
 		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);

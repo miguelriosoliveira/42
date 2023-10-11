@@ -12,6 +12,20 @@
 
 #include "ft_printf.h"
 
+// #include <stdio.h>
+// void print_flags(t_flags *flags)
+// {
+// 	printf("flags {\n");
+// 	printf("\tleft_align: %d\n", flags->left_align);
+// 	printf("\tpad_char: '%c'\n", flags->pad_char);
+// 	printf("\tprecision: %d\n", flags->precision);
+// 	printf("\tmin_width: %d\n", flags->min_width);
+// 	printf("\thex_form: %d\n", flags->hex_form);
+// 	printf("\tspace_sign: %d\n", flags->space_sign);
+// 	printf("\tsigned_form: %d\n", flags->signed_form);
+// 	printf("}\n");
+// }
+
 static int	ft_putnbr_base(unsigned long nbr, char *base)
 {
 	unsigned int	base_len;
@@ -53,10 +67,10 @@ static int	ft_putptr(void *ptr)
 	return (char_count);
 }
 
-static int	print_formatted(char format, va_list *args)
+static int	print_formatted(char format, va_list *args, t_flags *flags)
 {
 	if (format == 'c')
-		return (ft_putchar_fd(va_arg(*args, int), 1));
+		return (print_char(va_arg(*args, int), flags));
 	if (format == 's')
 		return (ft_putstr_fd(va_arg(*args, char *), 1));
 	if (format == 'p')
@@ -80,6 +94,7 @@ int	ft_printf(const char *format, ...)
 	int		n_written;
 	int		char_count;
 	int		i;
+	t_flags	*flags;
 
 	va_start(args, format);
 	n_written = 0;
@@ -88,7 +103,14 @@ int	ft_printf(const char *format, ...)
 	while (format[i])
 	{
 		if (format[i] == '%')
-			n_written = print_formatted(format[++i], &args);
+		{
+			i++;
+			flags = read_flags(format, &i);
+			if (!flags)
+				return (-1);
+			n_written = print_formatted(format[i], &args, flags);
+			free(flags);
+		}
 		else
 			n_written = ft_putchar_fd(format[i], 1);
 		if (n_written == -1)

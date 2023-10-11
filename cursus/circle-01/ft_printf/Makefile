@@ -1,6 +1,6 @@
 NAME = libftprintf.a
 
-SRC = ft_printf.c
+SRC = flags.c ft_printchar.c ft_printf.c utils.c
 
 OBJ = $(SRC:.c=.o)
 LIBFT_OBJ = libft/*.o
@@ -10,6 +10,8 @@ AR = ar -rcs
 RM = rm -rf
 
 all: libft $(NAME)
+
+# bonus: all
 
 libft:
 	make -C ./libft all
