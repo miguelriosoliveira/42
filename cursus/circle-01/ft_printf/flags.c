@@ -36,7 +36,13 @@ t_flags	*read_flags(const char *format, int *i)
 				flags->pad_char = '0';
 		}
 		else if (format[*i] == '.')
-			flags->precision = 1; // TODO: read following number
+		{
+			*i += 1;
+			flags->precision = ft_atoi(&format[*i]);
+			str = ft_itoa(flags->precision);
+			*i += ft_strlen(str) - 1;
+			free(str);
+		}
 		else if (ft_isdigit(format[*i]))
 		{
 			flags->min_width = ft_atoi(&format[*i]);

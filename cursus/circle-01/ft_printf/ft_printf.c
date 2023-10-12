@@ -69,10 +69,13 @@ static int	ft_putptr(void *ptr)
 
 static int	print_formatted(char format, va_list *args, t_flags *flags)
 {
+
+	// print_flags(flags);
+
 	if (format == 'c')
 		return (print_char(va_arg(*args, int), flags));
 	if (format == 's')
-		return (ft_putstr_fd(va_arg(*args, char *), 1));
+		return (print_str(va_arg(*args, char *), flags));
 	if (format == 'p')
 		return (ft_putptr(va_arg(*args, void *)));
 	if (format == 'd' || format == 'i')
