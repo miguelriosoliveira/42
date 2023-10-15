@@ -55,7 +55,6 @@ t_flags	*read_flags(const char *format, int *i)
 			}
 			flags->precision = ft_atoi(&format[*i]);
 			*i += count_next_digits(&format[*i]) - 1;
-
 		}
 		else if (ft_isdigit(format[*i]))
 		{

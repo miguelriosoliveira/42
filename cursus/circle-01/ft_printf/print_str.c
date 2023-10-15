@@ -36,8 +36,7 @@ static int	print_padded(char *str, char *padding, int is_left_align)
 int	print_str(char *str, t_flags *flags)
 {
 	size_t	char_count;
-	size_t	str_len;
-	char	*padding;
+	char	*pad;
 	char	*copy;
 	char	*substr;
 
@@ -46,20 +45,19 @@ int	print_str(char *str, t_flags *flags)
 	copy = ft_strdup(str);
 	if (!copy)
 		return (-1);
-	if (flags->precision >= 0)
-	{
-		substr = ft_substr(copy, 0, flags->precision);
-		free(copy);
-		if (!substr)
-			return (-1);
-		copy = substr;
-	}
-	str_len = ft_strlen(copy);
-	padding = create_padding(flags->min_width - str_len, flags->pad_char);
-	if (!padding)
+	substr = ft_substr(copy, 0, flags->precision);
+	free(copy);
+	if (!substr)
 		return (-1);
-	char_count = print_padded(copy, padding, flags->left_align);
-	free(padding);
+	copy = substr;
+	pad = create_padding(flags->min_width - ft_strlen(copy), flags->pad_char);
+	if (!pad)
+	{
+		free(copy);
+		return (-1);
+	}
+	char_count = print_padded(copy, pad, flags->left_align);
+	free(pad);
 	free(copy);
 	return (char_count);
 }
