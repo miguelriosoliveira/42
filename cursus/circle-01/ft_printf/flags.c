@@ -17,15 +17,25 @@ static int	is_specifier(char c)
 	return (ft_strchr("cspdiuxX%", c) != NULL);
 }
 
+static int	count_next_digits(const char *format)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isdigit(format[i]))
+		i++;
+	return (i);
+}
+
 t_flags	*read_flags(const char *format, int *i)
 {
 	t_flags	*flags;
-	char	*str;
 
 	flags = ft_calloc(1, sizeof(t_flags));
 	if (!flags)
 		return (NULL);
 	flags->pad_char = ' ';
+	flags->precision = -1;
 	while (format[*i] && !is_specifier(format[*i]))
 	{
 		if (format[*i] == '-')
@@ -38,17 +48,19 @@ t_flags	*read_flags(const char *format, int *i)
 		else if (format[*i] == '.')
 		{
 			*i += 1;
+			if (!ft_isdigit(format[*i]))
+			{
+				flags->precision = 0;
+				continue ;
+			}
 			flags->precision = ft_atoi(&format[*i]);
-			str = ft_itoa(flags->precision);
-			*i += ft_strlen(str) - 1;
-			free(str);
+			*i += count_next_digits(&format[*i]) - 1;
+
 		}
 		else if (ft_isdigit(format[*i]))
 		{
 			flags->min_width = ft_atoi(&format[*i]);
-			str = ft_itoa(flags->min_width);
-			*i += ft_strlen(str) - 1;
-			free(str);
+			*i += count_next_digits(&format[*i]) - 1;
 		}
 		else if (format[*i] == '#')
 			flags->hex_form = 1;

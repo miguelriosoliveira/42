@@ -12,45 +12,50 @@
 
 #include "ft_printf.h"
 
-// #include <stdio.h>
-// #include <string.h>
+static int	print_padded(char *str, char *padding, int is_left_align)
+{
+	size_t	char_count;
+	char	*first_str;
+	char	*second_str;
 
-/**
- * %s is affected by:
- * - left alignment
- * - zero-padding
- * - min width
- * - precision
-*/
+	char_count = 0;
+	first_str = padding;
+	second_str = str;
+	if (is_left_align)
+	{
+		first_str = str;
+		second_str = padding;
+	}
+	char_count += ft_putstr_fd(first_str, 1);
+	char_count += ft_putstr_fd(second_str, 1);
+	if (char_count != ft_strlen(first_str) + ft_strlen(second_str))
+		char_count = -1;
+	return (char_count);
+}
+
 int	print_str(char *str, t_flags *flags)
 {
 	size_t	char_count;
 	size_t	str_len;
 	char	*padding;
+	char	*copy;
 	char	*substr;
 
 	if (!str)
 		str = "(null)";
-	str_len = ft_strlen(str);
+	copy = ft_strdup(str);
+	if (flags->precision >= 0)
+	{
+		substr = ft_substr(copy, 0, flags->precision);
+		free(copy);
+		copy = substr;
+	}
+	str_len = ft_strlen(copy);
 	padding = create_padding(flags->min_width - str_len, flags->pad_char);
 	if (!padding)
 		return (-1);
-	char_count = 0;
-	if (!flags->left_align)
-		char_count += ft_putstr_fd(padding, 1);
-	if (flags->precision)
-	{
-		substr = ft_substr(str, 0, flags->precision);
-		str_len = ft_strlen(substr);
-		char_count += ft_putstr_fd(substr, 1);
-		free(substr);
-	}
-	else
-		char_count += ft_putstr_fd(str, 1);
-	if (flags->left_align)
-		char_count += ft_putstr_fd(padding, 1);
-	if (char_count != ft_strlen(padding) + str_len)
-		char_count = -1;
+	char_count = print_padded(copy, padding, flags->left_align);
 	free(padding);
+	free(copy);
 	return (char_count);
 }
