@@ -44,10 +44,14 @@ int	print_str(char *str, t_flags *flags)
 	if (!str)
 		str = "(null)";
 	copy = ft_strdup(str);
+	if (!copy)
+		return (-1);
 	if (flags->precision >= 0)
 	{
 		substr = ft_substr(copy, 0, flags->precision);
 		free(copy);
+		if (!substr)
+			return (-1);
 		copy = substr;
 	}
 	str_len = ft_strlen(copy);
