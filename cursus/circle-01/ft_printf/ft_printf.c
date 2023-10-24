@@ -49,24 +49,6 @@ static int	ft_putnbr_base(unsigned long nbr, char *base)
 	return (char_count);
 }
 
-static int	ft_putptr(void *ptr)
-{
-	int	char_count;
-	int	n_written;
-
-	char_count = 0;
-	n_written = 0;
-	n_written = ft_putstr_fd("0x", 1);
-	if (n_written == -1)
-		return (-1);
-	char_count += n_written;
-	n_written = ft_putnbr_base((unsigned long)ptr, HEX_BASE_LOWER);
-	if (n_written == -1)
-		return (-1);
-	char_count += n_written;
-	return (char_count);
-}
-
 static int	print_formatted(char format, va_list *args, t_flags *flags)
 {
 
@@ -77,7 +59,7 @@ static int	print_formatted(char format, va_list *args, t_flags *flags)
 	if (format == 's')
 		return (print_str(va_arg(*args, char *), flags));
 	if (format == 'p')
-		return (ft_putptr(va_arg(*args, void *)));
+		return (print_ptr(va_arg(*args, void *), flags));
 	if (format == 'd' || format == 'i')
 		return (ft_putnbr_fd(va_arg(*args, int), 1));
 	if (format == 'u')

@@ -34,6 +34,8 @@ int		ft_printf(const char *format, ...);
 t_flags	*read_flags(const char *format, int *i);
 int		print_char(char c, t_flags *flags);
 int		print_str(char *str, t_flags *flags);
+int		print_ptr(void *ptr, t_flags *flags);
 char	*create_padding(int size, char c);
+int		print_padded(char *str, char *padding, int is_left_align);
 
 #endif
