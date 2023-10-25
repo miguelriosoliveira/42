@@ -61,7 +61,8 @@ static int	print_formatted(char format, va_list *args, t_flags *flags)
 	if (format == 'p')
 		return (print_ptr(va_arg(*args, void *), flags));
 	if (format == 'd' || format == 'i')
-		return (ft_putnbr_fd(va_arg(*args, int), 1));
+		// return (ft_putnbr_fd(va_arg(*args, int), 1));
+		return (print_nbr(va_arg(*args, int), flags));
 	if (format == 'u')
 		return (ft_putnbr_fd(va_arg(*args, unsigned int), 1));
 	if (format == 'x')
