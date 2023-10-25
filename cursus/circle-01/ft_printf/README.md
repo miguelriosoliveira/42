@@ -51,13 +51,13 @@ You have to implement the following conversions:
 - Manage all the following flags: `'# +'` (Yes, one of them is a space)
 
 | Type | `-`<br/>left align | `0`<br/>zero pad | `.`<br/>precision | `(number)`<br/>min width | `#`<br/>alternative form | `(space)`<br/>left pad with one space | `+`<br/>show signed numbers |
-|:----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `%c` | ✅  | ✅  | n/a | ✅  | n/a | n/a | n/a |
-| `%s` | ✅  | ✅  | ✅  | ✅  | n/a | n/a | n/a |
-| `%p` | ✅  | ✅  | n/a | ✅  | n/a | n/a | n/a |
-| `%d` |     |     |     |     |     |     |     |
-| `%i` |     |     |     |     |     |     |     |
-| `%u` |     |     |     |     |     |     |     |
-| `%x` |     |     |     |     |     |     |     |
-| `%X` |     |     |     |     |     |     |     |
-| `%%` |     |     |     |     |     |     |     |
+|:-----------:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `%c`        | ✔   | ✔   | n/a | ✔   | n/a | n/a | n/a |
+| `%s`        | ✔   | ✔   | ✔   | ✔   | n/a | n/a | n/a |
+| `%p`        | ✔   | ✔   | n/a | ✔   | n/a | n/a | n/a |
+| `%d` / `%i` | ✔   | ✔   |     | ✔   | n/a |     |     |
+| `%i`        |     |     |     |     |     |     |     |
+| `%u`        |     |     |     |     |     |     |     |
+| `%x`        |     |     |     |     |     |     |     |
+| `%X`        |     |     |     |     |     |     |     |
+| `%%`        |     |     |     |     |     |     |     |
