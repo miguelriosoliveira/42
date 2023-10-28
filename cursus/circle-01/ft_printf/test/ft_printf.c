@@ -807,7 +807,75 @@ int main() {
 	}
 	{
 		char *format = " nbr [%.5d]\n";
+		int param = -14523;
+		printf("[   printf] ");
+		int expected = printf(format, param);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = " nbr [%.5d]\n";
 		int param = 14523;
+		printf("[   printf] ");
+		int expected = printf(format, param);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = " nbr [%.0d]\n";
+		int param = 0;
+		printf("[   printf] ");
+		int expected = printf(format, param);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = " nbr [%.d]\n";
+		int param = 0;
+		printf("[   printf] ");
+		int expected = printf(format, param);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = " nbr [%5.0d]\n";
+		int param = 0;
 		printf("[   printf] ");
 		int expected = printf(format, param);
 		ft_putstr_fd("[ft_printf] ", 1);

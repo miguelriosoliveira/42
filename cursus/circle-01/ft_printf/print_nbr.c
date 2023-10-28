@@ -32,25 +32,22 @@ int	print_nbr(int nbr, t_flags *flags)
 	int		is_negative;
 	int		is_negative_zeropad;
 
+	is_negative = nbr < 0;
+	// nbr = -nbr;
 	num_str = ft_itoa(nbr);
 	if (!num_str)
 		return (-1);
 	if (flags->precision >= 0)
 		flags->pad_char = ' ';
-	is_negative = nbr < 0;
-	pad = create_padding(flags->precision - ft_strlen(num_str) + is_negative + 1, '0');
+	pad = create_padding(flags->precision - ft_strlen(num_str) + is_negative * 2, '0');
 	if (!pad)
 	{
 		free(num_str);
 		return (-1);
 	}
 	if (is_negative)
-	{
 		pad[0] = '-';
-		join = ft_strjoin(pad, num_str + 1);
-	}
-	else
-		join = ft_strjoin(pad, num_str);
+	join = ft_strjoin(pad, num_str + is_negative);
 	free(pad);
 	free(num_str);
 	num_str = join;
