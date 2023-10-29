@@ -51,9 +51,7 @@ static int	ft_putnbr_base(unsigned long nbr, char *base)
 
 static int	print_formatted(char format, va_list *args, t_flags *flags)
 {
-
 	// print_flags(flags);
-
 	if (format == 'c')
 		return (print_char(va_arg(*args, int), flags));
 	if (format == 's')
@@ -61,7 +59,6 @@ static int	print_formatted(char format, va_list *args, t_flags *flags)
 	if (format == 'p')
 		return (print_ptr(va_arg(*args, void *), flags));
 	if (format == 'd' || format == 'i')
-		// return (ft_putnbr_fd(va_arg(*args, int), 1));
 		return (print_nbr(va_arg(*args, int), flags));
 	if (format == 'u')
 		return (ft_putnbr_fd(va_arg(*args, unsigned int), 1));
@@ -74,38 +71,51 @@ static int	print_formatted(char format, va_list *args, t_flags *flags)
 	return (0);
 }
 
-int	ft_printf(const char *format, ...)
+static int	parse_print_unit(const char *format, int *i, va_list *args)
 {
-	va_list	args;
-	int		n_written;
 	int		char_count;
-	int		i;
 	t_flags	*flags;
 
-	va_start(args, format);
-	n_written = 0;
-	char_count = 0;
+	flags = read_flags(format, i);
+	if (!flags)
+		return (-1);
+	char_count = print_formatted(format[*i], args, flags);
+	free(flags);
+	return (char_count);
+}
+
+static int	parse_print(const char *format, va_list	*args)
+{
+	int		i;
+	int		n_written;
+	int		char_count;
+
 	i = 0;
+	char_count = 0;
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
 			i++;
-			flags = read_flags(format, &i);
-			if (!flags)
-				return (-1);
-			n_written = print_formatted(format[i], &args, flags);
-			free(flags);
+			n_written = parse_print_unit(format, &i, args);
 		}
 		else
 			n_written = ft_putchar_fd(format[i], 1);
 		if (n_written == -1)
-			break ;
+			return (-1);
 		char_count += n_written;
 		i++;
 	}
+	return (char_count);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list	args;
+	int		char_count;
+
+	va_start(args, format);
+	char_count = parse_print(format, &args);
 	va_end(args);
-	if (n_written == -1)
-		return (-1);
 	return (char_count);
 }

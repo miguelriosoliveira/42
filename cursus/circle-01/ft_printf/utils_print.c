@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <mrios-es@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -60,45 +60,4 @@ int	print_repeat(char c, int times)
 	while (times-- > 0)
 		char_count += ft_putchar_fd(c, 1);
 	return (char_count);
-}
-
-int	print_padded2(char *str, char pad_char, int pad_count, int is_left_align)
-{
-	size_t	char_count;
-
-	char_count = 0;
-	if (pad_count < 0)
-		pad_count = 0;
-
-	if (is_left_align)
-	{
-		char_count += ft_putstr_fd(str, 1);
-		char_count += print_repeat(pad_char, pad_count);
-	}
-	else
-	{
-		char_count += print_repeat(pad_char, pad_count);
-		char_count += ft_putstr_fd(str, 1);
-	}
-
-	if (char_count != ft_strlen(str) + pad_count)
-		char_count = -1;
-	return (char_count);
-}
-
-int	count_num_len(int nbr)
-{
-	int	count;
-
-	if (nbr == 0)
-		return (1);
-	if (nbr < 0)
-		nbr *= -1;
-	count = 0;
-	while (nbr)
-	{
-		count++;
-		nbr /= 10;
-	}
-	return (count);
 }

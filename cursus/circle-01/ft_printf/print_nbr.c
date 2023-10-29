@@ -12,23 +12,7 @@
 
 #include "ft_printf.h"
 
-#include <stdio.h>
-
-int	min(int a, int b)
-{
-	if (a < b)
-		return (a);
-	return (b);
-}
-
-int	max(int a, int b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-
-int	print_number_with_precision(long nbr, t_flags *flags)
+static int	print_number_with_precision(long nbr, t_flags *flags)
 {
 	int	char_count;
 	int	is_negative;
@@ -49,12 +33,9 @@ int	print_number_with_precision(long nbr, t_flags *flags)
 	if (nbr == 0 && flags->pad_char != '0' && flags->precision == 0)
 		return (char_count);
 	num_len = count_num_len(nbr);
-	pad_count = flags->precision - num_len;
-	pad_count = max(pad_count, 0);
+	pad_count = max(flags->precision - num_len, 0);
 	char_count += print_repeat('0', pad_count);
 	char_count += ft_putnbr_fd(nbr, 1);
-	if (char_count != num_len + min(is_negative + flags->signed_form + flags->space_sign, 1) + pad_count)
-		char_count = -1;
 	return (char_count);
 }
 
