@@ -55,8 +55,7 @@ You have to implement the following conversions:
 | `%c`        | ✔   | ✔   | n/a | ✔   | n/a | n/a | n/a |
 | `%s`        | ✔   | ✔   | ✔   | ✔   | n/a | n/a | n/a |
 | `%p`        | ✔   | ✔   | n/a | ✔   | n/a | n/a | n/a |
-| `%d` / `%i` | ✔   | ✔   |     | ✔   | n/a |     |     |
-| `%i`        |     |     |     |     |     |     |     |
+| `%d` / `%i` | ✔   | ✔   | ✔   | ✔   | n/a | ✔   | ✔   |
 | `%u`        |     |     |     |     |     |     |     |
 | `%x`        |     |     |     |     |     |     |     |
 | `%X`        |     |     |     |     |     |     |     |
