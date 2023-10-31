@@ -67,7 +67,7 @@ static int	print_formatted(char format, va_list *args, t_flags *flags)
 	if (format == 'X')
 		return (ft_putnbr_base(va_arg(*args, unsigned int), HEX_BASE_UPPER));
 	if (format == '%')
-		return (ft_putchar_fd('%', 1));
+		return (print_char('%', flags));
 	return (0);
 }
 

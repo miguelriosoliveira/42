@@ -59,4 +59,4 @@ You have to implement the following conversions:
 | `%u`        |     |     |     |     |     |     |     |
 | `%x`        |     |     |     |     |     |     |     |
 | `%X`        |     |     |     |     |     |     |     |
-| `%%`        |     |     |     |     |     |     |     |
+| `%%`        | ✔   | ✔   | n/a | ✔   | n/a | n/a | n/a |
