@@ -26,28 +26,28 @@
 // 	printf("}\n");
 // }
 
-static int	ft_putnbr_base(unsigned long nbr, char *base)
-{
-	unsigned int	base_len;
-	int				n_written;
-	int				char_count;
+// static int	ft_putnbr_base(unsigned long nbr, char *base)
+// {
+// 	unsigned int	base_len;
+// 	int				n_written;
+// 	int				char_count;
 
-	base_len = ft_strlen(base);
-	n_written = 0;
-	char_count = 0;
-	if (nbr >= base_len)
-	{
-		n_written = ft_putnbr_base(nbr / base_len, base);
-		if (n_written == -1)
-			return (-1);
-		char_count += n_written;
-	}
-	n_written = ft_putchar_fd(base[nbr % base_len], 1);
-	if (n_written == -1)
-		return (-1);
-	char_count += n_written;
-	return (char_count);
-}
+// 	base_len = ft_strlen(base);
+// 	n_written = 0;
+// 	char_count = 0;
+// 	if (nbr >= base_len)
+// 	{
+// 		n_written = ft_putnbr_base(nbr / base_len, base);
+// 		if (n_written == -1)
+// 			return (-1);
+// 		char_count += n_written;
+// 	}
+// 	n_written = ft_putchar_fd(base[nbr % base_len], 1);
+// 	if (n_written == -1)
+// 		return (-1);
+// 	char_count += n_written;
+// 	return (char_count);
+// }
 
 static int	print_formatted(char format, va_list *args, t_flags *flags)
 {
@@ -63,9 +63,11 @@ static int	print_formatted(char format, va_list *args, t_flags *flags)
 	if (format == 'u')
 		return (print_unbr(va_arg(*args, unsigned int), flags));
 	if (format == 'x')
-		return (ft_putnbr_base(va_arg(*args, unsigned int), HEX_BASE_LOWER));
+		// return (ft_putnbr_base(va_arg(*args, unsigned int), HEX_BASE_LOWER));
+		return (print_hex(va_arg(*args, unsigned int), 0, flags));
 	if (format == 'X')
-		return (ft_putnbr_base(va_arg(*args, unsigned int), HEX_BASE_UPPER));
+		// return (ft_putnbr_base(va_arg(*args, unsigned int), HEX_BASE_UPPER));
+		return (print_hex(va_arg(*args, unsigned int), 1, flags));
 	if (format == '%')
 		return (print_char('%', flags));
 	return (0);

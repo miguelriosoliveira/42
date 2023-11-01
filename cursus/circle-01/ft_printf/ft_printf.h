@@ -33,6 +33,7 @@ typedef struct s_flags
 int		ft_printf(const char *format, ...);
 t_flags	*read_flags(const char *format, int *i);
 int		print_char(char c, t_flags *flags);
+int		print_hex(unsigned long nbr, int is_upper, t_flags *flags);
 int		print_nbr(int nbr, t_flags *flags);
 int		print_unbr(unsigned int nbr, t_flags *flags);
 int		print_ptr(void *ptr, t_flags *flags);
