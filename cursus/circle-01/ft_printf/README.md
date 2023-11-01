@@ -56,7 +56,7 @@ You have to implement the following conversions:
 | `%s`        | ✔   | ✔   | ✔   | ✔   | n/a | n/a | n/a |
 | `%p`        | ✔   | ✔   | n/a | ✔   | n/a | n/a | n/a |
 | `%d` / `%i` | ✔   | ✔   | ✔   | ✔   | n/a | ✔   | ✔   |
-| `%u`        |     |     |     |     |     |     |     |
+| `%u`        | ✔   | ✔   | ✔   | ✔   | n/a | ✔   | ✔   |
 | `%x`        |     |     |     |     |     |     |     |
 | `%X`        |     |     |     |     |     |     |     |
 | `%%`        | ✔   | ✔   | n/a | ✔   | n/a | n/a | n/a |

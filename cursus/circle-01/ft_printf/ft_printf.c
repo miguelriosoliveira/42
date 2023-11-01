@@ -61,7 +61,7 @@ static int	print_formatted(char format, va_list *args, t_flags *flags)
 	if (format == 'd' || format == 'i')
 		return (print_nbr(va_arg(*args, int), flags));
 	if (format == 'u')
-		return (ft_putnbr_fd(va_arg(*args, unsigned int), 1));
+		return (print_unbr(va_arg(*args, unsigned int), flags));
 	if (format == 'x')
 		return (ft_putnbr_base(va_arg(*args, unsigned int), HEX_BASE_LOWER));
 	if (format == 'X')

@@ -34,12 +34,14 @@ int		ft_printf(const char *format, ...);
 t_flags	*read_flags(const char *format, int *i);
 int		print_char(char c, t_flags *flags);
 int		print_nbr(int nbr, t_flags *flags);
+int		print_unbr(unsigned int nbr, t_flags *flags);
 int		print_ptr(void *ptr, t_flags *flags);
 int		print_str(char *str, t_flags *flags);
 char	*create_padding(int size, char c);
 int		print_padded(char *str, char *padding, int is_left_align);
 int		print_repeat(char c, int times);
 int		count_num_len(int nbr);
+int		count_unum_len(unsigned int nbr);
 int		min(int a, int b);
 int		max(int a, int b);
 

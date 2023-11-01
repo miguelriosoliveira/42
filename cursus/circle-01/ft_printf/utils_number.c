@@ -42,3 +42,18 @@ int	count_num_len(int nbr)
 	}
 	return (count);
 }
+
+int	count_unum_len(unsigned int nbr)
+{
+	int	count;
+
+	if (nbr == 0)
+		return (1);
+	count = 0;
+	while (nbr)
+	{
+		count++;
+		nbr /= 10;
+	}
+	return (count);
+}
