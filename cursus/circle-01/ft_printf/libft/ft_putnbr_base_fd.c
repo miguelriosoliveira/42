@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa.c                                         :+:      :+:    :+:   */
+/*   ft_putnbr_base_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,43 +12,17 @@
 
 #include "libft.h"
 
-static int	count_chars(unsigned long nb, char *base)
+int	ft_putnbr_base_fd(unsigned long nbr, char *base, int fd)
 {
-	int		count;
-	size_t	base_len;
-
-	count = 1;
-	base_len = ft_strlen(base);
-	while (nb >= base_len)
-	{
-		count++;
-		nb /= base_len;
-	}
-	return (count);
-}
-
-static void	fill_str(char *str, unsigned long nb, int size, char *base)
-{
-	int	base_len;
+	unsigned int	base_len;
+	int				char_count;
 
 	base_len = ft_strlen(base);
-	while (size > 0)
-	{
-		size--;
-		str[size] = base[nb % base_len];
-		nb /= base_len;
-	}
-}
-
-char	*ft_uitoa(unsigned long n, char *base)
-{
-	int		size;
-	char	*n_str;
-
-	size = count_chars(n, base);
-	n_str = ft_calloc((size + 1), sizeof(char));
-	if (!n_str)
-		return (NULL);
-	fill_str(n_str, n, size, base);
-	return (n_str);
+	char_count = 0;
+	if (nbr >= base_len)
+		char_count += ft_putnbr_base_fd(nbr / base_len, base, fd);
+	char_count += ft_putchar_fd(base[nbr % base_len], fd);
+	if (char_count != count_base_len(nbr, base))
+		char_count = -1;
+	return (char_count);
 }

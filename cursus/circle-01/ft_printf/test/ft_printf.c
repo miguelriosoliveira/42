@@ -1143,6 +1143,109 @@ int main() {
 			return 1;
 		}
 	}
+	{
+		char *format = " hex [%x]\n";
+		int param = 0;
+		printf("[   printf] ");
+		int expected = printf(format, param);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = " hex [%#x]\n";
+		int param = 0;
+		printf("[   printf] ");
+		int expected = printf(format, param);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = " hex [%#x]\n";
+		int param = 51966;
+		printf("[   printf] ");
+		int expected = printf(format, param);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = " hex [%#.5x, %#.5x, %#.5x, %#.5x, %#.5x, %#.5x, %#.5x, %#.5x, %#.5x, %#.5x]\n";
+		int param1 = 0;
+		int param2 = 5;
+		int param3 = -1;
+		int param4 = -10;
+		int param5 = 0x1234;
+		int param6 = -1862;
+		int param7 = 0xABCDE;
+		int param8 = INT_MIN;
+		int param9 = INT_MAX;
+		int param10 = UINT_MAX;
+		printf("[   printf] ");
+		int expected = printf(format, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
+	{
+		char *format = " hex [%0#5x, %0#5x, %0#5x, %0#5x, %0#5x, %0#5x, %0#5x, %0#5x, %0#5x, %0#5x]\n";
+		int param1 = 0;
+		int param2 = 5;
+		int param3 = -1;
+		int param4 = -10;
+		int param5 = 0x1234;
+		int param6 = -1862;
+		int param7 = 0xABCDE;
+		int param8 = INT_MIN;
+		int param9 = INT_MAX;
+		int param10 = UINT_MAX;
+		printf("[   printf] ");
+		int expected = printf(format, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+		ft_putstr_fd("[ft_printf] ", 1);
+		int received = ft_printf(format, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10);
+
+		int passed = expected == received;
+		if (!passed) {
+			char *result = passed ? "✅" : "❌";
+			printf("%s ft_printf(\"%s\"): %d\n", result, escape(format), received);
+			printf("expected: %d\n", expected);
+			printf("received: %d\n", received);
+			return 1;
+		}
+	}
 
 	printf("✅ ft_printf\n");
 }

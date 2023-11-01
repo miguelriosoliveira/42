@@ -12,13 +12,73 @@
 
 #include "ft_printf.h"
 
-static int	print_zeropad(char *num_str, char *pad, t_flags *flags)
+static int	count_hex_len(unsigned int nbr)
 {
-	size_t	char_count;
+	return (count_base_len(nbr, HEX_BASE_LOWER));
+}
 
-	char_count = print_padded(num_str + 2, pad, flags->left_align);
-	if (char_count != ft_strlen(num_str) + ft_strlen(pad))
-		return (-1);
+static int	print_on_precision(unsigned long nbr, int is_upper, t_flags *flags)
+{
+	int	char_count;
+	int	num_len;
+	int	pad_count;
+
+	char_count = 0;
+	if (nbr == 0 && flags->pad_char != '0' && flags->precision == 0)
+		return (char_count);
+	num_len = count_hex_len(nbr);
+	if (nbr != 0 && flags->hex_form)
+	{
+		if (is_upper)
+			char_count += ft_putstr_fd("0X", 1);
+		else
+			char_count += ft_putstr_fd("0x", 1);
+	}
+	pad_count = flags->precision - num_len;
+	pad_count = max(pad_count, 0);
+	char_count += print_repeat('0', pad_count);
+	if (is_upper)
+		char_count += ft_putnbr_base(nbr, HEX_BASE_UPPER);
+	else
+		char_count += ft_putnbr_base(nbr, HEX_BASE_LOWER);
+	return (char_count);
+}
+
+static void	update_flags(unsigned long nbr, t_flags *flags)
+{
+	if (flags->pad_char == '0')
+	{
+		if (flags->precision < 0)
+		{
+			flags->precision = flags->min_width;
+			if (nbr != 0 && flags->hex_form)
+				flags->precision -= 2;
+		}
+		else
+			flags->pad_char = ' ';
+	}
+}
+
+static int	print_aligned(
+	unsigned int nbr,
+	int pad_count,
+	int is_upper,
+	t_flags *flags
+)
+{
+	int	char_count;
+
+	char_count = 0;
+	if (flags->left_align)
+	{
+		char_count += print_on_precision(nbr, is_upper, flags);
+		char_count += print_repeat(flags->pad_char, pad_count);
+	}
+	else
+	{
+		char_count += print_repeat(flags->pad_char, pad_count);
+		char_count += print_on_precision(nbr, is_upper, flags);
+	}
 	return (char_count);
 }
 
@@ -28,19 +88,19 @@ int	print_hex(unsigned long nbr, int is_upper, t_flags *flags)
 	int	precision_count;
 	int	pad_count;
 	int	char_count;
-	int	width_change;
 
-	num_len = count_unum_len(nbr);
+	num_len = count_hex_len(nbr);
 	if (nbr == 0 && flags->precision == 0)
 		num_len = 0;
-	update_flags(flags);
+	update_flags(nbr, flags);
 	precision_count = flags->precision - num_len;
 	precision_count = max(precision_count, 0);
-	width_change = num_len + precision_count;
-	pad_count = flags->min_width - width_change;
+	if (nbr != 0 && flags->hex_form)
+		num_len += 2;
+	pad_count = flags->min_width - num_len - precision_count;
 	pad_count = max(pad_count, 0);
-	char_count = print_aligned(nbr, pad_count, flags);
-	if (char_count != width_change + pad_count)
+	char_count = print_aligned(nbr, pad_count, is_upper, flags);
+	if (char_count != num_len + precision_count + pad_count)
 		char_count = -1;
 	return (char_count);
 }

@@ -57,3 +57,20 @@ int	count_unum_len(unsigned int nbr)
 	}
 	return (count);
 }
+
+int	count_base_len(unsigned int nbr, char *base)
+{
+	int	char_count;
+	int	base_len;
+
+	if (nbr == 0)
+		return (1);
+	base_len = ft_strlen(base);
+	char_count = 0;
+	while (nbr > 0)
+	{
+		char_count++;
+		nbr /= base_len;
+	}
+	return (char_count);
+}
