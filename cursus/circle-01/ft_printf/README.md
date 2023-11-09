@@ -8,14 +8,14 @@ It is actually pretty cool :)
 
 ## Mandatory part
 
-| Key              | Value                                                                                            |
-|------------------|--------------------------------------------------------------------------------------------------|
-| Program name     | `libftprintf.a`                                                                                  |
-| Turn in files    | `Makefile`, `*.h`, `*/*.h`, `*.c`, `*/*.c`                                                       |
-| Makefile         | `NAME`, `all`, `clean`, `fclean`, `re`                                                           |
-| External functs. | `malloc`, `free`, `write`, `va_start`, `va_arg`, `va_copy`, `va_end`                             |
-| Libft authorized | Yes                                                                                              |
-| Description      | Write a library that contains `ft_printf()`, a function that will mimic the original `printf()`. |
+| Key                | Value                                                                                            |
+|--------------------|--------------------------------------------------------------------------------------------------|
+| Program name       | `libftprintf.a`                                                                                  |
+| Turn in files      | `Makefile`, `*.h`, `*/*.h`, `*.c`, `*/*.c`                                                       |
+| Makefile           | `NAME`, `all`, `clean`, `fclean`, `re`                                                           |
+| External functions | `malloc`, `free`, `write`, `va_start`, `va_arg`, `va_copy`, `va_end`                             |
+| Libft authorized   | Yes                                                                                              |
+| Description        | Write a library that contains `ft_printf()`, a function that will mimic the original `printf()`. |
 
 You have to recode the `printf()` function from `libc`.
 
@@ -45,10 +45,18 @@ You have to implement the following conversions:
 
 ## Bonus part
 
-You don’t have to do all the bonuses.
-
-Bonus list:
-- [ ] Manage any combination of the following flags: `'-0.'` and the field `minimum width` under all conversions.
-- [ ] Manage all the following flags: `'# +'` (Yes, one of them is a space)
-
 > If you plan to complete the bonus part, think about the implementation of your extra features from the start. This way, you will avoid the pitfalls of a naive approach.
+
+- Manage any combination of the following flags: `'-0.'` and the field `minimum width` under all conversions.
+- Manage all the following flags: `'# +'` (Yes, one of them is a space)
+
+| Type | `-`<br/>left align | `0`<br/>zero pad | `.`<br/>precision | `(number)`<br/>min width | `#`<br/>alternative form | `(space)`<br/>left pad with one space | `+`<br/>show signed numbers |
+|:-----------:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `%c`        | ✔   | ✔   | n/a | ✔   | n/a | n/a | n/a |
+| `%s`        | ✔   | ✔   | ✔   | ✔   | n/a | n/a | n/a |
+| `%p`        | ✔   | ✔   | n/a | ✔   | n/a | n/a | n/a |
+| `%d` / `%i` | ✔   | ✔   | ✔   | ✔   | n/a | ✔   | ✔   |
+| `%u`        | ✔   | ✔   | ✔   | ✔   | n/a | ✔   | ✔   |
+| `%x`        | ✔   | ✔   | ✔   | ✔   | ✔   | n/a | n/a |
+| `%X`        | ✔   | ✔   | ✔   | ✔   | ✔   | n/a | n/a |
+| `%%`        | ✔   | ✔   | n/a | ✔   | n/a | n/a | n/a |

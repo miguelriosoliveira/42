@@ -71,6 +71,7 @@ tags
 # Persistent undo
 [._]*.un~
 
+.vscode
 ft_display_file
 ft_cat
 ft_tail
