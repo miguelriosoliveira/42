@@ -22,4 +22,6 @@ int main(void) {
 		printf("received: \"%s\"\n", received);
 		return 1;
 	}
+
+	printf("✅ PASSED\n");
 }

@@ -135,6 +135,48 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	unsigned int	i;
+	size_t			src_len;
+
+	src_len = 0;
+	while (src[src_len])
+		src_len++;
+	if (dstsize == 0)
+		return (src_len);
+	i = 0;
+	while (i < dstsize - 1 && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (src_len);
+}
+
+int	find_index(char *str, char c)
+{
+	char *found;
+
+	found = ft_strchr(str, c);
+	if (!found)
+		return (-1);
+	return (found - str);
+}
+
+char	*update_line(char *line, char *to_append)
+{
+	char	*aux;
+
+	aux = line;
+	line = ft_strjoin(line, to_append);
+	free(aux);
+	return (line);
+}
+
+#include <stdio.h>
+
 char	*get_next_line(int fd)
 {
 	char	*buffer;
@@ -143,18 +185,75 @@ char	*get_next_line(int fd)
 	char	bytes_read;
 	int		line_break_pos;
 
+
 	buffer = ft_calloc(BUFFER_SIZE, sizeof(char));
 	if (!buffer)
 		return (NULL);
+	line = ft_calloc(1, sizeof(char));
+	if (!line)
+		return (NULL);
 	while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		line_break_pos = buffer - ft_strchr(buffer, '\n');
-		if (line_break_pos < ft_strlen(buffer) - 1) {
-			break ;
+		printf("        buffer: \"%s\"\n", buffer);
+
+		line_break_pos = find_index(buffer, '\n');
+
+		printf("line_break_pos: %d\n", line_break_pos);
+
+		// if (line_break_pos >= 0)
+		// {
+		// 	aux = ft_substr(buffer, 0, line_break_pos + 1);
+		// 	if (!aux)
+		// 	{
+		// 		free(buffer);
+		// 		free(line);
+		// 		return (NULL);
+		// 	}
+		// 	line = update_line(line, aux);
+		// 	free(aux);
+		// }
+		// else
+		// {
+		// 	line = update_line(line, buffer);
+		// }
+		if (line_break_pos >= 0)
+		{
+			aux = ft_substr(buffer, 0, line_break_pos + 1);
 		}
-		aux = line;
-		line = ft_strjoin(line, buffer);
+		else
+		{
+			aux = ft_substr(buffer, 0, ft_strlen(buffer));
+		}
+		if (!aux)
+		{
+			free(buffer);
+			free(line);
+			return (NULL);
+		}
+		line = update_line(line, aux);
+		if (!line)
+		{
+			free(buffer);
+			return (NULL);
+		}
 		free(aux);
+
+		printf("          line: \"%s\"\n", line);
+
+		ft_bzero(buffer, BUFFER_SIZE);
+
+		// if (line_break_pos >= 0) {
+		// 	aux = ft_substr(buffer, 0, line_break_pos);
+		// 	ft_bzero(buffer, BUFFER_SIZE);
+		// 	ft_strlcpy(buffer, aux, BUFFER_SIZE);
+		// 	free(aux);
+		// 	break ;
+		// }
+		// aux = line;
+		// line = ft_strjoin(line, buffer);
+		// free(aux);
 	}
-	return (buffer);
+	free(buffer);
+	// return (line);
+	return (line);
 }
