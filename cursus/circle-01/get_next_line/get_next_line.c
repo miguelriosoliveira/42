@@ -200,30 +200,10 @@ char	*get_next_line(int fd)
 
 		printf("line_break_pos: %d\n", line_break_pos);
 
-		// if (line_break_pos >= 0)
-		// {
-		// 	aux = ft_substr(buffer, 0, line_break_pos + 1);
-		// 	if (!aux)
-		// 	{
-		// 		free(buffer);
-		// 		free(line);
-		// 		return (NULL);
-		// 	}
-		// 	line = update_line(line, aux);
-		// 	free(aux);
-		// }
-		// else
-		// {
-		// 	line = update_line(line, buffer);
-		// }
 		if (line_break_pos >= 0)
-		{
 			aux = ft_substr(buffer, 0, line_break_pos + 1);
-		}
 		else
-		{
 			aux = ft_substr(buffer, 0, ft_strlen(buffer));
-		}
 		if (!aux)
 		{
 			free(buffer);
