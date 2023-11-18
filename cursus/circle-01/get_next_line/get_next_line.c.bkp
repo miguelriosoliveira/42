@@ -12,6 +12,13 @@
 
 #include "get_next_line.h"
 
+int	max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
 char	*ft_strchr(const char *s, int c)
 {
 	int		i;
@@ -103,6 +110,58 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (join);
 }
 
+static int	min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	str_len;
+	int		substr_len;
+	int		i;
+
+	str_len = ft_strlen(s);
+	if (start >= str_len)
+		return (ft_calloc(1, sizeof(char)));
+	if (len > str_len)
+		len = str_len;
+	substr_len = min(start + len, str_len) - start;
+	substr = ft_calloc(substr_len + 1, sizeof(char));
+	if (!substr)
+		return (NULL);
+	i = 0;
+	while (i < substr_len)
+	{
+		substr[i] = s[i + start];
+		i++;
+	}
+	return (substr);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	unsigned int	i;
+	size_t			src_len;
+
+	src_len = 0;
+	while (src[src_len])
+		src_len++;
+	if (dstsize == 0)
+		return (src_len);
+	i = 0;
+	while (i < dstsize - 1 && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (src_len);
+}
+
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	size_t		i;
@@ -130,6 +189,16 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	return (dst);
 }
 
+int	find_index(char *str, char c)
+{
+	char *found;
+
+	found = ft_strchr(str, c);
+	if (!found)
+		return (-1);
+	return (found - str);
+}
+
 char	*update_line(char *line, char *to_append)
 {
 	char	*aux;
@@ -140,35 +209,94 @@ char	*update_line(char *line, char *to_append)
 	return (line);
 }
 
+#include <stdio.h>
+
 char	*get_next_line(int fd)
 {
-	/*
-	while read valid block
-		if block contains \n
-			break
-		concat buffer to line
-	concat head of buffer to line
-	buffer is now it's tail
-	return line
-	*/
-
 	static char	buffer[BUFFER_SIZE];
 	char		*line;
-	char		*tail;
-	int			tail_len;
+	char		*aux;
+	char		bytes_read;
+	int			line_break_pos;
+	int			start;
 
-	line = ft_calloc(1, sizeof(char));
+
+	// buffer = ft_calloc(BUFFER_SIZE, sizeof(char));
+	// if (!buffer)
+	// 	return (NULL);
+
+	printf("\n");
+	printf("before all\n");
+	printf("buffer: \"%s\"\n", buffer);
+
+	line_break_pos = find_index(buffer, '\n');
+	if (line_break_pos >= 0)
+		line = ft_substr(buffer, line_break_pos + 1, ft_strlen(buffer));
+	else
+		line = ft_calloc(1, sizeof(char));
 	if (!line)
 		return (NULL);
-	while (read(fd, buffer, BUFFER_SIZE) > 0)
+
+	printf("  line: \"%s\"\n", line);
+
+	start = max(max(line_break_pos, 0), ft_strlen(buffer));
+	while ((bytes_read = read(fd, buffer + start, BUFFER_SIZE - start)) > 0)
 	{
-		if (ft_strchr(buffer, '\n') != NULL)
-			break ;
-		line = update_line(line, buffer);
+	 	printf("\n");
+	 	printf("buffer: \"%s\"\n", buffer);
+
+		line_break_pos = find_index(buffer, '\n');
+
+		printf("\\n pos: %d\n", line_break_pos);
+
+		if (line_break_pos >= 0)
+			aux = ft_substr(buffer, 0, line_break_pos + 1);
+		else
+			aux = ft_substr(buffer, 0, ft_strlen(buffer));
+		if (!aux)
+		{
+			// free(buffer);
+			free(line);
+			return (NULL);
+		}
+		line = update_line(line, aux);
+		if (!line)
+		{
+			// free(buffer);
+			return (NULL);
+		}
+		free(aux);
+
+		printf("  line: \"%s\"\n", line);
+	 	printf("\n");
+
+		if (line_break_pos >= 0)
+		{
+			ft_memmove(buffer, buffer + line_break_pos + 1, BUFFER_SIZE);
+
+			printf("returned line: \"%s\"\n", line);
+
+			return (line);
+		}
+		ft_bzero(buffer, BUFFER_SIZE);
+		start = ft_strlen(buffer);
+
+		printf("buffer fixed: \"%s\"\n", buffer);
+
+		// if (line_break_pos >= 0) {
+		// 	aux = ft_substr(buffer, 0, line_break_pos);
+		// 	ft_bzero(buffer, BUFFER_SIZE);
+		// 	ft_strlcpy(buffer, aux, BUFFER_SIZE);
+		// 	free(aux);
+		// 	break ;
+		// }
+		// aux = line;
+		// line = ft_strjoin(line, buffer);
+		// free(aux);
 	}
-	char	*tail = ft_strchr(buffer, '\n');
-	int		tail_len = ft_strlen(tail);
-	ft_memmove(buffer, tail, tail_len);
-	ft_bzero(buffer + tail_len, BUFFER_SIZE - tail_len);
+	// free(buffer);
+	printf("returned line: \"%s\"\n", line);
+	ft_strlcpy(line, buffer, ft_strlen(buffer) + 1);
+	ft_bzero(buffer, BUFFER_SIZE);
 	return (line);
 }
