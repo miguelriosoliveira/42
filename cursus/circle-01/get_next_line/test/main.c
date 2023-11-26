@@ -6,6 +6,7 @@
 int main(void) {
 	{
 		char *filename = "test/file.txt";
+		printf("Reading \"%s\"...\n", filename);
 		FILE *fp = fopen(filename, "r");
 		char *expected = NULL;
 		size_t len = 0;
@@ -26,6 +27,7 @@ int main(void) {
 	}
 	{
 		char *filename = "test/hp1.txt";
+		printf("Reading \"%s\"...\n", filename);
 		FILE *fp = fopen(filename, "r");
 		char *expected = NULL;
 		size_t len = 0;

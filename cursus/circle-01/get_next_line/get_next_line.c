@@ -12,163 +12,33 @@
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
-{
-	int		i;
-	char	*str;
-	char	chr;
-
-	i = 0;
-	str = (char *)s;
-	chr = c;
-	while (str[i])
-	{
-		if (str[i] == chr)
-			return (&str[i]);
-		i++;
-	}
-	if (chr == '\0')
-		return (&str[i]);
-	return (NULL);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-	size_t	dst_len;
-	size_t	src_len;
-
-	dst_len = ft_strlen(dst);
-	src_len = ft_strlen(src);
-	if (dstsize <= dst_len)
-		return (src_len + dstsize);
-	i = 0;
-	while (src[i] && i < dstsize - dst_len - 1)
-	{
-		dst[dst_len + i] = src[i];
-		i++;
-	}
-	dst[dst_len + i] = '\0';
-	return (dst_len + src_len);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-	char	*str;
-
-	i = 0;
-	str = s;
-	while (i < n)
-	{
-		str[i] = 0;
-		i++;
-	}
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*allocated;
-
-	allocated = malloc(count * size);
-	if (!allocated)
-		return (NULL);
-	ft_bzero(allocated, size * count);
-	return (allocated);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	int		s1_size;
-	int		size;
-	char	*join;
-
-	s1_size = ft_strlen(s1);
-	size = s1_size + ft_strlen(s2);
-	join = ft_calloc((size + 1), sizeof(char));
-	if (!join)
-		return (NULL);
-	ft_strlcat(join, s1, s1_size + 1);
-	ft_strlcat(join, s2, size + 1);
-	return (join);
-}
-
-void	*ft_memmove(void *dst, const void *src, size_t len)
-{
-	size_t		i;
-	char		*dest;
-	const char	*source;
-
-	if (!dst && !src)
-		return (NULL);
-	dest = dst;
-	source = src;
-	if (dest > source)
-	{
-		while (len--)
-			dest[len] = source[len];
-	}
-	else
-	{
-		i = 0;
-		while (i < len)
-		{
-			dest[i] = source[i];
-			i++;
-		}
-	}
-	return (dst);
-}
-
-char	*update_line(char *line, char *to_append)
-{
-	char	*aux;
-
-	aux = line;
-	line = ft_strjoin(line, to_append);
-	free(aux);
-	return (line);
-}
-
 char	*get_next_line(int fd)
 {
-	/*
-	while read valid block
-		if block contains \n
-			break
-		concat buffer to line
-	concat head of buffer to line
-	buffer is now it's tail
-	return line
-	*/
+	char	*buffer;
+	int		bytes_read;
+	char	c;
+	int		i;
 
-	static char	buffer[BUFFER_SIZE];
-	char		*line;
-	char		*tail;
-	int			tail_len;
-
-	line = ft_calloc(1, sizeof(char));
-	if (!line)
+	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, &c, 0) < 0)
 		return (NULL);
-	while (read(fd, buffer, BUFFER_SIZE) > 0)
+	buffer = malloc(BUFFER_SIZE * sizeof(char));
+	if (!buffer)
+		return (NULL);
+	i = 0;
+	bytes_read = read(fd, &c, 1);
+	while (bytes_read)
 	{
-		if (ft_strchr(buffer, '\n') != NULL)
+		buffer[i] = c;
+		i++;
+		if (c == '\n' || c == '\0')
 			break ;
-		line = update_line(line, buffer);
+		bytes_read = read(fd, &c, 1);
 	}
-	char	*tail = ft_strchr(buffer, '\n');
-	int		tail_len = ft_strlen(tail);
-	ft_memmove(buffer, tail, tail_len);
-	ft_bzero(buffer + tail_len, BUFFER_SIZE - tail_len);
-	return (line);
+	if (i == 0 || bytes_read < 0)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	buffer[i] = '\0';
+	return (buffer);
 }
