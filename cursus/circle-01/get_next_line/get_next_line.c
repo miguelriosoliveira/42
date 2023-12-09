@@ -267,38 +267,25 @@ senão
 */
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE];
+	static char	*buffer;
 	char		*line;
 	int			nl_pos;
 	int			bytes_read;
 
 	// printf("[get_next_line] =========== BEGIN ===========\n");
-	// printf("[get_next_line] buffer: \"%s\"\n", buffer);
+
+	if (!buffer)
+	{
+		buffer = malloc(BUFFER_SIZE * sizeof(char));
+		if (!buffer)
+			return (NULL);
+		buffer[0] = '\0';
+	}
 
 	line = malloc(1 * sizeof(char));
 	if (!line)
-		return (NULL);
+		return (free(buffer), NULL);
 	line[0] = '\0';
-	// if (ft_strlen(buffer) > 0)
-	// {
-	// 	// nl_pos = find_index(buffer, '\n');
-	// 	// if (nl_pos >= 0)
-	// 	// {
-	// 	// 	line = update_line(line, buffer, nl_pos);
-	// 	// 	update_buffer(buffer, nl_pos);
-	// 	// 	return (line);
-	// 	// }
-	// 	// else
-	// 	// 	line = update_line(line, buffer, 0);
-	// 	line = update_state(buffer, line);
-
-	// 	printf("[get_next_line] updated buffer: \"%s\"\n", buffer);
-	// 	printf("[get_next_line] returned line: \"%s\"\n", line);
-	// 	printf("[get_next_line] ------------ END ------------\n");
-
-	// 	if (line)
-	// 		return (line);
-	// }
 
 	bytes_read = 1;
 	while (bytes_read > 0)
@@ -319,7 +306,10 @@ char	*get_next_line(int fd)
 	}
 
 	if (ft_strlen(line) == 0)
+	{
+		free(buffer);
 		free(line);
+	}
 
 	// printf("[get_next_line]   final buffer: \"%s\"\n", buffer);
 	// printf("[get_next_line]  returned line: \"%s\"\n", line);

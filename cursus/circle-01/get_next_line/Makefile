@@ -14,4 +14,4 @@ size_%:
 	$(CC) $(BUFFER_FLAG)=$(@:size_%=%) $(SRC) test/main.c -o test/a.out
 	make run
 
-test: no_size #size_1 #size_10 size_9999 size_10000000
+test: no_size size_1 size_10 size_9999 size_10000000
