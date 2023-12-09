@@ -4,7 +4,9 @@ BUFFER_FLAG = -D BUFFER_SIZE
 RM = rm -rf
 
 run:
-	./test/a.out file.txt
+	./test/a.out test/empty.txt
+	./test/a.out test/file.txt
+	./test/a.out test/hp1.txt
 
 no_size:
 	$(CC) $(SRC) test/main.c -o test/a.out
