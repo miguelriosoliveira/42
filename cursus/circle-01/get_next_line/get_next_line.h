@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 32
+# define BUFFER_SIZE 30
 #endif
 
 #ifndef GET_NEXT_LINE_H

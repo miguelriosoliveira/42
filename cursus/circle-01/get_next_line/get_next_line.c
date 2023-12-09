@@ -176,8 +176,6 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-
-
 char	*update_line(char *line, char *buffer, int nl_pos)
 {
 	char	*aux;
@@ -190,14 +188,14 @@ char	*update_line(char *line, char *buffer, int nl_pos)
 		return (line);
 	aux = line;
 
-	printf("[update_line] line: \"%s\"\n", line);
-	printf("[update_line] buffer: \"%s\"\n", buffer);
-	printf("[update_line] nl_pos: %d\n", nl_pos);
-	printf("[update_line] until_nl: \"%s\"\n", until_nl);
+	// printf("[update_line] line: \"%s\"\n", line);
+	// printf("[update_line] buffer: \"%s\"\n", buffer);
+	// printf("[update_line] nl_pos: %d\n", nl_pos);
+	// printf("[update_line] until_nl: \"%s\"\n", until_nl);
 
 	line = ft_strjoin(line, until_nl);
 
-	printf("[update_line] line: \"%s\"\n", line);
+	// printf("[update_line] line: \"%s\"\n", line);
 
 	free(until_nl);
 	free(aux);
@@ -208,100 +206,126 @@ char	*update_line(char *line, char *buffer, int nl_pos)
 
 void	update_buffer(char *buffer, int nl_pos)
 {
-	ft_memmove(buffer, buffer + nl_pos, ft_strlen(buffer + nl_pos));
-	ft_bzero(buffer + nl_pos, ft_strlen(buffer + nl_pos));
+	char	*substr;
+	int		len;
+
+	substr = buffer + nl_pos;
+	len = ft_strlen(substr);
+	ft_memmove(buffer, substr, len);
+	ft_bzero(buffer + len, len);
 }
 
+/*
+se buffer tiver um \n
+	concatena a primeira parte do bufer (até o \n) ao final de LINE
+	buffer passa a ser sua segunda parte (após o \n)
+	retorna LINE
+senão
+	concatena buffer ao final da variável LINE
+*/
 char	*update_state(char *buffer, char *line)
 {
 	int	nl_pos;
 
 	nl_pos = find_index(buffer, '\n');
 
-	printf("[update_state] buffer: \"%s\"\n", buffer);
-	printf("[update_state] line: \"%s\"\n", line);
-	printf("[update_state] nl_pos: %d\n", nl_pos);
+	// printf("[update_state] buffer: \"%s\"\n", buffer);
+	// printf("[update_state] line: \"%s\"\n", line);
+	// printf("[update_state]            nl_pos: %d\n", nl_pos);
+	// printf("[update_state]   BUFFER_SIZE - 1: %d\n", BUFFER_SIZE - 1);
+	// printf("[update_state] ft_strlen(buffer): %zu\n", ft_strlen(buffer));
 
-	if (nl_pos >= 0)
+	if (nl_pos >= 0 && nl_pos < (int)ft_strlen(buffer) - 1)
 	{
 		line = update_line(line, buffer, nl_pos);
-		update_buffer(buffer, nl_pos);
+		update_buffer(buffer, nl_pos + 1);
 	}
 	else
+	{
 		line = update_line(line, buffer, ft_strlen(buffer));
+		ft_bzero(buffer, ft_strlen(buffer));
+	}
 
-	printf("[update_state] updated line: \"%s\"\n", line);
+	// printf("[update_state] updated buffer: \"%s\"\n", buffer);
+	// printf("[update_state] updated line: \"%s\"\n", line);
 
 	return (line);
 }
 
 /*
-	se buffer tiver algum resíduo
-		se buffer tiver um \n
-			concatena a primeira parte (até o \n) do bufer ao final de LINE
-			buffer passa a ser sua segunda parte (após o \n)
-			retorna LINE
-		senão
-			concatena buffer ao final da variável LINE
+se buffer tiver algum resíduo
+	atualiza estado de buffer e de LINE
 
-	enquanto tiver coisas para ler
-		lê bloco de chars para dentro do buffer
-		se buffer tiver um \n
-			concatena a primeira parte (até o \n) do bufer ao final de LINE
-			buffer passa a ser sua segunda parte (após o \n)
-			retorna LINE
-		senão
-			concatena buffer ao final da variável LINE
+enquanto tiver coisas para ler
+	lê bloco de chars para dentro do buffer
+	atualiza estado de buffer e de LINE
 
-	se tiver algo em LINE
-		retorna LINE
-	senão
-		retorna NULL
+se tiver algo em LINE
+	retorna LINE
+senão
+	retorna NULL
 */
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE];
 	char		*line;
 	int			nl_pos;
+	int			bytes_read;
 
-	if (fd) {}
+	// printf("[get_next_line] =========== BEGIN ===========\n");
+	// printf("[get_next_line] buffer: \"%s\"\n", buffer);
 
 	line = malloc(1 * sizeof(char));
 	if (!line)
 		return (NULL);
 	line[0] = '\0';
-	if (ft_strlen(buffer) > 0)
+	// if (ft_strlen(buffer) > 0)
+	// {
+	// 	// nl_pos = find_index(buffer, '\n');
+	// 	// if (nl_pos >= 0)
+	// 	// {
+	// 	// 	line = update_line(line, buffer, nl_pos);
+	// 	// 	update_buffer(buffer, nl_pos);
+	// 	// 	return (line);
+	// 	// }
+	// 	// else
+	// 	// 	line = update_line(line, buffer, 0);
+	// 	line = update_state(buffer, line);
+
+	// 	printf("[get_next_line] updated buffer: \"%s\"\n", buffer);
+	// 	printf("[get_next_line] returned line: \"%s\"\n", line);
+	// 	printf("[get_next_line] ------------ END ------------\n");
+
+	// 	if (line)
+	// 		return (line);
+	// }
+
+	bytes_read = 1;
+	while (bytes_read > 0)
 	{
-		// nl_pos = find_index(buffer, '\n');
-		// if (nl_pos >= 0)
-		// {
-		// 	line = update_line(line, buffer, nl_pos);
-		// 	update_buffer(buffer, nl_pos);
-		// 	return (line);
-		// }
-		// else
-		// 	line = update_line(line, buffer, 0);
-		line = update_state(buffer, line);
-		if (line)
-			return (line);
-	}
-
-	while (read(fd, buffer, BUFFER_SIZE) > 0)
-	{
-		printf("[get_next_line] buffer: \"%s\"\n", buffer);
+		// printf("[get_next_line]         buffer: \"%s\"\n", buffer);
+		// printf("[get_next_line]           line: \"%s\"\n", line);
 
 		line = update_state(buffer, line);
 
-		printf("[get_next_line] line: \"%s\"\n", line);
+		// printf("[get_next_line] updated buffer: \"%s\"\n", buffer);
+		// printf("[get_next_line] updated   line: \"%s\"\n", line);
 
-		nl_pos = find_index(buffer, '\n');
+		nl_pos = find_index(line, '\n');
 		if (nl_pos >= 0)
 			break ;
-
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		buffer[bytes_read] = '\0';
 	}
 
+	if (ft_strlen(line) == 0)
+		free(line);
 
-	if (ft_strlen(line) > 0)
-		return (line);
-	return (NULL);
+	// printf("[get_next_line]   final buffer: \"%s\"\n", buffer);
+	// printf("[get_next_line]  returned line: \"%s\"\n", line);
+	// printf("[get_next_line] ------------ END ------------\n");
+
+	// printf("%s", line);
+
+	return (line);
 }
