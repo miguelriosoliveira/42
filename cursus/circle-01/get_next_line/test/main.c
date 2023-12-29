@@ -10,8 +10,10 @@ int main(int argc, char **argv) {
 	FILE *fp = fopen(filename, "r");
 	char *expected = NULL;
 	size_t len = 0;
+
 	int fd = open(filename, O_RDONLY);
 	int line_count = 0;
+
 	while (getline(&expected, &len, fp) > 0) {
 		line_count++;
 		char *received = get_next_line(fd);
@@ -24,6 +26,9 @@ int main(int argc, char **argv) {
 			return 1;
 		}
 	}
+
+	fclose(fp);
+	close(fd);
 
 	printf("✅ \"%s\" OK\n", filename);
 }
