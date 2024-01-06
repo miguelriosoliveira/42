@@ -1,5 +1,4 @@
-# SRC = get_next_line.c get_next_line_utils.c
-SRC = get_next_line.c get_next_line_utils.c libft/*.c
+SRC = get_next_line.c get_next_line_utils.c
 CC = cc -Wall -Werror -Wextra
 BUFFER_FLAG = -D BUFFER_SIZE
 RM = rm -rf
