@@ -121,7 +121,7 @@ char	*get_next_line(int fd)
 		buffer[0] = '\0';
 	}
 
-	line = malloc(1 * sizeof(char));
+	line = malloc(2 * sizeof(char));
 	if (!line)
 		return (free(buffer), NULL);
 	line[0] = '\0';

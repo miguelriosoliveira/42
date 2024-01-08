@@ -1,11 +1,13 @@
 SRC = get_next_line.c get_next_line_utils.c
-CC = cc -Wall -Werror -Wextra
+CC = gcc -Wall -Werror -Wextra
 BUFFER_FLAG = -D BUFFER_SIZE
 RM = rm -rf
 
 run:
 	./test/a.out test/empty.txt
+	# sleep 1
 	./test/a.out test/file.txt
+	# sleep 1
 	./test/a.out test/hp1.txt
 
 no_size:
