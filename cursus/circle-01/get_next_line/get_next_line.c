@@ -21,7 +21,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len);
 void	ft_bzero(void *s, size_t n);
 int		find_index(char *str, char c);
 
-char	*update_line(char *line, char *buffer, int nl_pos)
+static char	*update_line(char *line, char *buffer, int nl_pos)
 {
 	char	*until_nl;
 	char	*updated_line;
@@ -51,7 +51,7 @@ char	*update_line(char *line, char *buffer, int nl_pos)
 	return (line);
 }
 
-void	update_buffer(char *buffer, int nl_pos)
+static void	update_buffer(char *buffer, int nl_pos)
 {
 	char	*substr;
 	int		len;
@@ -73,15 +73,7 @@ void	update_buffer(char *buffer, int nl_pos)
 	ft_bzero(buffer + len, len);
 }
 
-/*
-se buffer tiver um \n
-	concatena a primeira parte do bufer (até o \n) ao final de LINE
-	buffer passa a ser sua segunda parte (após o \n)
-	retorna LINE
-senão
-	concatena buffer ao final da variável LINE
-*/
-char	*update_state(char *buffer, char *line)
+static char	*update_state(char *buffer, char *line)
 {
 	int	nl_pos;
 
@@ -108,19 +100,6 @@ char	*update_state(char *buffer, char *line)
 	return (line);
 }
 
-/*
-se buffer tiver algum resíduo
-	atualiza estado de buffer e de LINE
-
-enquanto tiver coisas para ler
-	lê bloco de chars para dentro do buffer
-	atualiza estado de buffer e de LINE
-
-se tiver algo em LINE
-	retorna LINE
-senão
-	retorna NULL
-*/
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
