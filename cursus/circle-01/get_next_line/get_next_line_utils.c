@@ -80,8 +80,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		substr[i] = s[i + start];
 		i++;
 	}
+	substr[i] = '\0';
 
-	// printf("[ft_substr] substr: \"%s\"\n", substr);
+	printf("[ft_substr] substr: \"%s\"\n", substr);
 
 	return (substr);
 }
