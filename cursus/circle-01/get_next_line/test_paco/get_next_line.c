@@ -39,9 +39,14 @@ static char	*update_line(char *line, char *buffer, int nl_pos)
 	if (!until_nl)
 		return (line);
 
-	// printf("[update_line]     until_nl: \"%s\"\n", until_nl);
+	// printf("[update_line]           until_nl: \"%s\"\n", until_nl);
+	// printf("[update_line]   line before join: \"%s\"\n", line);
 
 	updated_line = ft_strjoin(line, until_nl);
+
+	// printf("[update_line]    line after join: \"%s\"\n", line);
+	// printf("[update_line]       updated_line: \"%s\"\n", updated_line);
+
 	if (line && *line)
 		free(line);
 	free(until_nl);
@@ -121,7 +126,7 @@ char	*get_next_line(int fd)
 		buffer[0] = '\0';
 	}
 
-	line = malloc(2 * sizeof(char));
+	line = malloc(1 * sizeof(char));
 	if (!line)
 		return (free(buffer), NULL);
 	line[0] = '\0';

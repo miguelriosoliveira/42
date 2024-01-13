@@ -29,25 +29,30 @@ static char	*update_line(char *line, char *buffer, int nl_pos)
 	if (!line || !buffer || nl_pos < 0)
 		return (line);
 
-	printf("[update_line]               line: \"%s\"\n", line);
-	printf("[update_line]             buffer: \"%s\"\n", buffer);
-	printf("[update_line]             nl_pos: %d\n", nl_pos);
-	printf("[update_line]          buffer[0]: \'%c\'\n", buffer[0]);
-	printf("[update_line] buffer[nl_pos + 1]: \'%c\'\n", buffer[nl_pos + 1]);
+	// printf("[update_line]               line: \"%s\"\n", line);
+	// printf("[update_line]             buffer: \"%s\"\n", buffer);
+	// printf("[update_line]             nl_pos: %d\n", nl_pos);
+	// printf("[update_line]          buffer[0]: \'%c\'\n", buffer[0]);
+	// printf("[update_line] buffer[nl_pos + 1]: \'%c\'\n", buffer[nl_pos + 1]);
 
 	until_nl = ft_substr(buffer, 0, nl_pos + 1);
 	if (!until_nl)
 		return (line);
 
-	printf("[update_line]     until_nl: \"%s\"\n", until_nl);
+	// printf("[update_line]           until_nl: \"%s\"\n", until_nl);
+	// printf("[update_line]   line before join: \"%s\"\n", line);
 
 	updated_line = ft_strjoin(line, until_nl);
+
+	// printf("[update_line]    line after join: \"%s\"\n", line);
+	// printf("[update_line]       updated_line: \"%s\"\n", updated_line);
+
 	if (line && *line)
 		free(line);
 	free(until_nl);
 	line = updated_line;
 
-	printf("[update_line]       updated line: \"%s\"\n", line);
+	// printf("[update_line]       updated line: \"%s\"\n", line);
 
 	return (line);
 }
@@ -66,9 +71,9 @@ static void	update_buffer(char *buffer, int nl_pos)
 	substr = buffer + nl_pos + 1;
 	len = ft_strlen(substr);
 
-	printf("[update_buffer]     buffer: \"%s\"\n", buffer);
-	printf("[update_buffer]     substr: \"%s\"\n", substr);
-	printf("[update_buffer] substr_len: %d\n", len);
+	// printf("[update_buffer]     buffer: \"%s\"\n", buffer);
+	// printf("[update_buffer]     substr: \"%s\"\n", substr);
+	// printf("[update_buffer] substr_len: %d\n", len);
 
 	ft_memmove(buffer, substr, len);
 	ft_bzero(buffer + len, len);
@@ -80,9 +85,9 @@ static char	*update_state(char *buffer, char *line)
 
 	nl_pos = find_index(buffer, '\n');
 
-	printf("[update_state]         buffer: \"%s\"\n", buffer);
-	printf("[update_state]           line: \"%s\"\n", line);
-	printf("[update_state]         nl_pos: %d\n", nl_pos);
+	// printf("[update_state]         buffer: \"%s\"\n", buffer);
+	// printf("[update_state]           line: \"%s\"\n", line);
+	// printf("[update_state]         nl_pos: %d\n", nl_pos);
 
 	if (nl_pos >= 0)
 	{
@@ -95,8 +100,8 @@ static char	*update_state(char *buffer, char *line)
 		update_buffer(buffer, ft_strlen(buffer));
 	}
 
-	printf("[update_state] updated buffer: \"%s\"\n", buffer);
-	printf("[update_state]   updated line: \"%s\"\n", line);
+	// printf("[update_state] updated buffer: \"%s\"\n", buffer);
+	// printf("[update_state]   updated line: \"%s\"\n", line);
 
 	return (line);
 }
@@ -108,7 +113,7 @@ char	*get_next_line(int fd)
 	int			nl_pos;
 	int			bytes_read;
 
-	printf("[get_next_line] =========== BEGIN ===========\n");
+	// printf("[get_next_line] =========== BEGIN ===========\n");
 
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, buffer, 0) < 0)
 		return (NULL);
@@ -129,13 +134,13 @@ char	*get_next_line(int fd)
 	bytes_read = 1;
 	while (bytes_read > 0)
 	{
-		printf("[get_next_line]         buffer: \"%s\"\n", buffer);
-		printf("[get_next_line]           line: \"%s\"\n", line);
+		// printf("[get_next_line]         buffer: \"%s\"\n", buffer);
+		// printf("[get_next_line]           line: \"%s\"\n", line);
 
 		line = update_state(buffer, line);
 
-		printf("[get_next_line] updated buffer: \"%s\"\n", buffer);
-		printf("[get_next_line] updated   line: \"%s\"\n", line);
+		// printf("[get_next_line] updated buffer: \"%s\"\n", buffer);
+		// printf("[get_next_line] updated   line: \"%s\"\n", line);
 
 		nl_pos = find_index(line, '\n');
 		if (nl_pos >= 0)
@@ -150,9 +155,9 @@ char	*get_next_line(int fd)
 		line = NULL;
 	}
 
-	printf("[get_next_line]   final buffer: \"%s\"\n", buffer);
-	printf("[get_next_line]  returned line: \"%s\"\n", line);
-	printf("[get_next_line] ------------ END ------------\n");
+	// printf("[get_next_line]   final buffer: \"%s\"\n", buffer);
+	// printf("[get_next_line]  returned line: \"%s\"\n", line);
+	// printf("[get_next_line] ------------ END ------------\n");
 
 	return (line);
 }
