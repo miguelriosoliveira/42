@@ -47,7 +47,7 @@ static char	*update_line(char *line, char *buffer, int nl_pos)
 	// printf("[update_line]    line after join: \"%s\"\n", line);
 	// printf("[update_line]       updated_line: \"%s\"\n", updated_line);
 
-	if (line && *line)
+	// if (line && *line)
 		free(line);
 	free(until_nl);
 	line = updated_line;
@@ -57,7 +57,7 @@ static char	*update_line(char *line, char *buffer, int nl_pos)
 	return (line);
 }
 
-static void	update_buffer(char *buffer, int nl_pos)
+static char	*update_buffer(char *buffer, int nl_pos)
 {
 	char	*substr;
 	int		len;
@@ -65,7 +65,7 @@ static void	update_buffer(char *buffer, int nl_pos)
 	if (nl_pos == (int)ft_strlen(buffer) - 1)
 	{
 		ft_bzero(buffer, ft_strlen(buffer));
-		return ;
+		return (buffer);
 	}
 
 	substr = buffer + nl_pos + 1;
@@ -76,7 +76,8 @@ static void	update_buffer(char *buffer, int nl_pos)
 	// printf("[update_buffer] substr_len: %d\n", len);
 
 	ft_memmove(buffer, substr, len);
-	ft_bzero(buffer + len, len);
+	ft_bzero(buffer + len, ft_strlen(buffer + len));
+	return (buffer);
 }
 
 static char	*update_state(char *buffer, char *line)
@@ -91,13 +92,19 @@ static char	*update_state(char *buffer, char *line)
 
 	if (nl_pos >= 0)
 	{
+		// printf("[update_state]       line before update: \"%s\"\n", line);
 		line = update_line(line, buffer, nl_pos);
-		update_buffer(buffer, nl_pos);
+		// printf("[update_state]        line after update: \"%s\"\n", line);
+		buffer = update_buffer(buffer, nl_pos);
+		// printf("[update_state] line after buffer update: \"%s\"\n", line);
 	}
 	else
 	{
+		// printf("[update_state]       line before update: \"%s\"\n", line);
 		line = update_line(line, buffer, ft_strlen(buffer) - 1);
-		update_buffer(buffer, ft_strlen(buffer));
+		// printf("[update_state]        line after update: \"%s\"\n", line);
+		buffer = update_buffer(buffer, ft_strlen(buffer));
+		// printf("[update_state] line after buffer update: \"%s\"\n", line);
 	}
 
 	// printf("[update_state] updated buffer: \"%s\"\n", buffer);
@@ -123,7 +130,7 @@ char	*get_next_line(int fd)
 		buffer = malloc(BUFFER_SIZE * sizeof(char));
 		if (!buffer)
 			return (NULL);
-		buffer[0] = '\0';
+		ft_bzero(buffer, BUFFER_SIZE);
 	}
 
 	line = malloc(1 * sizeof(char));
@@ -149,7 +156,7 @@ char	*get_next_line(int fd)
 		buffer[bytes_read] = '\0';
 	}
 
-	if (ft_strlen(line) == 0)
+	if (line && ft_strlen(line) == 0)
 	{
 		free(line);
 		line = NULL;

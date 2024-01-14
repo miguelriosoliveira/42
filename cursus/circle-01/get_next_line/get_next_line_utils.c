@@ -58,6 +58,20 @@ int	min(int a, int b)
 	return (b);
 }
 
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	str = s;
+	while (i < n)
+	{
+		str[i] = 0;
+		i++;
+	}
+}
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
@@ -67,20 +81,26 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	str_len = ft_strlen(s);
 	if (start >= str_len)
-		return (malloc(1 * sizeof(char)));
+	{
+		substr = malloc(1 * sizeof(char));
+		if (!substr)
+			return (NULL);
+		ft_bzero(substr, 1);
+		return (substr);
+	}
 	if (len > str_len)
 		len = str_len;
 	substr_len = min(start + len, str_len) - start;
 	substr = malloc((substr_len + 1) * sizeof(char));
 	if (!substr)
 		return (NULL);
+	ft_bzero(substr, substr_len + 1);
 	i = 0;
 	while (i < substr_len)
 	{
 		substr[i] = s[i + start];
 		i++;
 	}
-	substr[i] = '\0';
 
 	// printf("[ft_substr] substr: \"%s\"\n", substr);
 
@@ -105,20 +125,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	}
 	dst[dst_len + i] = '\0';
 	return (dst_len + src_len);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-	char	*str;
-
-	i = 0;
-	str = s;
-	while (i < n)
-	{
-		str[i] = 0;
-		i++;
-	}
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
