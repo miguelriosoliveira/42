@@ -26,7 +26,13 @@ static char	*update_line(char *line, char *buffer, int nl_pos)
 	char	*until_nl;
 	char	*updated_line;
 
-	if (!line || !buffer || nl_pos < 0)
+	if (!line)
+		return (NULL);
+
+	if (!buffer)
+		return (free(line), NULL);
+
+	if (nl_pos < 0)
 		return (line);
 
 	// printf("[update_line]               line: \"%s\"\n", line);
@@ -37,19 +43,20 @@ static char	*update_line(char *line, char *buffer, int nl_pos)
 
 	until_nl = ft_substr(buffer, 0, nl_pos + 1);
 	if (!until_nl)
-		return (line);
+		return (free(line), NULL);
 
 	// printf("[update_line]           until_nl: \"%s\"\n", until_nl);
 	// printf("[update_line]   line before join: \"%s\"\n", line);
 
 	updated_line = ft_strjoin(line, until_nl);
+	if (!updated_line)
+		return (free(line), free(until_nl), NULL);
 
 	// printf("[update_line]    line after join: \"%s\"\n", line);
 	// printf("[update_line]       updated_line: \"%s\"\n", updated_line);
 
-	// if (line && *line)
-		free(line);
 	free(until_nl);
+	free(line);
 	line = updated_line;
 
 	// printf("[update_line]       updated line: \"%s\"\n", line);
@@ -123,7 +130,7 @@ char	*get_next_line(int fd)
 	// printf("[get_next_line] =========== BEGIN ===========\n");
 
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, buffer, 0) < 0)
-		return (NULL);
+		return (free(buffer), NULL);
 
 	if (!buffer)
 	{
@@ -145,6 +152,8 @@ char	*get_next_line(int fd)
 		// printf("[get_next_line]           line: \"%s\"\n", line);
 
 		line = update_state(buffer, line);
+		if (!line)
+			break ;
 
 		// printf("[get_next_line] updated buffer: \"%s\"\n", buffer);
 		// printf("[get_next_line] updated   line: \"%s\"\n", line);
@@ -158,6 +167,8 @@ char	*get_next_line(int fd)
 
 	if (line && ft_strlen(line) == 0)
 	{
+		if (!!buffer)
+			free(buffer);
 		free(line);
 		line = NULL;
 	}
