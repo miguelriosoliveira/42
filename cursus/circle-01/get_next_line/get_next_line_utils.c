@@ -180,3 +180,9 @@ int	find_index(char *str, char c)
 		return (-1);
 	return (found - str);
 }
+
+void	free_ptr(void **ptr)
+{
+	free(*ptr);
+	*ptr = NULL;
+}

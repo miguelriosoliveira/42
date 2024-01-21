@@ -20,6 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 void	ft_bzero(void *s, size_t n);
 int		find_index(char *str, char c);
+void	free_ptr(void *ptr);
 
 static char	*update_line(char *line, char *buffer, int nl_pos)
 {
@@ -110,7 +111,7 @@ static char	*update_state(char *buffer, char *line)
 		// printf("[update_state]       line before update: \"%s\"\n", line);
 		line = update_line(line, buffer, ft_strlen(buffer) - 1);
 		// printf("[update_state]        line after update: \"%s\"\n", line);
-		buffer = update_buffer(buffer, ft_strlen(buffer));
+		buffer = update_buffer(buffer, ft_strlen(buffer) - 1);
 		// printf("[update_state] line after buffer update: \"%s\"\n", line);
 	}
 
@@ -130,7 +131,7 @@ char	*get_next_line(int fd)
 	// printf("[get_next_line] =========== BEGIN ===========\n");
 
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, buffer, 0) < 0)
-		return (free(buffer), NULL);
+		return (NULL);
 
 	if (!buffer)
 	{
@@ -142,7 +143,7 @@ char	*get_next_line(int fd)
 
 	line = malloc(1 * sizeof(char));
 	if (!line)
-		return (free(buffer), NULL);
+		return (NULL);
 	line[0] = '\0';
 
 	bytes_read = 1;
@@ -167,8 +168,8 @@ char	*get_next_line(int fd)
 
 	if (line && ft_strlen(line) == 0)
 	{
-		if (!!buffer)
-			free(buffer);
+		if (buffer)
+			free_ptr(&buffer);
 		free(line);
 		line = NULL;
 	}
