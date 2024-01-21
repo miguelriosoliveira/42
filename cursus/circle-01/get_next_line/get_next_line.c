@@ -135,10 +135,10 @@ char	*get_next_line(int fd)
 
 	if (!buffer)
 	{
-		buffer = malloc(BUFFER_SIZE * sizeof(char));
+		buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!buffer)
 			return (NULL);
-		ft_bzero(buffer, BUFFER_SIZE);
+		ft_bzero(buffer, BUFFER_SIZE + 1);
 	}
 
 	line = malloc(1 * sizeof(char));
