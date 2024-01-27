@@ -131,7 +131,7 @@ char	*get_next_line(int fd)
 	// printf("[get_next_line] =========== BEGIN ===========\n");
 
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, buffer, 0) < 0)
-		return (NULL);
+		return (free_ptr(&buffer), NULL);
 
 	if (!buffer)
 	{
@@ -143,7 +143,7 @@ char	*get_next_line(int fd)
 
 	line = malloc(1 * sizeof(char));
 	if (!line)
-		return (NULL);
+		return (free_ptr(&buffer), NULL);
 	line[0] = '\0';
 
 	bytes_read = 1;
@@ -168,11 +168,11 @@ char	*get_next_line(int fd)
 
 	if (line && ft_strlen(line) == 0)
 	{
-		if (buffer)
-			free_ptr(&buffer);
-		free(line);
-		line = NULL;
+		free_ptr(&buffer);
+		free_ptr(&line);
 	}
+	else if (!line)
+		free_ptr(&buffer);
 
 	// printf("[get_next_line]   final buffer: \"%s\"\n", buffer);
 	// printf("[get_next_line]  returned line: \"%s\"\n", line);
