@@ -93,7 +93,6 @@ char	*get_next_line(int fd)
 	bytes_read = 1;
 	while (bytes_read > 0)
 	{
-
 		line = update_state(buffer, line);
 		if (!line)
 			break ;
