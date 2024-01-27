@@ -12,8 +12,6 @@
 
 #include "get_next_line.h"
 
-#include <stdio.h>
-
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
@@ -101,9 +99,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		substr[i] = s[i + start];
 		i++;
 	}
-
-	// printf("[ft_substr] substr: \"%s\"\n", substr);
-
 	return (substr);
 }
 
@@ -181,7 +176,7 @@ int	find_index(char *str, char c)
 	return (found - str);
 }
 
-void	free_ptr(void **ptr)
+void	free_ptr(char **ptr)
 {
 	free(*ptr);
 	*ptr = NULL;
