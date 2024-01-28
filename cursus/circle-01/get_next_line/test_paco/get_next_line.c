@@ -70,35 +70,37 @@ static char	*update_state(char *buffer, char *line)
 	return (line);
 }
 
+static void	init(int fd, char **buffer, char **line)
+{
+	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, buffer, 0) < 0)
+		return (free_ptr(buffer));
+	if (!*buffer)
+	{
+		*buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+		if (!*buffer)
+			return ;
+		ft_bzero(*buffer, BUFFER_SIZE + 1);
+	}
+	*line = malloc(1 * sizeof(char));
+	if (!*line)
+		return (free_ptr(buffer));
+	*line[0] = '\0';
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
 	char		*line;
-	int			nl_pos;
 	int			bytes_read;
 
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, buffer, 0) < 0)
-		return (free_ptr(&buffer), NULL);
-	if (!buffer)
-	{
-		buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-		if (!buffer)
-			return (NULL);
-		ft_bzero(buffer, BUFFER_SIZE + 1);
-	}
-	line = malloc(1 * sizeof(char));
-	if (!line)
-		return (free_ptr(&buffer), NULL);
-	line[0] = '\0';
+	init(fd, &buffer, &line);
+	if (!buffer || !line)
+		return (NULL);
 	bytes_read = 1;
 	while (bytes_read > 0)
 	{
-
 		line = update_state(buffer, line);
-		if (!line)
-			break ;
-		nl_pos = find_index(line, '\n');
-		if (nl_pos >= 0)
+		if (!line || find_index(line, '\n') >= 0)
 			break ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		buffer[bytes_read] = '\0';
