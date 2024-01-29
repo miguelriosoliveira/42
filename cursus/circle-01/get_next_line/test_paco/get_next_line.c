@@ -114,12 +114,12 @@ char	*get_next_line(int fd)
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		buffer[bytes_read] = '\0';
 	}
-	if (line && ft_strlen(line) == 0)
+	if (!line)
+		free_ptr(&buffer);
+	else if (ft_strlen(line) == 0)
 	{
 		free_ptr(&buffer);
 		free_ptr(&line);
 	}
-	else if (!line)
-		free_ptr(&buffer);
 	return (line);
 }
