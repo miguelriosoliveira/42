@@ -16,6 +16,7 @@ static char	*update_line(char *line, char *buffer, int nl_pos)
 {
 	char	*until_nl;
 	char	*updated_line;
+	int		i;
 
 	if (!line)
 		return (NULL);
@@ -23,9 +24,13 @@ static char	*update_line(char *line, char *buffer, int nl_pos)
 		return (free(line), NULL);
 	if (nl_pos < 0)
 		return (line);
-	until_nl = ft_substr(buffer, 0, nl_pos + 1);
+	until_nl = malloc((nl_pos + 2) * sizeof(char));
 	if (!until_nl)
 		return (free(line), NULL);
+	i = -1;
+	while (++i < nl_pos + 1)
+		until_nl[i] = buffer[i];
+	until_nl[i] = '\0';
 	updated_line = ft_strjoin(line, until_nl);
 	if (!updated_line)
 		return (free(line), free(until_nl), NULL);
@@ -42,21 +47,25 @@ static char	*update_buffer(char *buffer, int nl_pos)
 
 	if (nl_pos == (int)ft_strlen(buffer) - 1)
 	{
-		ft_bzero(buffer, ft_strlen(buffer));
+		buffer[0] = '\0';
 		return (buffer);
 	}
 	substr = buffer + nl_pos + 1;
 	len = ft_strlen(substr);
 	ft_memmove(buffer, substr, len);
-	ft_bzero(buffer + len, ft_strlen(buffer + len));
+	buffer[len] = '\0';
 	return (buffer);
 }
 
 static char	*update_state(char *buffer, char *line)
 {
-	int	nl_pos;
+	int		nl_pos;
+	char	*found;
 
-	nl_pos = find_index(buffer, '\n');
+	nl_pos = -1;
+	found = ft_strchr(buffer, '\n');
+	if (found)
+		nl_pos = found - buffer;
 	if (nl_pos >= 0)
 	{
 		line = update_line(line, buffer, nl_pos);
@@ -79,7 +88,7 @@ static void	init(int fd, char **buffer, char **line)
 		*buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!*buffer)
 			return ;
-		ft_bzero(*buffer, BUFFER_SIZE + 1);
+		*buffer[0] = '\0';
 	}
 	*line = malloc(1 * sizeof(char));
 	if (!*line)
@@ -100,7 +109,7 @@ char	*get_next_line(int fd)
 	while (bytes_read > 0)
 	{
 		line = update_state(buffer, line);
-		if (!line || find_index(line, '\n') >= 0)
+		if (!line || ft_strchr(line, '\n') != NULL)
 			break ;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		buffer[bytes_read] = '\0';
