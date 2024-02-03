@@ -98,7 +98,7 @@ static void	init(int fd, char **buffer, char **line)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer_arr[MAX_BUFFER_COUNT];
+	static char	*buffer_arr[OPEN_MAX];
 	char		*line;
 	int			bytes_read;
 

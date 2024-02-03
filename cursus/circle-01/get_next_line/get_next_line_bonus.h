@@ -17,10 +17,7 @@
 #  define BUFFER_SIZE 30
 # endif
 
-# ifndef MAX_BUFFER_COUNT
-#  define MAX_BUFFER_COUNT 65535
-# endif
-
+# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
 
