@@ -54,7 +54,7 @@ You have to configure your operating system with the `UFW` (or `firewalld` for R
 firewall and thus leave only port 4242 open.
 
 > ℹ️ Your firewall must be active when you launch your virtual machine.
-> For Rocky, you have to use firewalld instead of UFW.
+> For Rocky, you have to use `firewalld` instead of `UFW`.
 
 The `hostname` of your virtual machine must be your login ending with 42 (e.g., `wil42`).
 You will have to modify this hostname during your evaluation.
