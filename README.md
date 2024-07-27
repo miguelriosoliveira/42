@@ -7,9 +7,9 @@
 
 ## Cursus
 
-### Circle 00
-- [Libft](./cursus/circle-00/libft/)
-### Circle 01
-- [ft_printf](./cursus/circle-01/ft_printf/)
-- [get_next_line](./cursus/circle-01/get_next_line/)
-- [Born2beroot](./cursus/circle-01/Born2beroot/)
+### Rank 00
+- [Libft](./cursus/rank-00/libft/)
+### Rank 01
+- [ft_printf](./cursus/rank-01/ft_printf/)
+- [get_next_line](./cursus/rank-01/get_next_line/)
+- [Born2beroot](./cursus/rank-01/Born2beroot/)
