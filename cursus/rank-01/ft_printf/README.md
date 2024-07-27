@@ -1,6 +1,6 @@
 # ft_printf
 
-> Because `ft_putnbr()` and `ft_putstr()` aren’t enough.
+> Because `ft_putnbr()` and `ft_putstr()` aren't enough.
 
 The goal of this project is pretty straightforward. You will recode `printf()`.<br/>
 You will mainly learn about using a variable number of arguments. How cool is that??<br/>
@@ -26,7 +26,7 @@ int	ft_printf(const char *, ...);
 ```
 
 ### Requirements
-- Don’t implement the buffer management of the original `printf()`.
+- Don't implement the buffer management of the original `printf()`.
 - Your function has to handle the following conversions: `c`, `s`, `p`, `d`, `i`, `u`, `x`, `X` and `%`
 - Your function will be compared against the original `printf()`.
 - You must use the command `ar` to create your library. Using the `libtool` command is forbidden.
