@@ -31,4 +31,7 @@ fclean: clean
 
 re: fclean all
 
+test: re $(NAME)
+	./$(NAME)
+
 .PHONY: all libft clean fclean re
