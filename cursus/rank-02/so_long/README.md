@@ -121,13 +121,13 @@ You will get extra points if you:
 - Add some sprite animation.
 - Display the movement count directly on screen instead of writing it in the shell.
 
-![](./assets/so-long.png)
+![](./assets/docs/so-long.png)
 
 > ℹ️ You can add files/folders based on bonuses as needed.
 
 ## Examples
 
-![](./assets/example1.png)
-![](./assets/example2.png)
+![](./assets/docs/example1.png)
+![](./assets/docs/example2.png)
 
 `so_long` examples showing terrible taste in graphic design (almost worth some bonus points)!
