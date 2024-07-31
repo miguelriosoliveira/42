@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/07/30 23:32:07 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/07/31 23:44:02 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int on_keypress(int keysym, t_data *data)
 
 int	main(void)
 {
-	t_vars vars;
+	t_vars	vars;
+	t_data	img;
+	int		img_width;
+	int		img_height;
 
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
@@ -67,6 +70,16 @@ int	main(void)
 
 	// Register destroy hook
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, &on_destroy, &vars);
+
+
+	img.img = mlx_xpm_file_to_image(vars.mlx, "./assets/player/front1.xpm",
+									&img_width, &img_height);
+	if (!img.img)
+		return (free(vars.mlx), 1);
+
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+								&img.endian);
+	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 
 	// Loop over the MLX pointer
 	mlx_loop(vars.mlx);
