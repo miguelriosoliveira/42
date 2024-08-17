@@ -6,32 +6,11 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/07/31 23:44:02 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/17 19:23:43 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-}				t_vars;
 
 #include <stdio.h>
 
@@ -44,42 +23,91 @@ int on_destroy(t_vars *vars)
 	return (0);
 }
 
-int on_keypress(int keysym, t_data *data)
+void	move(t_vars *vars, int direction)
 {
-	(void)data;
-	printf("Pressed key: %d\n", keysym);
+	void	*sprite;
+	if (direction == DIR_UP)
+	{
+		vars->player.y -= 1;
+		sprite = vars->player.back.img;
+	}
+	if (direction == DIR_DOWN)
+	{
+		vars->player.y += 1;
+		sprite = vars->player.front.img;
+	}
+	if (direction == DIR_LEFT)
+	{
+		vars->player.x -= 1;
+		sprite = vars->player.left.img;
+	}
+	if (direction == DIR_RIGHT)
+	{
+		vars->player.x += 1;
+		sprite = vars->player.right.img;
+	}
+	mlx_put_image_to_window(
+		vars->mlx,
+		vars->win,
+		sprite,
+		vars->player.x,
+		vars->player.y
+	);
+}
+
+int on_keypress(int keycode, t_vars *vars)
+{
+	(void)vars;
+	printf("Pressed key: %d\n", keycode);
+	if (keycode == ESC)
+		on_destroy(vars);
+	else if (keycode == W || keycode == ARROW_UP)
+		move(vars, DIR_UP);
+	else if (keycode == A || keycode == ARROW_LEFT)
+		move(vars, DIR_LEFT);
+	else if (keycode == S || keycode == ARROW_DOWN)
+		move(vars, DIR_DOWN);
+	else if (keycode == D || keycode == ARROW_RIGHT)
+		move(vars, DIR_RIGHT);
 	return (0);
 }
 
 int	main(void)
 {
 	t_vars	vars;
-	t_data	img;
-	int		img_width;
-	int		img_height;
 
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
 		return (1);
-	vars.win = mlx_new_window(vars.mlx, 600, 400, "hi :)");
+	vars.win = mlx_new_window(vars.mlx, 600, 400, "so_long");
 	if (!vars.win)
 		return (free(vars.mlx), 1);
 
-	// Register key release hook
-	mlx_hook(vars.win, KeyRelease, KeyReleaseMask, &on_keypress, &vars);
+	// register key press hook
+	mlx_hook(vars.win, KeyPress, KeyPressMask, &on_keypress, &vars);
 
-	// Register destroy hook
+	// register destroy hook
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, &on_destroy, &vars);
 
-
-	img.img = mlx_xpm_file_to_image(vars.mlx, "./assets/player/front1.xpm",
-									&img_width, &img_height);
-	if (!img.img)
+	// load player sprites
+	vars.player.x = 0;
+	vars.player.y = 0;
+	vars.player.front.img = mlx_xpm_file_to_image(
+		vars.mlx,
+		PLAYER_FRONT_SPRITE,
+		&vars.player.front.width,
+		&vars.player.front.height
+	);
+	if (!vars.player.front.img)
 		return (free(vars.mlx), 1);
 
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	vars.player.front.addr = mlx_get_data_addr(
+		vars.player.front.img,
+		&vars.player.front.bits_per_pixel,
+		&vars.player.front.line_length,
+		&vars.player.front.endian
+	);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.player.front.img, 0, 0);
 
 	// Loop over the MLX pointer
 	mlx_loop(vars.mlx);
