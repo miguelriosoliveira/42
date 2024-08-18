@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/18 18:14:22 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:19:25 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,27 @@ int on_destroy(t_vars *vars)
 void	move(t_vars *vars, int direction)
 {
 	t_sprite	*sprite;
+	int			pace;
+
+	pace = 1;
 	if (direction == DIR_UP)
 	{
-		vars->player.y -= 1;
+		vars->player.y -= pace;
 		sprite = &vars->player.back;
 	}
 	if (direction == DIR_DOWN)
 	{
-		vars->player.y += 1;
+		vars->player.y += pace;
 		sprite = &vars->player.front;
 	}
 	if (direction == DIR_LEFT)
 	{
-		vars->player.x -= 1;
+		vars->player.x -= pace;
 		sprite = &vars->player.left;
 	}
 	if (direction == DIR_RIGHT)
 	{
-		vars->player.x += 1;
+		vars->player.x += pace;
 		sprite = &vars->player.right;
 	}
 	mlx_put_image_to_window(
