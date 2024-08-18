@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/18 18:19:25 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:48:14 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	move(t_vars *vars, int direction)
 	t_sprite	*sprite;
 	int			pace;
 
-	pace = 1;
+	pace = vars->player.front.width;
 	if (direction == DIR_UP)
 	{
 		vars->player.y -= pace;
@@ -56,12 +56,11 @@ void	move(t_vars *vars, int direction)
 		vars->player.x,
 		vars->player.y
 	);
+	mlx_do_sync(vars->mlx);
 }
 
 int on_keypress(int keycode, t_vars *vars)
 {
-	(void)vars;
-	printf("Pressed key: %d\n", keycode);
 	if (keycode == ESC)
 		on_destroy(vars);
 	else if (keycode == W || keycode == ARROW_UP)
@@ -85,7 +84,6 @@ int	load_sprite(void *mlx, t_sprite *sprite_part, char *sprite_file)
 	);
 	if (!sprite_part->img)
 		return (1);
-
 	sprite_part->addr = mlx_get_data_addr(
 		sprite_part->img,
 		&sprite_part->bits_per_pixel,
@@ -99,18 +97,26 @@ int	load_sprites(t_vars *vars)
 {
 	int	err;
 
-	err = load_sprite(vars->mlx, &vars->player.front, PLAYER_FRONT_SPRITE);
+	err = load_sprite(vars->mlx, &vars->player.front, SPRITE_PLAYER_FRONT);
 	if (err)
 		return (1);
-	err = load_sprite(vars->mlx, &vars->player.back, PLAYER_BACK_SPRITE);
+	err = load_sprite(vars->mlx, &vars->player.back, SPRITE_PLAYER_BACK);
 	if (err)
 		return (1);
-	err = load_sprite(vars->mlx, &vars->player.left, PLAYER_LEFT_SPRITE);
+	err = load_sprite(vars->mlx, &vars->player.left, SPRITE_PLAYER_LEFT);
 	if (err)
 		return (1);
-	err = load_sprite(vars->mlx, &vars->player.right, PLAYER_RIGHT_SPRITE);
+	err = load_sprite(vars->mlx, &vars->player.right, SPRITE_PLAYER_RIGHT);
 	if (err)
 		return (1);
+
+	err = load_sprite(vars->mlx, &vars->floor, SPRITE_FLOOR);
+	if (err)
+		return (1);
+	err = load_sprite(vars->mlx, &vars->wall, SPRITE_WALL);
+	if (err)
+		return (1);
+
 	return (0);
 }
 
@@ -138,6 +144,8 @@ int	main(void)
 	err = load_sprites(&vars);
 	if (err)
 		return (free(vars.mlx), 1);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.floor.img, 0, 0);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.floor.img, 48, 48);
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.player.front.img, 0, 0);
 
 	// Loop over the MLX pointer

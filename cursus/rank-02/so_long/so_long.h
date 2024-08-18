@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/18 17:48:25 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:43:40 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@
 # include <mlx.h>
 # include <X11/X.h>
 
-# define PLAYER_FRONT_SPRITE "./assets/player/front1.xpm"
-# define PLAYER_BACK_SPRITE "./assets/player/back1.xpm"
-# define PLAYER_LEFT_SPRITE "./assets/player/left1.xpm"
-# define PLAYER_RIGHT_SPRITE "./assets/player/right1.xpm"
+# define SPRITE_PLAYER_FRONT "./assets/player/front1.xpm"
+# define SPRITE_PLAYER_BACK "./assets/player/back1.xpm"
+# define SPRITE_PLAYER_LEFT "./assets/player/left1.xpm"
+# define SPRITE_PLAYER_RIGHT "./assets/player/right1.xpm"
+
+# define SPRITE_FLOOR "./assets/house/floor.xpm"
+# define SPRITE_WALL "./assets/house/floor.xpm"
 
 # define ESC 65307
 # define W 119
@@ -60,6 +63,8 @@ typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
 	t_player	player;
+	t_sprite	floor;
+	t_sprite	wall;
 }				t_vars;
 
 #endif
