@@ -2,7 +2,7 @@
 static char *_7ab8c3e0c5041de876d7a44715b59c3[] = {
 /* columns rows colors chars-per-pixel */
 "48 48 14 1 ",
-"  c #0B0846",
+"  c None",
 ". c #33324F",
 "X c None",
 "o c #0B0846",
@@ -28,7 +28,7 @@ static char *_7ab8c3e0c5041de876d7a44715b59c3[] = {
 "  oOOOOOOOOOOo    ooOOOOOOOOOOOOOOOOOO@o        ",
 " ooOOOOOOOOOoo     oOOOOOOOOOOOOOOOOOOOo        ",
 " oOOOOOOOOoo       ooOOOOOOOOOOOOOOOOOOOo       ",
-" oOOOOOOOoo         oOOOOOOOOOOOOOOOOOOOoX....  ",
+" oOOOOOOOoo         oOOOOOOOOOOOOOOOOOOOoX      ",
 " oOOOOOOoo          ooOOOOOOOOOOOOOOOOOOoo      ",
 " oOOOOOOo            oOOOOOOOOOOOoooOOOOOo      ",
 " oOOOOOoo            ooOOOOOOOOOoo##$%OOOoo     ",

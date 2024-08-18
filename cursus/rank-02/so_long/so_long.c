@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/17 19:23:43 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:14:22 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,31 @@ int on_destroy(t_vars *vars)
 
 void	move(t_vars *vars, int direction)
 {
-	void	*sprite;
+	t_sprite	*sprite;
 	if (direction == DIR_UP)
 	{
 		vars->player.y -= 1;
-		sprite = vars->player.back.img;
+		sprite = &vars->player.back;
 	}
 	if (direction == DIR_DOWN)
 	{
 		vars->player.y += 1;
-		sprite = vars->player.front.img;
+		sprite = &vars->player.front;
 	}
 	if (direction == DIR_LEFT)
 	{
 		vars->player.x -= 1;
-		sprite = vars->player.left.img;
+		sprite = &vars->player.left;
 	}
 	if (direction == DIR_RIGHT)
 	{
 		vars->player.x += 1;
-		sprite = vars->player.right.img;
+		sprite = &vars->player.right;
 	}
 	mlx_put_image_to_window(
 		vars->mlx,
 		vars->win,
-		sprite,
+		sprite->img,
 		vars->player.x,
 		vars->player.y
 	);
@@ -72,14 +72,54 @@ int on_keypress(int keycode, t_vars *vars)
 	return (0);
 }
 
+int	load_sprite(void *mlx, t_sprite *sprite_part, char *sprite_file)
+{
+	sprite_part->img = mlx_xpm_file_to_image(
+		mlx,
+		sprite_file,
+		&sprite_part->width,
+		&sprite_part->height
+	);
+	if (!sprite_part->img)
+		return (1);
+
+	sprite_part->addr = mlx_get_data_addr(
+		sprite_part->img,
+		&sprite_part->bits_per_pixel,
+		&sprite_part->line_length,
+		&sprite_part->endian
+	);
+	return (0);
+}
+
+int	load_sprites(t_vars *vars)
+{
+	int	err;
+
+	err = load_sprite(vars->mlx, &vars->player.front, PLAYER_FRONT_SPRITE);
+	if (err)
+		return (1);
+	err = load_sprite(vars->mlx, &vars->player.back, PLAYER_BACK_SPRITE);
+	if (err)
+		return (1);
+	err = load_sprite(vars->mlx, &vars->player.left, PLAYER_LEFT_SPRITE);
+	if (err)
+		return (1);
+	err = load_sprite(vars->mlx, &vars->player.right, PLAYER_RIGHT_SPRITE);
+	if (err)
+		return (1);
+	return (0);
+}
+
 int	main(void)
 {
 	t_vars	vars;
+	int		err;
 
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
 		return (1);
-	vars.win = mlx_new_window(vars.mlx, 600, 400, "so_long");
+	vars.win = mlx_new_window(vars.mlx, 800, 600, "so_long");
 	if (!vars.win)
 		return (free(vars.mlx), 1);
 
@@ -92,21 +132,9 @@ int	main(void)
 	// load player sprites
 	vars.player.x = 0;
 	vars.player.y = 0;
-	vars.player.front.img = mlx_xpm_file_to_image(
-		vars.mlx,
-		PLAYER_FRONT_SPRITE,
-		&vars.player.front.width,
-		&vars.player.front.height
-	);
-	if (!vars.player.front.img)
+	err = load_sprites(&vars);
+	if (err)
 		return (free(vars.mlx), 1);
-
-	vars.player.front.addr = mlx_get_data_addr(
-		vars.player.front.img,
-		&vars.player.front.bits_per_pixel,
-		&vars.player.front.line_length,
-		&vars.player.front.endian
-	);
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.player.front.img, 0, 0);
 
 	// Loop over the MLX pointer
