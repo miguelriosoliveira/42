@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/21 21:36:17 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:53:46 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define SPRITE_PLAYER_LEFT "./assets/player/left1.xpm"
 # define SPRITE_PLAYER_RIGHT "./assets/player/right1.xpm"
 
-# define SPRITE_FLOOR "./assets/house/floor.xpm"
-# define SPRITE_WALL "./assets/house/wall.xpm"
+# define SPRITE_FLOOR "./assets/map/floor.xpm"
+# define SPRITE_WALL "./assets/map/tree.xpm"
 
 # define TILE_SIZE 48
 

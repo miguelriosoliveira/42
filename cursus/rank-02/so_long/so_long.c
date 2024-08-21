@@ -6,13 +6,16 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/21 21:35:06 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:41:31 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-#include <stdio.h>
+int	load_map()
+{
+	return (0);
+}
 
 int	main(void)
 {
@@ -24,6 +27,10 @@ int	main(void)
 		return (1);
 	vars.win = mlx_new_window(vars.mlx, TILE_SIZE * 20, TILE_SIZE * 10, "so_long");
 	if (!vars.win)
+		return (free(vars.mlx), 1);
+
+	err = load_map();
+	if (err)
 		return (free(vars.mlx), 1);
 
 	// register key press hook
