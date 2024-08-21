@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/18 19:48:14 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:58:21 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	main(void)
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
 		return (1);
-	vars.win = mlx_new_window(vars.mlx, 800, 600, "so_long");
+	vars.win = mlx_new_window(vars.mlx, TILE_SIZE * 20, TILE_SIZE * 10, "so_long");
 	if (!vars.win)
 		return (free(vars.mlx), 1);
 
@@ -139,14 +139,16 @@ int	main(void)
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, &on_destroy, &vars);
 
 	// load player sprites
-	vars.player.x = 0;
-	vars.player.y = 0;
+	vars.player.x = TILE_SIZE * 3;
+	vars.player.y = TILE_SIZE * 3;
 	err = load_sprites(&vars);
 	if (err)
 		return (free(vars.mlx), 1);
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.floor.img, 0, 0);
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.floor.img, 48, 48);
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.player.front.img, 0, 0);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.floor.img, TILE_SIZE * 0, TILE_SIZE * 0);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.floor.img, TILE_SIZE * 1, TILE_SIZE * 0);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.floor.img, TILE_SIZE * 1, TILE_SIZE * 1);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.floor.img, TILE_SIZE * 0, TILE_SIZE * 1);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.player.front.img, vars.player.x, vars.player.y);
 
 	// Loop over the MLX pointer
 	mlx_loop(vars.mlx);
