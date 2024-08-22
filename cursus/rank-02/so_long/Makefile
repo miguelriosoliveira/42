@@ -32,6 +32,6 @@ fclean: clean
 re: fclean all
 
 test: re $(NAME)
-	./$(NAME)
+	./$(NAME) maps/map1.ber
 
 .PHONY: all libft clean fclean re

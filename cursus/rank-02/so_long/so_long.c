@@ -6,21 +6,34 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/21 21:41:31 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/22 22:26:39 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	load_map()
+#include <stdio.h>
+
+int	load_map(char *filename)
 {
+	(void)filename;
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_vars	vars;
 	int		err;
+	char	*map_file;
+
+	if (argc != 2)
+	{
+		ft_printf("Bad list of arguments!\n>\t./so_long <mapfile.ber>\n");
+		return (1);
+	}
+	map_file = argv[1];
+
+	ft_printf("map_file: \"%s\"\n", map_file);
 
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
@@ -29,7 +42,7 @@ int	main(void)
 	if (!vars.win)
 		return (free(vars.mlx), 1);
 
-	err = load_map();
+	err = load_map(map_file);
 	if (err)
 		return (free(vars.mlx), 1);
 

@@ -6,12 +6,12 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/21 22:53:46 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/22 22:08:05 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef SO_LONG_H
+# define SO_LONG_H
 
 # include "libft/libft.h"
 # include <mlx.h>
@@ -22,7 +22,7 @@
 # define SPRITE_PLAYER_LEFT "./assets/player/left1.xpm"
 # define SPRITE_PLAYER_RIGHT "./assets/player/right1.xpm"
 
-# define SPRITE_FLOOR "./assets/map/floor.xpm"
+# define SPRITE_GROUND "./assets/map/ground.xpm"
 # define SPRITE_WALL "./assets/map/tree.xpm"
 
 # define TILE_SIZE 48
