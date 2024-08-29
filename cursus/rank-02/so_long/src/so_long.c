@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/29 23:10:07 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:33:00 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ int	main(int argc, char **argv)
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, &on_destroy, &vars);
 
 	// load player sprites
-	// vars.player.x = TILE_SIZE * 3;
-	// vars.player.y = TILE_SIZE * 3;
 	err = load_sprites(&vars);
 	if (err)
 		return (free(vars.mlx), 1);
@@ -91,7 +89,8 @@ int	main(int argc, char **argv)
 	if (err)
 		return (free(vars.mlx), 1);
 
-
+	// vars.player.x = TILE_SIZE * 3;
+	// vars.player.y = TILE_SIZE * 3;
 	// render(&vars, &vars.player.front);
 
 	// Loop over the MLX pointer

@@ -39,17 +39,17 @@ $(MLX_LIB):
 	echo $(G)"✅ Finished!"$(X)
 
 $(LIBFT_LIB):
-	echo -n $(B)"Compiling libft..."
+	printf $(B)"Compiling libft..."
 	$(MAKE) $(LIBFT_PATH)
 	echo $(G)" ✅ Finished!"$(X)
 
 %.o: %.c
-	echo -n $(Y)"Compiling [$<]..."$(X)
+	printf $(Y)"Compiling [$<]..."$(X)
 	$(CC) $(INCLUDES) -c $< -o $@
 	echo $(G)" ✅ Finished!"$(X)
 
 $(NAME): $(OBJ)
-	echo -n $(Y)Compiling [$(NAME)]...$(X)
+	printf $(Y)"Compiling [$(NAME)]..."$(X)
 	$(CC) $(MLX_FLAGS) $(OBJ) $(MLX_LIB) $(LIBFT_LIB) -o $(NAME)
 	echo $(G)" ✅ Finished!"$(X)
 
