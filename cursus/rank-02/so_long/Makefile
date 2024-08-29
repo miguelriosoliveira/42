@@ -1,18 +1,28 @@
 NAME = so_long
 
-SRC = so_long.c hooks.c render.c sprites.c
-OBJ = $(SRC:.c=.o) libft/*.o
+Y = "\033[33m"
+R = "\033[31m"
+G = "\033[32m"
+B = "\033[34m"
+X = "\033[0m"
+UP = "\033[A"
+CUT = "\033[K"
+
+SRC_ = so_long.c hooks.c render.c sprites.c
+SRC = $(addprefix src/, $(SRC_))
+OBJ = $(SRC:.c=.o)
 
 CC = cc -Wall -Werror -Wextra
 AR = ar -rcs
 RM = rm -rf
+MAKE = make -sC
 
-LIBFT_DIR = libft/
-LIBFT_LIB = $(LIBFT_DIR)libft.a
+LIBFT_PATH = libft/
+LIBFT_LIB = $(LIBFT_PATH)libft.a
 
 UNAME = $(shell uname)
-MLX_DIR = mlx/
-MLX_LIB = $(MLX_DIR)/libmlx_$(UNAME).a
+MLX_PATH = mlx/
+MLX_LIB = $(MLX_PATH)/libmlx_$(UNAME).a
 ifeq ($(UNAME), Linux)
 	INCLUDES = -Imlx -I/usr/include
 	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
@@ -24,31 +34,32 @@ endif
 all: $(MLX_LIB) $(LIBFT_LIB) $(NAME)
 
 $(MLX_LIB):
-	echo "Compiling mlx..."
-	make -C $(MLX_DIR)
+	echo $(B)"Compiling mlx..."
+	$(MAKE) $(MLX_PATH)
+	echo $(G)"✅ Finished!"$(X)
 
 $(LIBFT_LIB):
-	echo "Compiling libft..."
-	make -C $(LIBFT_DIR)
-
-# $(NAME): $(OBJ)
-# 	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-
-$(NAME): $(OBJ)
-	$(CC) $(MLX_FLAGS) $(OBJ) $(MLX_LIB) $(LIBFT_LIB) -o $(NAME)
-
-# %.o: %.c
-# 	$(CC) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	echo -n $(B)"Compiling libft..."
+	$(MAKE) $(LIBFT_PATH)
+	echo $(G)" ✅ Finished!"$(X)
 
 %.o: %.c
+	echo -n $(Y)"Compiling [$<]..."$(X)
 	$(CC) $(INCLUDES) -c $< -o $@
+	echo $(G)" ✅ Finished!"$(X)
+
+$(NAME): $(OBJ)
+	echo -n $(Y)Compiling [$(NAME)]...$(X)
+	$(CC) $(MLX_FLAGS) $(OBJ) $(MLX_LIB) $(LIBFT_LIB) -o $(NAME)
+	echo $(G)" ✅ Finished!"$(X)
 
 clean:
-	make -C $(LIBFT_DIR) clean
+	$(MAKE) $(MLX_PATH) clean
+	$(MAKE) $(LIBFT_PATH) clean
 	$(RM) $(OBJ)
 
 fclean: clean
-	make -C $(LIBFT_DIR) fclean
+	$(MAKE) $(LIBFT_PATH) fclean
 	$(RM) $(NAME)
 
 re: fclean all
@@ -56,4 +67,6 @@ re: fclean all
 test: re $(NAME)
 	./$(NAME) maps/map1.ber
 
-.PHONY: all libft clean fclean re test
+.PHONY: all $(MLX_LIB) $(LIBFT_LIB) $(NAME) clean fclean re test
+
+.SILENT:

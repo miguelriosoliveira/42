@@ -6,14 +6,14 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/22 22:08:05 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/29 21:55:48 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <mlx.h>
 # include <X11/X.h>
 
