@@ -6,16 +6,17 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/29 21:55:48 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/29 22:55:12 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../libft/libft.h"
-# include <mlx.h>
+# include <fcntl.h>
 # include <X11/X.h>
+# include <mlx.h>
+# include "../libft/libft.h"
 
 # define SPRITE_PLAYER_FRONT "./assets/player/front1.xpm"
 # define SPRITE_PLAYER_BACK "./assets/player/back1.xpm"
