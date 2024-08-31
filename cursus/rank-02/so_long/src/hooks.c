@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:23:10 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/21 21:33:33 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:08:27 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void	move(t_vars *vars, int direction)
 	t_sprite	*sprite;
 	int			pace;
 
-	pace = vars->player.front.width;
+	pace = vars->player.down.width;
 	if (direction == DIR_UP)
 	{
 		vars->player.y -= pace;
-		sprite = &vars->player.back;
+		sprite = &vars->player.up;
 	}
 	if (direction == DIR_DOWN)
 	{
 		vars->player.y += pace;
-		sprite = &vars->player.front;
+		sprite = &vars->player.down;
 	}
 	if (direction == DIR_LEFT)
 	{

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/29 22:55:12 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:24:21 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,22 @@
 # include <mlx.h>
 # include "../libft/libft.h"
 
-# define SPRITE_PLAYER_FRONT "./assets/player/front1.xpm"
-# define SPRITE_PLAYER_BACK "./assets/player/back1.xpm"
-# define SPRITE_PLAYER_LEFT "./assets/player/left1.xpm"
-# define SPRITE_PLAYER_RIGHT "./assets/player/right1.xpm"
+# define SPRITE_PLAYER_UP "./assets/player/semi_up.xpm"
+# define SPRITE_PLAYER_DOWN "./assets/player/semi_down.xpm"
+# define SPRITE_PLAYER_LEFT "./assets/player/semi_left.xpm"
+# define SPRITE_PLAYER_RIGHT "./assets/player/semi_right.xpm"
 
-# define SPRITE_GROUND "./assets/map/ground.xpm"
-# define SPRITE_WALL "./assets/map/tree.xpm"
+# define SPRITE_WALL "./assets/map/wall.xpm"
+# define SPRITE_COLLECTABLE "./assets/map/collectable.xpm"
+# define SPRITE_EXIT "./assets/map/exit.xpm"
 
-# define TILE_SIZE 48
+# define MAP_WALL '1'
+# define MAP_GROUND '0'
+# define MAP_PLAYER 'P'
+# define MAP_COLLECTABLE 'C'
+# define MAP_EXIT 'E'
+
+# define TILE_SIZE 32
 
 # define ESC 65307
 # define W 119
@@ -53,21 +60,38 @@ typedef struct	s_sprite {
 	int		endian;
 }				t_sprite;
 
+typedef struct	s_map_sprites {
+	t_sprite	wall;
+	t_sprite	collectable;
+	t_sprite	exit;
+}				t_map_sprites;
+
 typedef struct	s_player {
 	int			x;
 	int			y;
-	t_sprite	front;
-	t_sprite	back;
+	t_sprite	down;
+	t_sprite	up;
 	t_sprite	left;
 	t_sprite	right;
 }				t_player;
+
+typedef struct	s_point {
+	int	x;
+	int	y;
+}				t_point;
+
+typedef struct	s_map {
+	t_map_sprites	sprites;
+	t_point			*walls;
+	t_point			*collectables;
+	t_point			exit;
+}				t_map;
 
 typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
 	t_player	player;
-	t_sprite	floor;
-	t_sprite	wall;
+	t_map		map;
 }				t_vars;
 
 int 	on_destroy(t_vars *vars);
@@ -77,8 +101,9 @@ int		load_sprite(void *mlx, t_sprite *sprite_part, char *sprite_file);
 int		load_sprites(t_vars *vars);
 
 void	render_map_part(t_vars *vars, t_sprite *sprite, int x, int y);
-void	render_floor(t_vars *vars, int x, int y);
 void	render_wall(t_vars *vars, int x, int y);
+void	render_collectable(t_vars *vars, int x, int y);
+void	render_exit(t_vars *vars, int x, int y);
 void	render_map(t_vars *vars);
 void	render_player(t_vars *vars, t_sprite *sprite);
 void	render(t_vars *vars, t_sprite *player_sprite);

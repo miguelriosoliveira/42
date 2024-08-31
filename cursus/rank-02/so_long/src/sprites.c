@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:35:14 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/22 21:59:34 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:26:37 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	load_sprites(t_vars *vars)
 {
 	int	err;
 
-	err = load_sprite(vars->mlx, &vars->player.front, SPRITE_PLAYER_FRONT);
+	err = load_sprite(vars->mlx, &vars->player.down, SPRITE_PLAYER_DOWN);
 	if (err)
 		return (1);
-	err = load_sprite(vars->mlx, &vars->player.back, SPRITE_PLAYER_BACK);
+	err = load_sprite(vars->mlx, &vars->player.up, SPRITE_PLAYER_UP);
 	if (err)
 		return (1);
 	err = load_sprite(vars->mlx, &vars->player.left, SPRITE_PLAYER_LEFT);
@@ -47,13 +47,14 @@ int	load_sprites(t_vars *vars)
 	err = load_sprite(vars->mlx, &vars->player.right, SPRITE_PLAYER_RIGHT);
 	if (err)
 		return (1);
-
-	err = load_sprite(vars->mlx, &vars->floor, SPRITE_GROUND);
+	err = load_sprite(vars->mlx, &vars->map.sprites.wall, SPRITE_WALL);
 	if (err)
 		return (1);
-	err = load_sprite(vars->mlx, &vars->wall, SPRITE_WALL);
+	err = load_sprite(vars->mlx, &vars->map.sprites.collectable, SPRITE_COLLECTABLE);
 	if (err)
 		return (1);
-
+	err = load_sprite(vars->mlx, &vars->map.sprites.exit, SPRITE_EXIT);
+	if (err)
+		return (1);
 	return (0);
 }

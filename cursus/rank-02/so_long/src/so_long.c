@@ -6,11 +6,16 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/30 01:33:00 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/08/31 19:35:57 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	print_line(void *line)
+{
+	ft_printf("line: (%s)", line);
+}
 
 int	load_map(t_vars *vars, char *filename)
 {
@@ -18,37 +23,41 @@ int	load_map(t_vars *vars, char *filename)
 	int		line_number;
 	int		i;
 	char	*line;
+	t_list	*map;
 
 	(void)vars;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (1);
 	line_number = 0;
+	map = NULL;
 	while ((line = get_next_line(fd)))
 	{
-		ft_printf("line: %s", line);
+		ft_printf("line %d: %s", line_number, line);
+		ft_lstadd_back(&map, ft_lstnew(line));
 		i = 0;
 		while (i < (int)ft_strlen(line))
 		{
-			if (line[i] == '1')
+			if (line[i] == MAP_WALL)
 				render_wall(vars, i, line_number);
-			if (line[i] == '0')
-				render_floor(vars, i, line_number);
-			// if (line[i] == 'C')
-			// 	render_collectable(vars, i, line_number);
-			// if (line[i] == 'E')
-			// 	render_exit(vars, i, line_number);
-			if (line[i] == 'P')
+			if (line[i] == MAP_COLLECTABLE)
+				render_collectable(vars, i, line_number);
+			if (line[i] == MAP_EXIT)
+				render_exit(vars, i, line_number);
+			if (line[i] == MAP_PLAYER)
 			{
 				vars->player.x = TILE_SIZE * i;
 				vars->player.y = TILE_SIZE * line_number;
-				render_player(vars, &vars->player.front);
+				render_player(vars, &vars->player.right);
 			}
 			i++;
 		}
 		line_number++;
 	}
 	ft_printf("\nend of file %s\n", filename);
+
+	ft_lstiter(map, print_line);s
+
 	return (0);
 }
 

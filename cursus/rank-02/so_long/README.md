@@ -87,7 +87,7 @@ Your project must comply with the following rules:
 	1P0011E000001
 	1111111111111
 	```
-- The map must contain **1 exit**, at least **1 collectible**, and **1 starting position** to be valid.
+- The map must contain **1 exit**, **at least 1 collectible**, and **1 starting position** to be valid.
 
 > ℹ️ If the map contains a duplicates characters (exit/start), you should display an error message.
 
