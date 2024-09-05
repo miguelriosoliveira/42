@@ -66,6 +66,7 @@ re: fclean all
 
 test: re $(NAME)
 	./$(NAME) maps/map1.ber
+	./$(NAME) maps/map2.ber
 
 .PHONY: all $(MLX_LIB) $(LIBFT_LIB) $(NAME) clean fclean re test
 

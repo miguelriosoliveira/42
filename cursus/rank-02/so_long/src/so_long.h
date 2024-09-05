@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/31 18:24:21 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/05 23:09:34 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,15 @@ typedef struct	s_point {
 	int	y;
 }				t_point;
 
+typedef struct	s_dimensions {
+	int	width;
+	int	height;
+}				t_dimensions;
+
 typedef struct	s_map {
 	t_map_sprites	sprites;
-	t_point			*walls;
-	t_point			*collectables;
-	t_point			exit;
+	t_dimensions	dimensions;
+	char			**content;
 }				t_map;
 
 typedef struct	s_vars {

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:23:10 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/31 18:08:27 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:16:10 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,35 @@ void	move(t_vars *vars, int direction)
 {
 	t_sprite	*sprite;
 	int			pace;
+	int			x;
+	int			y;
 
-	pace = vars->player.down.width;
+	pace = TILE_SIZE;
+	x = vars->player.x / pace;
+	y = vars->player.y / pace;
 	if (direction == DIR_UP)
 	{
-		vars->player.y -= pace;
 		sprite = &vars->player.up;
+		if (vars->map.content[y - 1][x] != MAP_WALL)
+			vars->player.y -= pace;
 	}
 	if (direction == DIR_DOWN)
 	{
-		vars->player.y += pace;
 		sprite = &vars->player.down;
+		if (vars->map.content[y + 1][x] != MAP_WALL)
+			vars->player.y += pace;
 	}
 	if (direction == DIR_LEFT)
 	{
-		vars->player.x -= pace;
 		sprite = &vars->player.left;
+		if (vars->map.content[y][x - 1] != MAP_WALL)
+			vars->player.x -= pace;
 	}
 	if (direction == DIR_RIGHT)
 	{
-		vars->player.x += pace;
 		sprite = &vars->player.right;
+		if (vars->map.content[y][x + 1] != MAP_WALL)
+			vars->player.x += pace;
 	}
 	render(vars, sprite);
 }

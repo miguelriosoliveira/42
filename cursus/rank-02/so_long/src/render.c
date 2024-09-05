@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:21:16 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/31 18:25:02 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:15:40 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,27 @@ void	render_exit(t_vars *vars, int x, int y)
 
 void	render_map(t_vars *vars)
 {
-	// top
-	render_wall(vars, 0, 0);
-	render_wall(vars, 1, 0);
-	render_wall(vars, 2, 0);
-	render_wall(vars, 3, 0);
-	render_wall(vars, 4, 0);
-	render_wall(vars, 5, 0);
+	int		x;
+	int		y;
+	char	*line;
 
-	// left
-	render_wall(vars, 0, 1);
-	render_wall(vars, 0, 2);
-	render_wall(vars, 0, 3);
-	render_wall(vars, 0, 4);
-
-	// right
-	render_wall(vars, 5, 1);
-	render_wall(vars, 5, 2);
-	render_wall(vars, 5, 3);
-	render_wall(vars, 5, 4);
-
-	// bottom
-	render_wall(vars, 0, 5);
-	render_wall(vars, 1, 5);
-	render_wall(vars, 2, 5);
-	render_wall(vars, 3, 5);
-	render_wall(vars, 4, 5);
-	render_wall(vars, 5, 5);
+	y = 0;
+	while (vars->map.content[y])
+	{
+		line = vars->map.content[y];
+		x = 0;
+		while (x < (int)ft_strlen(line))
+		{
+			if (line[x] == MAP_WALL)
+				render_wall(vars, x, y);
+			if (line[x] == MAP_COLLECTABLE)
+				render_collectable(vars, x, y);
+			if (line[x] == MAP_EXIT)
+				render_exit(vars, x, y);
+			x++;
+		}
+		y++;
+	}
 }
 
 void	render_player(t_vars *vars, t_sprite *sprite)

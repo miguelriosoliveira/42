@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/08/31 19:35:57 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:15:09 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,55 @@ void	print_line(void *line)
 	ft_printf("line: (%s)", line);
 }
 
+void	validate_map(char *filename, t_dimensions *dimensions)
+{
+	int		fd;
+	int		line_number;
+	char	*line;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return;
+	line_number = 0;
+
+	while ((line = get_next_line(fd)))
+	{
+		dimensions->width = ft_strlen(line);
+		line_number++;
+	}
+	dimensions->height = line_number;
+	close(fd);
+}
+
 int	load_map(t_vars *vars, char *filename)
 {
 	int		fd;
 	int		line_number;
 	int		i;
 	char	*line;
-	t_list	*map;
+	char	**map;
+
+	t_dimensions	*dimensions;
+	dimensions = &vars->map.dimensions;
+	validate_map(filename, dimensions);
 
 	(void)vars;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (1);
 	line_number = 0;
-	map = NULL;
+	map = ft_calloc(dimensions->height + 1, sizeof(char *));
 	while ((line = get_next_line(fd)))
 	{
 		ft_printf("line %d: %s", line_number, line);
-		ft_lstadd_back(&map, ft_lstnew(line));
+		map[line_number] = line;
 		i = 0;
 		while (i < (int)ft_strlen(line))
 		{
-			if (line[i] == MAP_WALL)
-				render_wall(vars, i, line_number);
-			if (line[i] == MAP_COLLECTABLE)
-				render_collectable(vars, i, line_number);
-			if (line[i] == MAP_EXIT)
-				render_exit(vars, i, line_number);
 			if (line[i] == MAP_PLAYER)
 			{
 				vars->player.x = TILE_SIZE * i;
 				vars->player.y = TILE_SIZE * line_number;
-				render_player(vars, &vars->player.right);
 			}
 			i++;
 		}
@@ -56,7 +73,7 @@ int	load_map(t_vars *vars, char *filename)
 	}
 	ft_printf("\nend of file %s\n", filename);
 
-	ft_lstiter(map, print_line);s
+	vars->map.content = map;
 
 	return (0);
 }
@@ -79,7 +96,17 @@ int	main(int argc, char **argv)
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
 		return (1);
-	vars.win = mlx_new_window(vars.mlx, TILE_SIZE * 20, TILE_SIZE * 10, "so_long");
+
+	err = load_map(&vars, map_file);
+	if (err)
+		return (free(vars.mlx), 1);
+
+	vars.win = mlx_new_window(
+		vars.mlx,
+		TILE_SIZE * vars.map.dimensions.width,
+		TILE_SIZE * vars.map.dimensions.height,
+		"so_long"
+	);
 	if (!vars.win)
 		return (free(vars.mlx), 1);
 
@@ -94,13 +121,7 @@ int	main(int argc, char **argv)
 	if (err)
 		return (free(vars.mlx), 1);
 
-	err = load_map(&vars, map_file);
-	if (err)
-		return (free(vars.mlx), 1);
-
-	// vars.player.x = TILE_SIZE * 3;
-	// vars.player.y = TILE_SIZE * 3;
-	// render(&vars, &vars.player.front);
+	render(&vars, &vars.player.right);
 
 	// Loop over the MLX pointer
 	mlx_loop(vars.mlx);
