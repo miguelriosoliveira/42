@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/07 23:06:26 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/07 23:50:57 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,38 @@ int	validate_map(char *filename, t_vars *vars)
 {
 	int		fd;
 	int		i;
+	int		new_width;
 	char	*line;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (1);
+	vars->map.width = 0;
 	vars->map.height = 0;
 	vars->map.collectable_count = 0;
 	vars->player.n_steps = 0;
 	while ((line = get_next_line(fd)))
 	{
-		vars->map.width = ft_strlen(line);
+		new_width = ft_strlen(line);
+		if (ft_strchr(line, '\n'))
+			line[new_width--] = '\0';
+		if (vars->map.width && vars->map.width != new_width)
+			return (1);
+		vars->map.width = new_width;
 		i = 0;
 		while (i < vars->map.width)
 		{
 			if (line[i] == MAP_COLLECTABLE)
 				vars->map.collectable_count++;
-			if (line[i] == MAP_PLAYER)
+			else if (line[i] == MAP_PLAYER)
 			{
 				vars->player.x = i;
 				vars->player.y = vars->map.height;
 			}
+			else if (line[i] != MAP_GROUND
+				&& line[i] != MAP_WALL
+				&& line[i] != MAP_EXIT)
+				return (1);
 			i++;
 		}
 		vars->map.height++;
@@ -75,7 +86,10 @@ int	load_map(t_vars *vars, char *filename)
 
 	err = validate_map(filename, vars);
 	if (err)
+	{
+		ft_printf("Invalid map! \"%s\"\n", filename);
 		return (1);
+	}
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (1);
