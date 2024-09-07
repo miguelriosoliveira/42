@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/05 23:09:34 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/07 23:02:06 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,47 +60,41 @@ typedef struct	s_sprite {
 	int		endian;
 }				t_sprite;
 
-typedef struct	s_map_sprites {
+typedef struct	s_sprites {
 	t_sprite	wall;
-	t_sprite	collectable;
 	t_sprite	exit;
-}				t_map_sprites;
+	t_sprite	collectable;
+	t_sprite	player_up;
+	t_sprite	player_down;
+	t_sprite	player_left;
+	t_sprite	player_right;
+}				t_sprites;
+
+typedef struct	s_map {
+	char		**content;
+	int			width;
+	int			height;
+	int			collectable_count;
+}				t_map;
 
 typedef struct	s_player {
 	int			x;
 	int			y;
-	t_sprite	down;
-	t_sprite	up;
-	t_sprite	left;
-	t_sprite	right;
+	int			n_steps;
 }				t_player;
-
-typedef struct	s_point {
-	int	x;
-	int	y;
-}				t_point;
-
-typedef struct	s_dimensions {
-	int	width;
-	int	height;
-}				t_dimensions;
-
-typedef struct	s_map {
-	t_map_sprites	sprites;
-	t_dimensions	dimensions;
-	char			**content;
-}				t_map;
 
 typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
-	t_player	player;
+	t_sprites	sprites;
 	t_map		map;
+	t_player	player;
 }				t_vars;
 
 int 	on_destroy(t_vars *vars);
 int 	on_keypress(int keycode, t_vars *vars);
 
+void	print_vars(t_vars *vars);
 int		load_sprite(void *mlx, t_sprite *sprite_part, char *sprite_file);
 int		load_sprites(t_vars *vars);
 

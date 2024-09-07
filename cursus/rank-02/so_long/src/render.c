@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:21:16 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/06 00:15:40 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/07 23:02:33 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,28 @@
 
 void	render_map_part(t_vars *vars, t_sprite *sprite, int x, int y)
 {
-	mlx_put_image_to_window(vars->mlx, vars->win, sprite->img, x * TILE_SIZE, y * TILE_SIZE);
+	mlx_put_image_to_window(
+		vars->mlx,
+		vars->win,
+		sprite->img,
+		x * TILE_SIZE,
+		y * TILE_SIZE
+	);
 }
 
 void	render_wall(t_vars *vars, int x, int y)
 {
-	render_map_part(vars, &vars->map.sprites.wall, x, y);
+	render_map_part(vars, &vars->sprites.wall, x, y);
 }
 
 void	render_collectable(t_vars *vars, int x, int y)
 {
-	render_map_part(vars, &vars->map.sprites.collectable, x, y);
+	render_map_part(vars, &vars->sprites.collectable, x, y);
 }
 
 void	render_exit(t_vars *vars, int x, int y)
 {
-	render_map_part(vars, &vars->map.sprites.exit, x, y);
+	render_map_part(vars, &vars->sprites.exit, x, y);
 }
 
 void	render_map(t_vars *vars)
@@ -63,8 +69,8 @@ void	render_player(t_vars *vars, t_sprite *sprite)
 		vars->mlx,
 		vars->win,
 		sprite->img,
-		vars->player.x,
-		vars->player.y
+		vars->player.x * TILE_SIZE,
+		vars->player.y * TILE_SIZE
 	);
 }
 

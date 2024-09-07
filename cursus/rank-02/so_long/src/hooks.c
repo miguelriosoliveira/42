@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:23:10 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/06 00:16:10 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/07 23:03:10 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,53 @@
 void	move(t_vars *vars, int direction)
 {
 	t_sprite	*sprite;
-	int			pace;
 	int			x;
 	int			y;
 
-	pace = TILE_SIZE;
-	x = vars->player.x / pace;
-	y = vars->player.y / pace;
+	x = vars->player.x;
+	y = vars->player.y;
 	if (direction == DIR_UP)
 	{
-		sprite = &vars->player.up;
+		sprite = &vars->sprites.player_up;
 		if (vars->map.content[y - 1][x] != MAP_WALL)
-			vars->player.y -= pace;
+			vars->player.y--;
 	}
 	if (direction == DIR_DOWN)
 	{
-		sprite = &vars->player.down;
+		sprite = &vars->sprites.player_down;
 		if (vars->map.content[y + 1][x] != MAP_WALL)
-			vars->player.y += pace;
+			vars->player.y++;
 	}
 	if (direction == DIR_LEFT)
 	{
-		sprite = &vars->player.left;
+		sprite = &vars->sprites.player_left;
 		if (vars->map.content[y][x - 1] != MAP_WALL)
-			vars->player.x -= pace;
+			vars->player.x--;
 	}
 	if (direction == DIR_RIGHT)
 	{
-		sprite = &vars->player.right;
+		sprite = &vars->sprites.player_right;
 		if (vars->map.content[y][x + 1] != MAP_WALL)
-			vars->player.x += pace;
+			vars->player.x++;
 	}
+	if (vars->player.x != x || vars->player.y != y)
+	{
+		vars->player.n_steps++;
+		ft_printf("steps count: %d\n", vars->player.n_steps);
+	}
+	x = vars->player.x;
+	y = vars->player.y;
+	if (vars->map.content[y][x] == MAP_COLLECTABLE)
+	{
+		vars->map.content[y][x] = MAP_GROUND;
+		vars->map.collectable_count--;
+	}
+	if (vars->map.content[y][x] == MAP_EXIT && vars->map.collectable_count == 0)
+	{
+		ft_printf("YOU WIN!\n");
+		on_destroy(vars);
+	}
+	// print_vars(vars);
 	render(vars, sprite);
 }
 

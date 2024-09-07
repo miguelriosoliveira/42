@@ -34,12 +34,12 @@ endif
 all: $(MLX_LIB) $(LIBFT_LIB) $(NAME)
 
 $(MLX_LIB):
-	echo $(B)"Compiling mlx..."
+	printf $(B)"Compiling mlx..."$(X)
 	$(MAKE) $(MLX_PATH)
 	echo $(G)"✅ Finished!"$(X)
 
 $(LIBFT_LIB):
-	printf $(B)"Compiling libft..."
+	printf $(B)"Compiling libft..."$(X)
 	$(MAKE) $(LIBFT_PATH)
 	echo $(G)" ✅ Finished!"$(X)
 
@@ -54,8 +54,12 @@ $(NAME): $(OBJ)
 	echo $(G)" ✅ Finished!"$(X)
 
 clean:
+	printf $(B)"Cleaning mlx..."$(X)
 	$(MAKE) $(MLX_PATH) clean
+	echo $(G)" ✅ Finished!"$(X)
+	printf $(B)"Cleaning libft..."$(X)
 	$(MAKE) $(LIBFT_PATH) clean
+	echo $(G)" ✅ Finished!"$(X)
 	$(RM) $(OBJ)
 
 fclean: clean
