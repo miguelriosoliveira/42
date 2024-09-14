@@ -1,13 +1,5 @@
 NAME = so_long
 
-Y = "\033[33m"
-R = "\033[31m"
-G = "\033[32m"
-B = "\033[34m"
-X = "\033[0m"
-UP = "\033[A"
-CUT = "\033[K"
-
 SRC_ = so_long.c hooks.c render.c sprites.c
 SRC = $(addprefix src/, $(SRC_))
 OBJ = $(SRC:.c=.o)
@@ -22,7 +14,7 @@ LIBFT_LIB = $(LIBFT_PATH)libft.a
 
 UNAME = $(shell uname)
 MLX_PATH = mlx/
-MLX_LIB = $(MLX_PATH)/libmlx_$(UNAME).a
+MLX_LIB = $(MLX_PATH)libmlx_$(UNAME).a
 ifeq ($(UNAME), Linux)
 	INCLUDES = -Imlx -I/usr/include
 	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
@@ -34,32 +26,20 @@ endif
 all: $(MLX_LIB) $(LIBFT_LIB) $(NAME)
 
 $(MLX_LIB):
-	printf $(B)"Compiling mlx..."$(X)
 	$(MAKE) $(MLX_PATH)
-	echo $(G)"✅ Finished!"$(X)
 
 $(LIBFT_LIB):
-	printf $(B)"Compiling libft..."$(X)
 	$(MAKE) $(LIBFT_PATH)
-	echo $(G)" ✅ Finished!"$(X)
 
 %.o: %.c
-	printf $(Y)"Compiling [$<]..."$(X)
 	$(CC) $(INCLUDES) -c $< -o $@
-	echo $(G)" ✅ Finished!"$(X)
 
 $(NAME): $(OBJ)
-	printf $(Y)"Compiling [$(NAME)]..."$(X)
 	$(CC) $(MLX_FLAGS) $(OBJ) $(MLX_LIB) $(LIBFT_LIB) -o $(NAME)
-	echo $(G)" ✅ Finished!"$(X)
 
 clean:
-	printf $(B)"Cleaning mlx..."$(X)
 	$(MAKE) $(MLX_PATH) clean
-	echo $(G)" ✅ Finished!"$(X)
-	printf $(B)"Cleaning libft..."$(X)
 	$(MAKE) $(LIBFT_PATH) clean
-	echo $(G)" ✅ Finished!"$(X)
 	$(RM) $(OBJ)
 
 fclean: clean
@@ -75,5 +55,3 @@ test: re $(NAME)
 	done
 
 .PHONY: all $(MLX_LIB) $(LIBFT_LIB) $(NAME) clean fclean re test
-
-.SILENT:
