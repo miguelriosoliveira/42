@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/07 23:02:06 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:29:48 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct	s_map {
 	int			width;
 	int			height;
 	int			collectable_count;
+	int			exit_count;
+	int			player_count;
 }				t_map;
 
 typedef struct	s_player {

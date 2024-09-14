@@ -49,7 +49,7 @@ fclean: clean
 re: fclean all
 
 test: re $(NAME)
-	for file in $(wildcard maps/*.ber); do \
+	for file in invalid_nonexistant.ber $(wildcard maps/*); do \
 		echo "Running: ./$(NAME) $$file"; \
 		./$(NAME) $$file; \
 	done

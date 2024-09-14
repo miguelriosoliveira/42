@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/07 23:50:57 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:42:48 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,23 @@ int	validate_map(char *filename, t_vars *vars)
 {
 	int		fd;
 	int		i;
+	int		exit_count;
+	int		player_count;
 	int		new_width;
 	char	*line;
+	char	*extension;
 
+	extension = ft_strrchr(filename, '.');
+	if (!extension || ft_strncmp(extension, ".ber", ft_strlen(extension)) != 0)
+		return (1);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (1);
 	vars->map.width = 0;
 	vars->map.height = 0;
 	vars->map.collectable_count = 0;
+	exit_count = 0;
+	player_count = 0;
 	vars->player.n_steps = 0;
 	while ((line = get_next_line(fd)))
 	{
@@ -61,18 +69,21 @@ int	validate_map(char *filename, t_vars *vars)
 				vars->map.collectable_count++;
 			else if (line[i] == MAP_PLAYER)
 			{
+				player_count++;
 				vars->player.x = i;
 				vars->player.y = vars->map.height;
 			}
-			else if (line[i] != MAP_GROUND
-				&& line[i] != MAP_WALL
-				&& line[i] != MAP_EXIT)
+			else if (line[i] == MAP_EXIT)
+				exit_count++;
+			else if (line[i] != MAP_GROUND && line[i] != MAP_WALL)
 				return (1);
 			i++;
 		}
 		vars->map.height++;
 	}
 	close(fd);
+	if (vars->map.collectable_count < 1 || exit_count != 1 || player_count != 1)
+		return (1);
 	return (0);
 }
 
@@ -130,7 +141,7 @@ int	main(int argc, char **argv)
 		vars.mlx,
 		TILE_SIZE * vars.map.width,
 		TILE_SIZE * vars.map.height,
-		"so_long"
+		map_file
 	);
 	if (!vars.win)
 		return (free(vars.mlx), 1);
