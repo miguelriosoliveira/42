@@ -7,7 +7,7 @@ When parsing the map you can already check some errors, before even going furthe
 - [x] Is the map rectangular?<br />
 	All the lines should be the same length.
 - [x] Is there something in the map file?
-- [ ] Is the map enclosed in walls?<br />
+- [x] Is the map enclosed in walls?<br />
 	Check the first and last lines and columns, they should all be 1
 - [x] Is there only one exit?<br />
 	Simply count how many `E` you find on the map.

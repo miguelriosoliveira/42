@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/14 20:42:48 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/14 22:45:25 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,32 @@ int	validate_map(char *filename, t_vars *vars)
 	return (0);
 }
 
+int	validate_map_surrounded(t_vars *vars)
+{
+	int		i;
+	int		last_index;
+	char	**map;
+
+	map = vars->map.content;
+	last_index = vars->map.height - 1;
+	i = 0;
+	while (i < vars->map.width)
+	{
+		if (map[0][i] != MAP_WALL || map[last_index][i] != MAP_WALL)
+			return (1);
+		i++;
+	}
+	i = 0;
+	last_index = vars->map.width - 1;
+	while (i < vars->map.height)
+	{
+		if (map[i][0] != MAP_WALL || map[i][last_index] != MAP_WALL)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	load_map(t_vars *vars, char *filename)
 {
 	int		fd;
@@ -114,6 +140,12 @@ int	load_map(t_vars *vars, char *filename)
 		line_number++;
 	}
 	vars->map.content = map;
+	err = validate_map_surrounded(vars);
+	if (err)
+	{
+		ft_printf("Invalid map! \"%s\"\n", filename);
+		return (1);
+	}
 	return (0);
 }
 
