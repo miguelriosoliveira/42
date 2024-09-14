@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/14 22:45:25 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/14 23:40:36 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	load_map(t_vars *vars, char *filename)
 	err = validate_map(filename, vars);
 	if (err)
 	{
-		ft_printf("Invalid map! \"%s\"\n", filename);
+		ft_printf("Error\nInvalid map! \"%s\"\n", filename);
 		return (1);
 	}
 	fd = open(filename, O_RDONLY);
@@ -143,7 +143,7 @@ int	load_map(t_vars *vars, char *filename)
 	err = validate_map_surrounded(vars);
 	if (err)
 	{
-		ft_printf("Invalid map! \"%s\"\n", filename);
+		ft_printf("Error\nInvalid map! \"%s\"\n", filename);
 		return (1);
 	}
 	return (0);
@@ -157,7 +157,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Bad list of arguments!\n>\t./so_long <mapfile.ber>\n");
+		ft_printf("Error\nBad list of arguments!\n>\t./so_long <mapfile.ber>\n");
 		return (1);
 	}
 	map_file = argv[1];
