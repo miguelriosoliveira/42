@@ -1,23 +1,3 @@
-# Map checklist
-
-Parse the map
-When parsing the map you can already check some errors, before even going further
-
-- [x] Does the map file exist?
-- [x] Is the map rectangular?<br />
-	All the lines should be the same length.
-- [x] Is there something in the map file?
-- [x] Is the map enclosed in walls?<br />
-	Check the first and last lines and columns, they should all be 1
-- [x] Is there only one exit?<br />
-	Simply count how many `E` you find on the map.
-- [x] Is there only one start position?<br />
-	Simply count how many `P` you find on the map.
-- [x] Is there at least one collectibles?<br />
-	Simply count how many `C` you find on the map.
-
----
-
 # So Long
 
 > And thanks for all the fish!
