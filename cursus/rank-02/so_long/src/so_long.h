@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/14 20:29:48 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:24:17 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,11 @@ typedef struct	s_vars {
 	t_player	player;
 }				t_vars;
 
+// hooks.c
 int 	on_destroy(t_vars *vars);
 int 	on_keypress(int keycode, t_vars *vars);
 
-void	print_vars(t_vars *vars);
-int		load_sprite(void *mlx, t_sprite *sprite_part, char *sprite_file);
-int		load_sprites(t_vars *vars);
-
+// render.c
 void	render_map_part(t_vars *vars, t_sprite *sprite, int x, int y);
 void	render_wall(t_vars *vars, int x, int y);
 void	render_collectable(t_vars *vars, int x, int y);
@@ -107,5 +105,19 @@ void	render_exit(t_vars *vars, int x, int y);
 void	render_map(t_vars *vars);
 void	render_player(t_vars *vars, t_sprite *sprite);
 void	render(t_vars *vars, t_sprite *player_sprite);
+
+// so_long.c
+void	print_vars(t_vars *vars);
+
+// sprites.c
+int		load_sprite(void *mlx, t_sprite *sprite_part, char *sprite_file);
+int		load_sprites(t_vars *vars);
+
+// validate.c
+int		validate_map(char *filename, t_vars *vars);
+int		validate_map_surrounded(t_vars *vars);
+char	**clone_matrix(char **matrix, int width, int height);
+int		has_valid_path(t_vars *vars, char **map, int *collectable_count, int x1, int y1);
+int		validate_path(t_vars *vars);
 
 #endif

@@ -1,7 +1,6 @@
 NAME = so_long
 
-SRC_ = so_long.c hooks.c render.c sprites.c
-SRC = $(addprefix src/, $(SRC_))
+SRC = $(wildcard src/*.c)
 OBJ = $(SRC:.c=.o)
 
 CC = cc -Wall -Werror -Wextra
