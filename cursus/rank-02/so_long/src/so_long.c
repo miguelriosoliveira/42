@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/14 23:40:36 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:06:53 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,24 @@ void	print_map(t_map *map)
 {
 	int	i;
 
+	ft_printf("-----------------------------\n");
 	i = 0;
 	while (i < map->height)
 	{
 		ft_printf("line %d: |%s|\n", i, map->content[i]);
+		i++;
+	}
+}
+
+void	print_map2(char **map)
+{
+	int	i;
+
+	ft_printf("-----------------------------\n");
+	i = 0;
+	while (map[i])
+	{
+		ft_printf("line %d: |%s|\n", i, map[i]);
 		i++;
 	}
 }
@@ -113,6 +127,61 @@ int	validate_map_surrounded(t_vars *vars)
 	return (0);
 }
 
+char	**clone_matrix(char **matrix, int width, int height)
+{
+	int		i;
+	char	**clone;
+
+	clone = ft_calloc(height + 1, sizeof(char *));
+	i = 0;
+	while (i < height)
+	{
+		clone[i] = ft_calloc(width + 1, sizeof(char));
+		ft_strlcpy(clone[i], matrix[i], ft_strlen(matrix[i]) + 1);
+		i++;
+	}
+	return (clone);
+}
+
+int	has_valid_path(t_vars *vars, char **map, int *collectable_count, int x1, int y1)
+{
+	int		found;
+	char	c;
+
+	c = map[y1][x1];
+	if (c == MAP_WALL)
+		return (0);
+	if (c == MAP_COLLECTABLE)
+		*collectable_count -= 1;
+	map[y1][x1] = MAP_WALL;
+	found = 0;
+	found += has_valid_path(vars, map, collectable_count, x1 + 1, y1    );
+	found += has_valid_path(vars, map, collectable_count, x1 - 1, y1    );
+	found += has_valid_path(vars, map, collectable_count, x1    , y1 - 1);
+	found += has_valid_path(vars, map, collectable_count, x1    , y1 + 1);
+	if (c == MAP_EXIT)
+		return (*collectable_count == 0);
+	return (found > 0);
+}
+
+int	validate_path(t_vars *vars)
+{
+	char	**map;
+	int		collectable_count;
+	int		is_path_valid;
+
+	map = clone_matrix(vars->map.content, vars->map.width, vars->map.height);
+	collectable_count = vars->map.collectable_count;
+	is_path_valid = has_valid_path(
+		vars,
+		map,
+		&collectable_count,
+		vars->player.x,
+		vars->player.y
+	);
+	return (!is_path_valid);
+}
+
 int	load_map(t_vars *vars, char *filename)
 {
 	int		fd;
@@ -143,7 +212,13 @@ int	load_map(t_vars *vars, char *filename)
 	err = validate_map_surrounded(vars);
 	if (err)
 	{
-		ft_printf("Error\nInvalid map! \"%s\"\n", filename);
+		ft_printf("Error\nMap not surrounded by walls! \"%s\"\n", filename);
+		return (1);
+	}
+	err = validate_path(vars);
+	if (err)
+	{
+		ft_printf("Error\nMap has no valid path! \"%s\"\n", filename);
 		return (1);
 	}
 	return (0);
