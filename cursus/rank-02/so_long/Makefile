@@ -23,19 +23,17 @@ else
 	MLX_FLAGS = -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
 endif
 
-all: $(MLX_LIB) $(LIBFT_LIB) $(NAME)
+all: dependencies $(NAME)
 
-$(MLX_LIB):
+dependencies:
 	$(MAKE) $(MLX_PATH)
-
-$(LIBFT_LIB):
 	$(MAKE) $(LIBFT_PATH)
-
-%.o: %.c
-	$(CC) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJ)
 	$(CC) $(MLX_FLAGS) $(OBJ) $(MLX_LIB) $(LIBFT_LIB) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(INCLUDES) -c $< -o $@
 
 clean:
 	$(MAKE) $(MLX_PATH) clean
@@ -54,4 +52,4 @@ test: re $(NAME)
 		./$(NAME) $$file; \
 	done
 
-.PHONY: all $(MLX_LIB) $(LIBFT_LIB) $(NAME) clean fclean re test
+.PHONY: all dependencies $(NAME) clean fclean re test
