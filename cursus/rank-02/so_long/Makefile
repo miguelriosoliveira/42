@@ -46,8 +46,8 @@ fclean: clean
 re: fclean all
 
 test: re $(NAME)
-	for file in "" invalid_nonexistant.ber $(wildcard maps/*); do \
-		echo "Running: ./$(NAME) $$file"; \
+	for file in "" invalid_nonexistant.ber $(wildcard maps/*) $(wildcard maps_valid_path/*); do \
+		echo "-----> ./$(NAME) $$file"; \
 		./$(NAME) $$file; \
 	done
 

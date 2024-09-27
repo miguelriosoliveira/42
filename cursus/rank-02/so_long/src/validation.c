@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 21:20:41 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/27 09:13:00 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/27 23:18:37 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	validate_map(char *filename, t_vars *vars)
 	return (0);
 }
 
-int	get_map_dimensions(char *filename, t_vars *vars)
+int	validate_map_dimensions(t_vars *vars, char *filename)
 {
 	int		fd;
 	int		width;
@@ -154,19 +154,6 @@ int	has_valid_path(t_vars *vars, char **map, int *collectable_count, int x, int 
 	return (found > 0);
 }
 
-static void	print_map2(char **map)
-{
-	int	i;
-
-	ft_printf("-----------------------------\n");
-	i = 0;
-	while (map[i])
-	{
-		ft_printf("line %d: |%s|\n", i, map[i]);
-		i++;
-	}
-}
-
 int	validate_path(t_vars *vars)
 {
 	char	**map;
@@ -174,12 +161,7 @@ int	validate_path(t_vars *vars)
 	int		is_path_valid;
 
 	map = clone_matrix(vars->map.content, vars->map.width, vars->map.height);
-
-	ft_printf("clone map:\n");
-	print_map2(map);
-
 	collectable_count = vars->map.collectable_count;
-	ft_printf("collectable_count: %d\n", collectable_count);
 	is_path_valid = has_valid_path(
 		vars,
 		map,
@@ -187,9 +169,6 @@ int	validate_path(t_vars *vars)
 		vars->player.x,
 		vars->player.y
 	);
-
-	print_map2(map);
-	ft_printf("valid path? %d\n", is_path_valid);
-
+	// TODO: free clone map
 	return (!is_path_valid);
 }

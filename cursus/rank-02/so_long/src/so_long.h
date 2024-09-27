@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/26 20:59:41 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/27 23:15:01 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		load_sprites(t_vars *vars);
 
 // validate.c
 int		validate_map(char *filename, t_vars *vars);
-int		get_map_dimensions(char *filename, t_vars *vars);
+int		validate_map_dimensions(t_vars *vars, char *filename);
 int		validate_map_surrounded(t_vars *vars);
 char	**clone_matrix(char **matrix, int width, int height);
 int		has_valid_path(t_vars *vars, char **map, int *collectable_count, int x1, int y1);
