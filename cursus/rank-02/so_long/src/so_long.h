@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/21 21:24:17 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:59:41 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define MAP_WALL '1'
 # define MAP_GROUND '0'
 # define MAP_PLAYER 'P'
-# define MAP_COLLECTABLE 'C'
+# define MAP_COLLECTIBLE 'C'
 # define MAP_EXIT 'E'
 
 # define TILE_SIZE 32
@@ -75,8 +75,6 @@ typedef struct	s_map {
 	int			width;
 	int			height;
 	int			collectable_count;
-	int			exit_count;
-	int			player_count;
 }				t_map;
 
 typedef struct	s_player {
@@ -115,6 +113,7 @@ int		load_sprites(t_vars *vars);
 
 // validate.c
 int		validate_map(char *filename, t_vars *vars);
+int		get_map_dimensions(char *filename, t_vars *vars);
 int		validate_map_surrounded(t_vars *vars);
 char	**clone_matrix(char **matrix, int width, int height);
 int		has_valid_path(t_vars *vars, char **map, int *collectable_count, int x1, int y1);

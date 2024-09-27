@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:23:10 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/14 23:47:58 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:09:37 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	move(t_vars *vars, int direction)
 	}
 	x = vars->player.x;
 	y = vars->player.y;
-	if (vars->map.content[y][x] == MAP_COLLECTABLE)
+	if (vars->map.content[y][x] == MAP_COLLECTIBLE)
 	{
 		vars->map.content[y][x] = MAP_GROUND;
 		vars->map.collectable_count--;
@@ -61,7 +61,6 @@ void	move(t_vars *vars, int direction)
 		ft_printf("YOU WIN!\n");
 		on_destroy(vars);
 	}
-	// print_vars(vars);
 	render(vars, sprite);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:21:16 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/07 23:02:33 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/25 21:09:37 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	render_map(t_vars *vars)
 		{
 			if (line[x] == MAP_WALL)
 				render_wall(vars, x, y);
-			if (line[x] == MAP_COLLECTABLE)
+			if (line[x] == MAP_COLLECTIBLE)
 				render_collectable(vars, x, y);
 			if (line[x] == MAP_EXIT)
 				render_exit(vars, x, y);

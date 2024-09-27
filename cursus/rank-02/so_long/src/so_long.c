@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/21 21:21:52 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/27 09:17:24 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,12 @@ int	load_map(t_vars *vars, char *filename)
 	int		fd;
 	int		line_number;
 	int		err;
+	int		i;
 	char	*line;
 	char	**map;
 
-	err = validate_map(filename, vars);
+	err = get_map_dimensions(filename, vars);
+	ft_printf("valid dimentions? %d\n", !err);
 	if (err)
 	{
 		ft_printf("Error\nInvalid map! \"%s\"\n", filename);
@@ -69,17 +71,33 @@ int	load_map(t_vars *vars, char *filename)
 		return (1);
 	while ((line = get_next_line(fd)))
 	{
-		map[line_number] = ft_strtrim(line, "\n");
+		if (ft_strchr(line, '\n'))
+			line[ft_strlen(line) - 1] = '\0';
+		map[line_number] = line;
+		i = 0;
+		while (i < vars->map.width)
+		{
+			if (map[line_number][i] == MAP_PLAYER)
+			{
+				vars->player.x = i;
+				vars->player.y = line_number;
+			}
+			else if (map[line_number][i] == MAP_COLLECTIBLE)
+				vars->map.collectable_count++;
+			i++;
+		}
 		line_number++;
 	}
 	vars->map.content = map;
 	err = validate_map_surrounded(vars);
+	ft_printf("map surrounded? %d\n", !err);
 	if (err)
 	{
 		ft_printf("Error\nMap not surrounded by walls! \"%s\"\n", filename);
 		return (1);
 	}
 	err = validate_path(vars);
+	ft_printf("valid path? %d\n", !err);
 	if (err)
 	{
 		ft_printf("Error\nMap has no valid path! \"%s\"\n", filename);
@@ -88,49 +106,72 @@ int	load_map(t_vars *vars, char *filename)
 	return (0);
 }
 
+int	init(t_vars *vars, char *map_path)
+{
+	int		err;
+
+	vars->mlx = mlx_init();
+	if (!vars->mlx)
+		return (1);
+	vars->map.width = 0;
+	vars->map.height = 0;
+	vars->map.collectable_count = 0;
+	vars->player.n_steps = 0;
+	err = load_map(vars, map_path);
+	if (err)
+		return (free(vars->mlx), 1);
+	vars->win = mlx_new_window(
+		vars->mlx,
+		vars->map.width * TILE_SIZE,
+		vars->map.height * TILE_SIZE,
+		map_path
+	);
+	if (!vars->win)
+		return (free(vars->mlx), 1);
+	err = load_sprites(vars);
+	if (err)
+		return (free(vars->mlx), free(vars->win), 1);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
 	int		err;
-	char	*map_file;
+	char	*map_path;
 
 	if (argc != 2)
 	{
-		ft_printf("Error\nBad list of arguments!\n>\t./so_long <mapfile.ber>\n");
+		ft_printf("Error\nBad list of arguments!\n$ ./so_long <mapfile.ber>\n");
 		return (1);
 	}
-	map_file = argv[1];
+	map_path = argv[1];
 
-	vars.mlx = mlx_init();
-	if (!vars.mlx)
+	err = init(&vars, map_path);
+	if (err)
 		return (1);
 
-	err = load_map(&vars, map_file);
-	if (err)
-		return (free(vars.mlx), 1);
-	vars.win = mlx_new_window(
-		vars.mlx,
-		TILE_SIZE * vars.map.width,
-		TILE_SIZE * vars.map.height,
-		map_file
-	);
-	if (!vars.win)
-		return (free(vars.mlx), 1);
+	// vars.mlx = mlx_init();
+	// if (!vars.mlx)
+	// 	return (1);
+	// err = load_map(&vars, map_path);
+	// if (err)
+	// 	return (free(vars.mlx), 1);
+	// vars.win = mlx_new_window(
+	// 	vars.mlx,
+	// 	vars.map.width * TILE_SIZE,
+	// 	vars.map.height * TILE_SIZE,
+	// 	map_path
+	// );
+	// if (!vars.win)
+	// 	return (free(vars.mlx), 1);
+	// err = load_sprites(&vars);
+	// if (err)
+	// 	return (free(vars.mlx), free(vars.win), 1);
 
-	// register key press hook
 	mlx_hook(vars.win, KeyPress, KeyPressMask, &on_keypress, &vars);
-
-	// register destroy hook
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, &on_destroy, &vars);
-
-	// load player sprites
-	err = load_sprites(&vars);
-	if (err)
-		return (free(vars.mlx), 1);
-
 	render(&vars, &vars.sprites.player_right);
-
-	// Loop over the MLX pointer
 	mlx_loop(vars.mlx);
 	return (0);
 }
