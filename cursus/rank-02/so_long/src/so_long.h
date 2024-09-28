@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/27 23:15:01 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:42:48 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define SPRITE_PLAYER_RIGHT "./assets/player/semi_right.xpm"
 
 # define SPRITE_WALL "./assets/map/wall.xpm"
-# define SPRITE_COLLECTABLE "./assets/map/collectable.xpm"
+# define SPRITE_COLLECTIBLE "./assets/map/collectible.xpm"
 # define SPRITE_EXIT "./assets/map/exit.xpm"
 
 # define MAP_WALL '1'
@@ -50,7 +50,8 @@
 # define DIR_DOWN 3
 # define DIR_RIGHT 4
 
-typedef struct	s_sprite {
+typedef struct s_sprite
+{
 	void	*img;
 	char	*addr;
 	int		width;
@@ -60,30 +61,34 @@ typedef struct	s_sprite {
 	int		endian;
 }				t_sprite;
 
-typedef struct	s_sprites {
+typedef struct s_sprites
+{
 	t_sprite	wall;
 	t_sprite	exit;
-	t_sprite	collectable;
+	t_sprite	collectible;
 	t_sprite	player_up;
 	t_sprite	player_down;
 	t_sprite	player_left;
 	t_sprite	player_right;
 }				t_sprites;
 
-typedef struct	s_map {
-	char		**content;
-	int			width;
-	int			height;
-	int			collectable_count;
+typedef struct s_map
+{
+	char	**content;
+	int		width;
+	int		height;
+	int		collectible_count;
 }				t_map;
 
-typedef struct	s_player {
-	int			x;
-	int			y;
-	int			n_steps;
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	int	n_steps;
 }				t_player;
 
-typedef struct	s_vars {
+typedef struct s_vars
+{
 	void		*mlx;
 	void		*win;
 	t_sprites	sprites;
@@ -92,13 +97,13 @@ typedef struct	s_vars {
 }				t_vars;
 
 // hooks.c
-int 	on_destroy(t_vars *vars);
-int 	on_keypress(int keycode, t_vars *vars);
+int		on_destroy(t_vars *vars);
+int		on_keypress(int keycode, t_vars *vars);
 
 // render.c
 void	render_map_part(t_vars *vars, t_sprite *sprite, int x, int y);
 void	render_wall(t_vars *vars, int x, int y);
-void	render_collectable(t_vars *vars, int x, int y);
+void	render_collectible(t_vars *vars, int x, int y);
 void	render_exit(t_vars *vars, int x, int y);
 void	render_map(t_vars *vars);
 void	render_player(t_vars *vars, t_sprite *sprite);
@@ -112,11 +117,11 @@ int		load_sprite(void *mlx, t_sprite *sprite_part, char *sprite_file);
 int		load_sprites(t_vars *vars);
 
 // validate.c
-int		validate_map(char *filename, t_vars *vars);
+// int		validate_map(char *filename, t_vars *vars);
 int		validate_map_dimensions(t_vars *vars, char *filename);
 int		validate_map_surrounded(t_vars *vars);
 char	**clone_matrix(char **matrix, int width, int height);
-int		has_valid_path(t_vars *vars, char **map, int *collectable_count, int x1, int y1);
+int		has_valid_path(char **map, int *collectible_count, int x, int y);
 int		validate_path(t_vars *vars);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/27 23:15:12 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:42:32 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_vars(t_vars *vars)
 {
 	ft_printf("map dimensions: (%d, %d)\n", vars->map.width, vars->map.height);
 	print_map(&vars->map);
-	ft_printf("collectables count: %d\n", vars->map.collectable_count);
+	ft_printf("collectibles count: %d\n", vars->map.collectible_count);
 	ft_printf("player position: (%d, %d)\n", vars->player.x, vars->player.y);
 }
 
@@ -97,7 +97,7 @@ int	validate_game_elements(t_vars *vars)
 		while (x < vars->map.width)
 		{
 			c = vars->map.content[y][x];
-			vars->map.collectable_count += (c == MAP_COLLECTIBLE);
+			vars->map.collectible_count += (c == MAP_COLLECTIBLE);
 			e_count += (c == MAP_EXIT);
 			p_count += (c == MAP_PLAYER);
 			if (c != MAP_COLLECTIBLE && c != MAP_EXIT && c != MAP_PLAYER && c != MAP_WALL && c != MAP_GROUND)
@@ -106,7 +106,7 @@ int	validate_game_elements(t_vars *vars)
 		}
 		y++;
 	}
-	return (vars->map.collectable_count < 1 || e_count != 1 || p_count != 1);
+	return (vars->map.collectible_count < 1 || e_count != 1 || p_count != 1);
 }
 
 int	read_player_position(t_vars *vars)
@@ -160,7 +160,7 @@ int	init(t_vars *vars, char *map_path)
 		return (1);
 	vars->map.width = 0;
 	vars->map.height = 0;
-	vars->map.collectable_count = 0;
+	vars->map.collectible_count = 0;
 	vars->player.n_steps = 0;
 	err = load_map(vars, map_path);
 	if (err)

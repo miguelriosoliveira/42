@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:35:14 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/07 23:04:10 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:42:48 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	load_sprites(t_vars *vars)
 	err = load_sprite(vars->mlx, &vars->sprites.wall, SPRITE_WALL);
 	if (err)
 		return (1);
-	err = load_sprite(vars->mlx, &vars->sprites.collectable, SPRITE_COLLECTABLE);
+	err = load_sprite(vars->mlx, &vars->sprites.collectible, SPRITE_COLLECTIBLE);
 	if (err)
 		return (1);
 	err = load_sprite(vars->mlx, &vars->sprites.exit, SPRITE_EXIT);

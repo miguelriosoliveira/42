@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:23:10 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/25 21:09:37 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:41:39 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	move(t_vars *vars, int direction)
 	if (vars->map.content[y][x] == MAP_COLLECTIBLE)
 	{
 		vars->map.content[y][x] = MAP_GROUND;
-		vars->map.collectable_count--;
+		vars->map.collectible_count--;
 	}
-	if (vars->map.content[y][x] == MAP_EXIT && vars->map.collectable_count == 0)
+	if (vars->map.content[y][x] == MAP_EXIT && vars->map.collectible_count == 0)
 	{
 		ft_printf("YOU WIN!\n");
 		on_destroy(vars);

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:21:16 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/25 21:09:37 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:42:32 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	render_wall(t_vars *vars, int x, int y)
 	render_map_part(vars, &vars->sprites.wall, x, y);
 }
 
-void	render_collectable(t_vars *vars, int x, int y)
+void	render_collectible(t_vars *vars, int x, int y)
 {
-	render_map_part(vars, &vars->sprites.collectable, x, y);
+	render_map_part(vars, &vars->sprites.collectible, x, y);
 }
 
 void	render_exit(t_vars *vars, int x, int y)
@@ -54,7 +54,7 @@ void	render_map(t_vars *vars)
 			if (line[x] == MAP_WALL)
 				render_wall(vars, x, y);
 			if (line[x] == MAP_COLLECTIBLE)
-				render_collectable(vars, x, y);
+				render_collectible(vars, x, y);
 			if (line[x] == MAP_EXIT)
 				render_exit(vars, x, y);
 			x++;
