@@ -6,19 +6,11 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 21:20:41 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 17:09:43 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:40:22 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	validate_map_extension(char *filename)
-{
-	char	*ext;
-
-	ext = ft_strrchr(filename, '.');
-	return (!ext || ft_strncmp(ext, ".ber", ft_strlen(ext)) != 0);
-}
 
 int	validate_map_dimensions(t_vars *vars, char *filename)
 {
@@ -29,7 +21,8 @@ int	validate_map_dimensions(t_vars *vars, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		width = ft_strlen(line);
 		if (ft_strchr(line, '\n'))
@@ -39,6 +32,7 @@ int	validate_map_dimensions(t_vars *vars, char *filename)
 		vars->map.width = width;
 		vars->map.height++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (!vars->map.width || !vars->map.height);
@@ -54,21 +48,20 @@ int	validate_game_elements(t_vars *vars)
 
 	p_count = 0;
 	e_count = 0;
-	y = 0;
-	while (y < vars->map.height)
+	y = -1;
+	while (++y < vars->map.height)
 	{
-		x = 0;
-		while (x < vars->map.width)
+		x = -1;
+		while (++x < vars->map.width)
 		{
 			c = vars->map.content[y][x];
 			vars->map.collectible_count += (c == MAP_COLLECTIBLE);
 			e_count += (c == MAP_EXIT);
 			p_count += (c == MAP_PLAYER);
-			if (c != MAP_COLLECTIBLE && c != MAP_EXIT && c != MAP_PLAYER && c != MAP_WALL && c != MAP_GROUND)
+			if (c != MAP_COLLECTIBLE && c != MAP_EXIT && c != MAP_PLAYER
+				&& c != MAP_WALL && c != MAP_GROUND)
 				return (1);
-			x++;
 		}
-		y++;
 	}
 	return (vars->map.collectible_count < 1 || e_count != 1 || p_count != 1);
 }
@@ -111,10 +104,10 @@ static int	has_valid_path(char **map, int *collectible_count, int x, int y)
 		*collectible_count -= 1;
 	map[y][x] = MAP_WALL;
 	found = 0;
-	found += has_valid_path(map, collectible_count, x + 1, y    );
-	found += has_valid_path(map, collectible_count, x - 1, y    );
-	found += has_valid_path(map, collectible_count, x    , y - 1);
-	found += has_valid_path(map, collectible_count, x    , y + 1);
+	found += has_valid_path(map, collectible_count, x + 1, y);
+	found += has_valid_path(map, collectible_count, x - 1, y);
+	found += has_valid_path(map, collectible_count, x, y - 1);
+	found += has_valid_path(map, collectible_count, x, y + 1);
 	if (c == MAP_EXIT)
 		return (*collectible_count == 0);
 	return (found > 0);
@@ -129,11 +122,11 @@ int	validate_path(t_vars *vars)
 	map = clone_matrix(vars->map.content, vars->map.width, vars->map.height);
 	collectible_count = vars->map.collectible_count;
 	is_path_valid = has_valid_path(
-		map,
-		&collectible_count,
-		vars->player.x,
-		vars->player.y
-	);
+			map,
+			&collectible_count,
+			vars->player.x,
+			vars->player.y
+			);
 	free_matrix(map, vars->map.height);
 	return (!is_path_valid);
 }

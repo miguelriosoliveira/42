@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 17:15:05 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:40:15 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ char	**clone_matrix(char **matrix, int width, int height);
 void	free_matrix(char **matrix, int height);
 
 // validation.c
-int		validate_map_extension(char *filename);
 int		validate_map_dimensions(t_vars *vars, char *filename);
 int		validate_game_elements(t_vars *vars);
 int		validate_map_surrounded(t_vars *vars);

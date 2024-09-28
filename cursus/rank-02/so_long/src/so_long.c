@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 17:24:11 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:38:30 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int	read_player_position(t_vars *vars)
 
 int	load_map(t_vars *vars, char *filename)
 {
-	if (validate_map_extension(filename))
-		return (ft_printf("Error\nInvalid map extension! \"%s\"\n", filename));
 	if (validate_map_dimensions(vars, filename))
 		return (ft_printf("Error\nInvalid map dimensions! \"%s\"\n", filename));
 	if (read_map(vars, filename))
@@ -116,6 +114,7 @@ int	main(int argc, char **argv)
 	t_vars	vars;
 	int		err;
 	char	*map_path;
+	char	*ext;
 
 	if (argc != 2)
 	{
@@ -123,6 +122,12 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	map_path = argv[1];
+	ext = ft_strrchr(map_path, '.');
+	if (!ext || ft_strncmp(ext, ".ber", ft_strlen(ext)) != 0)
+	{
+		ft_printf("Error\nInvalid map extension! \"%s\"\n", map_path);
+		return (1);
+	}
 	err = init(&vars, map_path);
 	if (err)
 		return (1);
