@@ -6,13 +6,13 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:21:16 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 16:42:32 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:00:09 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	render_map_part(t_vars *vars, t_sprite *sprite, int x, int y)
+static void	render_sprite(t_vars *vars, t_sprite *sprite, int x, int y)
 {
 	mlx_put_image_to_window(
 		vars->mlx,
@@ -20,63 +20,37 @@ void	render_map_part(t_vars *vars, t_sprite *sprite, int x, int y)
 		sprite->img,
 		x * TILE_SIZE,
 		y * TILE_SIZE
-	);
+		);
 }
 
-void	render_wall(t_vars *vars, int x, int y)
-{
-	render_map_part(vars, &vars->sprites.wall, x, y);
-}
-
-void	render_collectible(t_vars *vars, int x, int y)
-{
-	render_map_part(vars, &vars->sprites.collectible, x, y);
-}
-
-void	render_exit(t_vars *vars, int x, int y)
-{
-	render_map_part(vars, &vars->sprites.exit, x, y);
-}
-
-void	render_map(t_vars *vars)
+static void	render_map(t_vars *vars)
 {
 	int		x;
 	int		y;
 	char	*line;
 
 	y = 0;
-	while (vars->map.content[y])
+	while (y < vars->map.height)
 	{
 		line = vars->map.content[y];
 		x = 0;
-		while (x < (int)ft_strlen(line))
+		while (x < vars->map.width)
 		{
 			if (line[x] == MAP_WALL)
-				render_wall(vars, x, y);
-			if (line[x] == MAP_COLLECTIBLE)
-				render_collectible(vars, x, y);
+				render_sprite(vars, &vars->sprites.wall, x, y);
 			if (line[x] == MAP_EXIT)
-				render_exit(vars, x, y);
+				render_sprite(vars, &vars->sprites.exit, x, y);
+			if (line[x] == MAP_COLLECTIBLE)
+				render_sprite(vars, &vars->sprites.collectible, x, y);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	render_player(t_vars *vars, t_sprite *sprite)
-{
-	mlx_put_image_to_window(
-		vars->mlx,
-		vars->win,
-		sprite->img,
-		vars->player.x * TILE_SIZE,
-		vars->player.y * TILE_SIZE
-	);
-}
-
 void	render(t_vars *vars, t_sprite *player_sprite)
 {
 	mlx_clear_window(vars->mlx, vars->win);
 	render_map(vars);
-	render_player(vars, player_sprite);
+	render_sprite(vars, player_sprite, vars->player.x, vars->player.y);
 }

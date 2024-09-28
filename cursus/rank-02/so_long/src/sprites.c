@@ -6,13 +6,13 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:35:14 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 17:50:21 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:01:21 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	load_sprite(void *mlx, t_sprite *sprite, char *sprite_file)
+static int	load_sprite(void *mlx, t_sprite *sprite, char *sprite_file)
 {
 	sprite->img = mlx_xpm_file_to_image(
 			mlx,

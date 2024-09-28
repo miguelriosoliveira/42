@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 17:40:15 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:01:24 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,19 +106,9 @@ int		on_destroy(t_vars *vars);
 int		on_keypress(int keycode, t_vars *vars);
 
 // render.c
-void	render_map_part(t_vars *vars, t_sprite *sprite, int x, int y);
-void	render_wall(t_vars *vars, int x, int y);
-void	render_collectible(t_vars *vars, int x, int y);
-void	render_exit(t_vars *vars, int x, int y);
-void	render_map(t_vars *vars);
-void	render_player(t_vars *vars, t_sprite *sprite);
 void	render(t_vars *vars, t_sprite *player_sprite);
 
-// so_long.c
-void	print_vars(t_vars *vars);
-
 // sprites.c
-int		load_sprite(void *mlx, t_sprite *sprite_part, char *sprite_file);
 int		load_sprites(t_vars *vars);
 
 // utils.c
