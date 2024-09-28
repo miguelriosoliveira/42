@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 16:42:48 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:15:05 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ typedef struct s_vars
 	t_player	player;
 }				t_vars;
 
+// print.c
+void	print_map(t_map *map);
+void	print_map2(char **map);
+void	print_vars(t_vars *vars);
+
 // hooks.c
 int		on_destroy(t_vars *vars);
 int		on_keypress(int keycode, t_vars *vars);
@@ -116,12 +121,15 @@ void	print_vars(t_vars *vars);
 int		load_sprite(void *mlx, t_sprite *sprite_part, char *sprite_file);
 int		load_sprites(t_vars *vars);
 
-// validate.c
-// int		validate_map(char *filename, t_vars *vars);
-int		validate_map_dimensions(t_vars *vars, char *filename);
-int		validate_map_surrounded(t_vars *vars);
+// utils.c
 char	**clone_matrix(char **matrix, int width, int height);
-int		has_valid_path(char **map, int *collectible_count, int x, int y);
+void	free_matrix(char **matrix, int height);
+
+// validation.c
+int		validate_map_extension(char *filename);
+int		validate_map_dimensions(t_vars *vars, char *filename);
+int		validate_game_elements(t_vars *vars);
+int		validate_map_surrounded(t_vars *vars);
 int		validate_path(t_vars *vars);
 
 #endif

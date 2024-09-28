@@ -6,53 +6,11 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 16:42:32 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:24:11 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	print_map(t_map *map)
-{
-	int	i;
-
-	ft_printf("-----------------------------\n");
-	i = 0;
-	while (i < map->height)
-	{
-		ft_printf("line %d: |%s|\n", i, map->content[i]);
-		i++;
-	}
-}
-
-void	print_map2(char **map)
-{
-	int	i;
-
-	ft_printf("-----------------------------\n");
-	i = 0;
-	while (map[i])
-	{
-		ft_printf("line %d: |%s|\n", i, map[i]);
-		i++;
-	}
-}
-
-void	print_vars(t_vars *vars)
-{
-	ft_printf("map dimensions: (%d, %d)\n", vars->map.width, vars->map.height);
-	print_map(&vars->map);
-	ft_printf("collectibles count: %d\n", vars->map.collectible_count);
-	ft_printf("player position: (%d, %d)\n", vars->player.x, vars->player.y);
-}
-
-int	validate_map_extension(char *filename)
-{
-	char	*ext;
-
-	ext = ft_strrchr(filename, '.');
-	return (!ext || ft_strncmp(ext, ".ber", ft_strlen(ext)) != 0);
-}
 
 int	read_map(t_vars *vars, char *filename)
 {
@@ -68,45 +26,18 @@ int	read_map(t_vars *vars, char *filename)
 	if (!map)
 		return (1);
 	y = 0;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		if (ft_strchr(line, '\n'))
 			line[ft_strlen(line) - 1] = '\0';
 		map[y] = line;
 		y++;
+		line = get_next_line(fd);
 	}
 	vars->map.content = map;
 	close(fd);
 	return (0);
-}
-
-int	validate_game_elements(t_vars *vars)
-{
-	int		x;
-	int		y;
-	int		e_count;
-	int		p_count;
-	char	c;
-
-	p_count = 0;
-	e_count = 0;
-	y = 0;
-	while (y < vars->map.height)
-	{
-		x = 0;
-		while (x < vars->map.width)
-		{
-			c = vars->map.content[y][x];
-			vars->map.collectible_count += (c == MAP_COLLECTIBLE);
-			e_count += (c == MAP_EXIT);
-			p_count += (c == MAP_PLAYER);
-			if (c != MAP_COLLECTIBLE && c != MAP_EXIT && c != MAP_PLAYER && c != MAP_WALL && c != MAP_GROUND)
-				return (1);
-			x++;
-		}
-		y++;
-	}
-	return (vars->map.collectible_count < 1 || e_count != 1 || p_count != 1);
 }
 
 int	read_player_position(t_vars *vars)
@@ -124,12 +55,13 @@ int	read_player_position(t_vars *vars)
 			{
 				vars->player.x = x;
 				vars->player.y = y;
+				return (0);
 			}
 			x++;
 		}
 		y++;
 	}
-	return (0);
+	return (1);
 }
 
 int	load_map(t_vars *vars, char *filename)
@@ -166,11 +98,11 @@ int	init(t_vars *vars, char *map_path)
 	if (err)
 		return (free(vars->mlx), 1);
 	vars->win = mlx_new_window(
-		vars->mlx,
-		vars->map.width * TILE_SIZE,
-		vars->map.height * TILE_SIZE,
-		map_path
-	);
+			vars->mlx,
+			vars->map.width * TILE_SIZE,
+			vars->map.height * TILE_SIZE,
+			map_path
+			);
 	if (!vars->win)
 		return (free(vars->mlx), 1);
 	err = load_sprites(vars);

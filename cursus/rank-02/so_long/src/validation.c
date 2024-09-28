@@ -6,11 +6,19 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 21:20:41 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 16:44:12 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:09:43 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	validate_map_extension(char *filename)
+{
+	char	*ext;
+
+	ext = ft_strrchr(filename, '.');
+	return (!ext || ft_strncmp(ext, ".ber", ft_strlen(ext)) != 0);
+}
 
 int	validate_map_dimensions(t_vars *vars, char *filename)
 {
@@ -34,6 +42,35 @@ int	validate_map_dimensions(t_vars *vars, char *filename)
 	}
 	close(fd);
 	return (!vars->map.width || !vars->map.height);
+}
+
+int	validate_game_elements(t_vars *vars)
+{
+	int		x;
+	int		y;
+	int		e_count;
+	int		p_count;
+	char	c;
+
+	p_count = 0;
+	e_count = 0;
+	y = 0;
+	while (y < vars->map.height)
+	{
+		x = 0;
+		while (x < vars->map.width)
+		{
+			c = vars->map.content[y][x];
+			vars->map.collectible_count += (c == MAP_COLLECTIBLE);
+			e_count += (c == MAP_EXIT);
+			p_count += (c == MAP_PLAYER);
+			if (c != MAP_COLLECTIBLE && c != MAP_EXIT && c != MAP_PLAYER && c != MAP_WALL && c != MAP_GROUND)
+				return (1);
+			x++;
+		}
+		y++;
+	}
+	return (vars->map.collectible_count < 1 || e_count != 1 || p_count != 1);
 }
 
 int	validate_map_surrounded(t_vars *vars)
@@ -62,23 +99,7 @@ int	validate_map_surrounded(t_vars *vars)
 	return (0);
 }
 
-char	**clone_matrix(char **matrix, int width, int height)
-{
-	int		i;
-	char	**clone;
-
-	clone = ft_calloc(height + 1, sizeof(char *));
-	i = 0;
-	while (i < height)
-	{
-		clone[i] = ft_calloc(width + 1, sizeof(char));
-		ft_strlcpy(clone[i], matrix[i], ft_strlen(matrix[i]) + 1);
-		i++;
-	}
-	return (clone);
-}
-
-int	has_valid_path(char **map, int *collectible_count, int x, int y)
+static int	has_valid_path(char **map, int *collectible_count, int x, int y)
 {
 	int		found;
 	char	c;
@@ -113,6 +134,6 @@ int	validate_path(t_vars *vars)
 		vars->player.x,
 		vars->player.y
 	);
-	// TODO: free clone map
+	free_matrix(map, vars->map.height);
 	return (!is_path_valid);
 }
