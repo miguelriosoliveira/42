@@ -6,55 +6,43 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:35:14 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 16:42:48 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:50:21 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	load_sprite(void *mlx, t_sprite *sprite_part, char *sprite_file)
+int	load_sprite(void *mlx, t_sprite *sprite, char *sprite_file)
 {
-	sprite_part->img = mlx_xpm_file_to_image(
-		mlx,
-		sprite_file,
-		&sprite_part->width,
-		&sprite_part->height
-	);
-	if (!sprite_part->img)
+	sprite->img = mlx_xpm_file_to_image(
+			mlx,
+			sprite_file,
+			&sprite->width,
+			&sprite->height
+			);
+	if (!sprite->img)
 		return (1);
-	sprite_part->addr = mlx_get_data_addr(
-		sprite_part->img,
-		&sprite_part->bits_per_pixel,
-		&sprite_part->line_length,
-		&sprite_part->endian
-	);
+	sprite->addr = mlx_get_data_addr(
+			sprite->img,
+			&sprite->bits_per_pixel,
+			&sprite->line_length,
+			&sprite->endian
+			);
 	return (0);
 }
 
 int	load_sprites(t_vars *vars)
 {
-	int	err;
+	t_sprites	*sprites;
 
-	err = load_sprite(vars->mlx, &vars->sprites.player_down, SPRITE_PLAYER_DOWN);
-	if (err)
-		return (1);
-	err = load_sprite(vars->mlx, &vars->sprites.player_up, SPRITE_PLAYER_UP);
-	if (err)
-		return (1);
-	err = load_sprite(vars->mlx, &vars->sprites.player_left, SPRITE_PLAYER_LEFT);
-	if (err)
-		return (1);
-	err = load_sprite(vars->mlx, &vars->sprites.player_right, SPRITE_PLAYER_RIGHT);
-	if (err)
-		return (1);
-	err = load_sprite(vars->mlx, &vars->sprites.wall, SPRITE_WALL);
-	if (err)
-		return (1);
-	err = load_sprite(vars->mlx, &vars->sprites.collectible, SPRITE_COLLECTIBLE);
-	if (err)
-		return (1);
-	err = load_sprite(vars->mlx, &vars->sprites.exit, SPRITE_EXIT);
-	if (err)
-		return (1);
-	return (0);
+	sprites = &vars->sprites;
+	return (
+		load_sprite(vars->mlx, &sprites->player_down, SPRITE_PLAYER_DOWN)
+		|| load_sprite(vars->mlx, &sprites->player_up, SPRITE_PLAYER_UP)
+		|| load_sprite(vars->mlx, &sprites->player_left, SPRITE_PLAYER_LEFT)
+		|| load_sprite(vars->mlx, &sprites->player_right, SPRITE_PLAYER_RIGHT)
+		|| load_sprite(vars->mlx, &sprites->wall, SPRITE_WALL)
+		|| load_sprite(vars->mlx, &sprites->collectible, SPRITE_COLLECTIBLE)
+		|| load_sprite(vars->mlx, &sprites->exit, SPRITE_EXIT)
+	);
 }
