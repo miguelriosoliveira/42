@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:35:14 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 18:01:21 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 19:56:53 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,7 @@ static int	load_sprite(void *mlx, t_sprite *sprite, char *sprite_file)
 			&sprite->width,
 			&sprite->height
 			);
-	if (!sprite->img)
-		return (1);
-	sprite->addr = mlx_get_data_addr(
-			sprite->img,
-			&sprite->bits_per_pixel,
-			&sprite->line_length,
-			&sprite->endian
-			);
-	return (0);
+	return (!sprite->img);
 }
 
 int	load_sprites(t_vars *vars)
@@ -45,4 +37,15 @@ int	load_sprites(t_vars *vars)
 		|| load_sprite(vars->mlx, &sprites->collectible, SPRITE_COLLECTIBLE)
 		|| load_sprite(vars->mlx, &sprites->exit, SPRITE_EXIT)
 	);
+}
+
+void	free_sprites(t_vars *vars)
+{
+	mlx_destroy_image(vars->mlx, vars->sprites.exit.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.wall.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.collectible.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_up.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_down.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_left.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_right.img);
 }

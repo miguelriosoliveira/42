@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:23:10 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 18:34:30 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 19:50:41 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,11 @@ int	on_keypress(int keycode, t_vars *vars)
 
 int	on_destroy(t_vars *vars)
 {
+	free_sprites(vars);
+	free_matrix(vars->map.content, vars->map.height);
 	mlx_destroy_window(vars->mlx, vars->win);
 	mlx_destroy_display(vars->mlx);
 	free(vars->mlx);
-	free_matrix(vars->map.content, vars->map.height);
 	exit(0);
 	return (0);
 }

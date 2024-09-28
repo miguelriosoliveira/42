@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 18:01:24 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/09/28 19:38:10 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	render(t_vars *vars, t_sprite *player_sprite);
 
 // sprites.c
 int		load_sprites(t_vars *vars);
+void	free_sprites(t_vars *vars);
 
 // utils.c
 char	**clone_matrix(char **matrix, int width, int height);
