@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 19:38:10 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/06 19:44:08 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,19 @@
 # include <mlx.h>
 # include "../libft/libft.h"
 
-# define SPRITE_PLAYER_UP "./assets/player/semi_up.xpm"
-# define SPRITE_PLAYER_DOWN "./assets/player/semi_down.xpm"
-# define SPRITE_PLAYER_LEFT "./assets/player/semi_left.xpm"
-# define SPRITE_PLAYER_RIGHT "./assets/player/semi_right.xpm"
+# define SPRITE_PLAYER_CLOSED "./assets/player/closed.xpm"
+
+# define SPRITE_PLAYER_OPEN_UP "./assets/player/open_up.xpm"
+# define SPRITE_PLAYER_SEMI_UP "./assets/player/semi_up.xpm"
+
+# define SPRITE_PLAYER_OPEN_DOWN "./assets/player/open_down.xpm"
+# define SPRITE_PLAYER_SEMI_DOWN "./assets/player/semi_down.xpm"
+
+# define SPRITE_PLAYER_OPEN_LEFT "./assets/player/open_left.xpm"
+# define SPRITE_PLAYER_SEMI_LEFT "./assets/player/semi_left.xpm"
+
+# define SPRITE_PLAYER_OPEN_RIGHT "./assets/player/open_right.xpm"
+# define SPRITE_PLAYER_SEMI_RIGHT "./assets/player/semi_right.xpm"
 
 # define SPRITE_WALL "./assets/map/wall.xpm"
 # define SPRITE_COLLECTIBLE "./assets/map/collectible.xpm"
@@ -50,6 +59,8 @@
 # define DIR_DOWN 3
 # define DIR_RIGHT 4
 
+# define CLOCK 3000
+
 typedef struct s_sprite
 {
 	void	*img;
@@ -66,10 +77,22 @@ typedef struct s_sprites
 	t_sprite	wall;
 	t_sprite	exit;
 	t_sprite	collectible;
-	t_sprite	player_up;
-	t_sprite	player_down;
-	t_sprite	player_left;
-	t_sprite	player_right;
+
+	t_sprite	player_closed;
+
+	t_sprite	player_open_up;
+	t_sprite	player_semi_up;
+
+	t_sprite	player_open_down;
+	t_sprite	player_semi_down;
+
+	t_sprite	player_open_left;
+	t_sprite	player_semi_left;
+
+	t_sprite	player_open_right;
+	t_sprite	player_semi_right;
+
+	t_sprite	*player_current;
 }				t_sprites;
 
 typedef struct s_map
@@ -84,6 +107,7 @@ typedef struct s_player
 {
 	int	x;
 	int	y;
+	int	direction;
 	int	n_steps;
 }				t_player;
 
@@ -102,10 +126,12 @@ void	print_map2(char **map);
 void	print_vars(t_vars *vars);
 
 // hooks.c
-int		on_destroy(t_vars *vars);
 int		on_keypress(int keycode, t_vars *vars);
+int		on_destroy(t_vars *vars);
+int		on_loop(t_vars *vars);
 
 // render.c
+void	render_sprite(t_vars *vars, t_sprite *sprite, int x, int y);
 void	render(t_vars *vars, t_sprite *player_sprite);
 
 // sprites.c

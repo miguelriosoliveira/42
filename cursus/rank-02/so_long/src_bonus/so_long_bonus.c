@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 18:06:06 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/06 20:03:36 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	init(t_vars *vars, char *map_path)
 	vars->map.height = 0;
 	vars->map.collectible_count = 0;
 	vars->player.n_steps = 0;
+	vars->player.direction = DIR_RIGHT;
 	err = load_map(vars, map_path);
 	if (err)
 		return (free(vars->mlx), 1);
@@ -131,9 +132,10 @@ int	main(int argc, char **argv)
 	err = init(&vars, map_path);
 	if (err)
 		return (1);
+	render(&vars, &vars.sprites.player_closed);
 	mlx_hook(vars.win, KeyPress, KeyPressMask, &on_keypress, &vars);
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, &on_destroy, &vars);
-	render(&vars, &vars.sprites.player_right);
+	mlx_loop_hook(vars.mlx, &on_loop, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }

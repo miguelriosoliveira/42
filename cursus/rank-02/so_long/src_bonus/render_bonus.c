@@ -6,13 +6,13 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:21:16 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 18:19:49 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/06 19:04:11 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-static void	render_sprite(t_vars *vars, t_sprite *sprite, int x, int y)
+void	render_sprite(t_vars *vars, t_sprite *sprite, int x, int y)
 {
 	mlx_put_image_to_window(
 		vars->mlx,

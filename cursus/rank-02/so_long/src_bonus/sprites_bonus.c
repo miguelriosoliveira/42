@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:35:14 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 17:21:30 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/06 19:36:16 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,15 @@ int	load_sprites(t_vars *vars)
 
 	sprites = &vars->sprites;
 	return (
-		load_sprite(vars->mlx, &sprites->player_down, SPRITE_PLAYER_DOWN)
-		|| load_sprite(vars->mlx, &sprites->player_up, SPRITE_PLAYER_UP)
-		|| load_sprite(vars->mlx, &sprites->player_left, SPRITE_PLAYER_LEFT)
-		|| load_sprite(vars->mlx, &sprites->player_right, SPRITE_PLAYER_RIGHT)
+		load_sprite(vars->mlx, &sprites->player_closed, SPRITE_PLAYER_CLOSED)
+		|| load_sprite(vars->mlx, &sprites->player_open_up, SPRITE_PLAYER_OPEN_UP)
+		|| load_sprite(vars->mlx, &sprites->player_semi_up, SPRITE_PLAYER_SEMI_UP)
+		|| load_sprite(vars->mlx, &sprites->player_open_down, SPRITE_PLAYER_OPEN_DOWN)
+		|| load_sprite(vars->mlx, &sprites->player_semi_down, SPRITE_PLAYER_SEMI_DOWN)
+		|| load_sprite(vars->mlx, &sprites->player_open_left, SPRITE_PLAYER_OPEN_LEFT)
+		|| load_sprite(vars->mlx, &sprites->player_semi_left, SPRITE_PLAYER_SEMI_LEFT)
+		|| load_sprite(vars->mlx, &sprites->player_open_right, SPRITE_PLAYER_OPEN_RIGHT)
+		|| load_sprite(vars->mlx, &sprites->player_semi_right, SPRITE_PLAYER_SEMI_RIGHT)
 		|| load_sprite(vars->mlx, &sprites->wall, SPRITE_WALL)
 		|| load_sprite(vars->mlx, &sprites->collectible, SPRITE_COLLECTIBLE)
 		|| load_sprite(vars->mlx, &sprites->exit, SPRITE_EXIT)
@@ -44,8 +49,8 @@ void	free_sprites(t_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->sprites.exit.img);
 	mlx_destroy_image(vars->mlx, vars->sprites.wall.img);
 	mlx_destroy_image(vars->mlx, vars->sprites.collectible.img);
-	mlx_destroy_image(vars->mlx, vars->sprites.player_up.img);
-	mlx_destroy_image(vars->mlx, vars->sprites.player_down.img);
-	mlx_destroy_image(vars->mlx, vars->sprites.player_left.img);
-	mlx_destroy_image(vars->mlx, vars->sprites.player_right.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_up.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_down.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_left.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_right.img);
 }
