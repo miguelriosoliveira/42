@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 17:21:30 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:06:06 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	init(t_vars *vars, char *map_path)
 	vars->win = mlx_new_window(
 			vars->mlx,
 			vars->map.width * TILE_SIZE,
-			vars->map.height * TILE_SIZE,
+			(vars->map.height + 1) * TILE_SIZE,
 			map_path
 			);
 	if (!vars->win)

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:23:10 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 17:21:30 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:22:04 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,9 @@ static void	move(t_vars *vars, int direction)
 	x = vars->player.x;
 	y = vars->player.y;
 	try_move(vars, &sprite, direction);
-	render(vars, sprite);
 	if (vars->player.x != x || vars->player.y != y)
-	{
 		vars->player.n_steps++;
-		ft_printf("steps count: %d\n", vars->player.n_steps);
-	}
+	render(vars, sprite);
 	x = vars->player.x;
 	y = vars->player.y;
 	if (vars->map.content[y][x] == MAP_COLLECTIBLE)
