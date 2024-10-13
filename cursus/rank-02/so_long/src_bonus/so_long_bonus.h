@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 19:44:08 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 15:36:17 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 # define DIR_DOWN 3
 # define DIR_RIGHT 4
 
-# define CLOCK 3000
+# define CLOCK 2000
 
 typedef struct s_sprite
 {
