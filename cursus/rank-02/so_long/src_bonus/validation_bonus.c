@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 21:20:41 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 19:55:02 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:57:38 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	validate_map_dimensions(t_vars *vars, char *filename)
 	int		err;
 	char	*line;
 
-	err = 0,
+	err = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (1);
