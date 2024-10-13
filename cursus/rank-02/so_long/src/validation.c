@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 21:20:41 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/09/28 17:40:22 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:27:27 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ int	validate_map_dimensions(t_vars *vars, char *filename)
 {
 	int		fd;
 	int		width;
+	int		err;
 	char	*line;
 
+	err = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (1);
@@ -27,15 +29,14 @@ int	validate_map_dimensions(t_vars *vars, char *filename)
 		width = ft_strlen(line);
 		if (ft_strchr(line, '\n'))
 			width--;
-		if (vars->map.width && vars->map.width != width)
-			return (free(line), 1);
+		err += (vars->map.width && vars->map.width != width);
 		vars->map.width = width;
 		vars->map.height++;
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	return (!vars->map.width || !vars->map.height);
+	return (err);
 }
 
 int	validate_game_elements(t_vars *vars)
