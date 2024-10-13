@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 20:03:36 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:28:50 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	init(t_vars *vars, char *map_path)
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
-	int		err;
 	char	*map_path;
 	char	*ext;
 
@@ -129,8 +128,7 @@ int	main(int argc, char **argv)
 		ft_printf("Error\nInvalid map extension! \"%s\"\n", map_path);
 		return (1);
 	}
-	err = init(&vars, map_path);
-	if (err)
+	if (init(&vars, map_path))
 		return (1);
 	render(&vars, &vars.sprites.player_closed);
 	mlx_hook(vars.win, KeyPress, KeyPressMask, &on_keypress, &vars);

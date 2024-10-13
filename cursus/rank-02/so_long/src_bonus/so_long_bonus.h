@@ -6,12 +6,12 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 16:07:27 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:29:09 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <fcntl.h>
 # include <X11/X.h>
@@ -140,6 +140,7 @@ void	render(t_vars *vars, t_sprite *player_sprite);
 // sprites.c
 int		load_sprites(t_vars *vars);
 void	free_sprites(t_vars *vars);
+void	update_current_sprite(t_vars *vars, int tick);
 
 // utils.c
 char	**clone_matrix(char **matrix, int width, int height);

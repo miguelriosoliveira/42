@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:23:10 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 16:31:20 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:27:24 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,31 +101,13 @@ int	on_loop(t_vars *vars)
 	int			tick;
 
 	tick = (i / CLOCK) % 4;
-	if (tick == 0)
-		vars->sprites.player_current = &vars->sprites.player_closed;
-	if (tick == 1 || tick == 3)
-	{
-		if (vars->player.direction == DIR_UP)
-			vars->sprites.player_current = &vars->sprites.player_semi_up;
-		if (vars->player.direction == DIR_DOWN)
-			vars->sprites.player_current = &vars->sprites.player_semi_down;
-		if (vars->player.direction == DIR_LEFT)
-			vars->sprites.player_current = &vars->sprites.player_semi_left;
-		if (vars->player.direction == DIR_RIGHT)
-			vars->sprites.player_current = &vars->sprites.player_semi_right;
-	}
-	if (tick == 2)
-	{
-		if (vars->player.direction == DIR_UP)
-			vars->sprites.player_current = &vars->sprites.player_open_up;
-		if (vars->player.direction == DIR_DOWN)
-			vars->sprites.player_current = &vars->sprites.player_open_down;
-		if (vars->player.direction == DIR_LEFT)
-			vars->sprites.player_current = &vars->sprites.player_open_left;
-		if (vars->player.direction == DIR_RIGHT)
-			vars->sprites.player_current = &vars->sprites.player_open_right;
-	}
-	render_sprite(vars, vars->sprites.player_current, vars->player.x, vars->player.y);
+	update_current_sprite(vars, tick);
+	render_sprite(
+		vars,
+		vars->sprites.player_current,
+		vars->player.x,
+		vars->player.y
+		);
 	i++;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:35:14 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 16:35:44 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:32:52 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,25 @@ static int	load_sprite(void *mlx, t_sprite *sprite, char *sprite_file)
 
 int	load_sprites(t_vars *vars)
 {
-	t_sprites	*sprites;
+	void		*mlx;
+	t_sprites	*sp;
 
-	sprites = &vars->sprites;
+	mlx = vars->mlx;
+	sp = &vars->sprites;
 	return (
-		load_sprite(vars->mlx, &sprites->player_closed, SPRITE_PLAYER_CLOSED)
-		|| load_sprite(vars->mlx, &sprites->player_open_up, SPRITE_PLAYER_OPEN_UP)
-		|| load_sprite(vars->mlx, &sprites->player_semi_up, SPRITE_PLAYER_SEMI_UP)
-		|| load_sprite(vars->mlx, &sprites->player_open_down, SPRITE_PLAYER_OPEN_DOWN)
-		|| load_sprite(vars->mlx, &sprites->player_semi_down, SPRITE_PLAYER_SEMI_DOWN)
-		|| load_sprite(vars->mlx, &sprites->player_open_left, SPRITE_PLAYER_OPEN_LEFT)
-		|| load_sprite(vars->mlx, &sprites->player_semi_left, SPRITE_PLAYER_SEMI_LEFT)
-		|| load_sprite(vars->mlx, &sprites->player_open_right, SPRITE_PLAYER_OPEN_RIGHT)
-		|| load_sprite(vars->mlx, &sprites->player_semi_right, SPRITE_PLAYER_SEMI_RIGHT)
-		|| load_sprite(vars->mlx, &sprites->wall, SPRITE_WALL)
-		|| load_sprite(vars->mlx, &sprites->collectible, SPRITE_COLLECTIBLE)
-		|| load_sprite(vars->mlx, &sprites->enemy, SPRITE_ENEMY)
-		|| load_sprite(vars->mlx, &sprites->exit, SPRITE_EXIT)
+		load_sprite(mlx, &sp->player_closed, SPRITE_PLAYER_CLOSED)
+		|| load_sprite(mlx, &sp->player_open_up, SPRITE_PLAYER_OPEN_UP)
+		|| load_sprite(mlx, &sp->player_semi_up, SPRITE_PLAYER_SEMI_UP)
+		|| load_sprite(mlx, &sp->player_open_down, SPRITE_PLAYER_OPEN_DOWN)
+		|| load_sprite(mlx, &sp->player_semi_down, SPRITE_PLAYER_SEMI_DOWN)
+		|| load_sprite(mlx, &sp->player_open_left, SPRITE_PLAYER_OPEN_LEFT)
+		|| load_sprite(mlx, &sp->player_semi_left, SPRITE_PLAYER_SEMI_LEFT)
+		|| load_sprite(mlx, &sp->player_open_right, SPRITE_PLAYER_OPEN_RIGHT)
+		|| load_sprite(mlx, &sp->player_semi_right, SPRITE_PLAYER_SEMI_RIGHT)
+		|| load_sprite(mlx, &sp->wall, SPRITE_WALL)
+		|| load_sprite(mlx, &sp->collectible, SPRITE_COLLECTIBLE)
+		|| load_sprite(mlx, &sp->enemy, SPRITE_ENEMY)
+		|| load_sprite(mlx, &sp->exit, SPRITE_EXIT)
 	);
 }
 
@@ -60,4 +62,32 @@ void	free_sprites(t_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->sprites.collectible.img);
 	mlx_destroy_image(vars->mlx, vars->sprites.enemy.img);
 	mlx_destroy_image(vars->mlx, vars->sprites.exit.img);
+}
+
+void	update_current_sprite(t_vars *vars, int tick)
+{
+	if (tick == 0)
+		vars->sprites.player_current = &vars->sprites.player_closed;
+	if (tick == 1 || tick == 3)
+	{
+		if (vars->player.direction == DIR_UP)
+			vars->sprites.player_current = &vars->sprites.player_semi_up;
+		if (vars->player.direction == DIR_DOWN)
+			vars->sprites.player_current = &vars->sprites.player_semi_down;
+		if (vars->player.direction == DIR_LEFT)
+			vars->sprites.player_current = &vars->sprites.player_semi_left;
+		if (vars->player.direction == DIR_RIGHT)
+			vars->sprites.player_current = &vars->sprites.player_semi_right;
+	}
+	if (tick == 2)
+	{
+		if (vars->player.direction == DIR_UP)
+			vars->sprites.player_current = &vars->sprites.player_open_up;
+		if (vars->player.direction == DIR_DOWN)
+			vars->sprites.player_current = &vars->sprites.player_open_down;
+		if (vars->player.direction == DIR_LEFT)
+			vars->sprites.player_current = &vars->sprites.player_open_left;
+		if (vars->player.direction == DIR_RIGHT)
+			vars->sprites.player_current = &vars->sprites.player_open_right;
+	}
 }
