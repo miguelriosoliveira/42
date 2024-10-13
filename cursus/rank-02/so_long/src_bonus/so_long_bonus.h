@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:17:58 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 15:36:17 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:07:27 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@
 
 # define SPRITE_WALL "./assets/map/wall.xpm"
 # define SPRITE_COLLECTIBLE "./assets/map/collectible.xpm"
+# define SPRITE_ENEMY "./assets/map/enemy.xpm"
 # define SPRITE_EXIT "./assets/map/exit.xpm"
 
 # define MAP_WALL '1'
 # define MAP_GROUND '0'
 # define MAP_PLAYER 'P'
 # define MAP_COLLECTIBLE 'C'
+# define MAP_ENEMY 'G'
 # define MAP_EXIT 'E'
 
 # define TILE_SIZE 32
@@ -77,6 +79,7 @@ typedef struct s_sprites
 	t_sprite	wall;
 	t_sprite	exit;
 	t_sprite	collectible;
+	t_sprite	enemy;
 
 	t_sprite	player_closed;
 

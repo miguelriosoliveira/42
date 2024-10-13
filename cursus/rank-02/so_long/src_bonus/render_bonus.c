@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:21:16 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 19:04:11 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:09:54 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	render_map(t_vars *vars)
 				render_sprite(vars, &vars->sprites.exit, x, y);
 			if (line[x] == MAP_COLLECTIBLE)
 				render_sprite(vars, &vars->sprites.collectible, x, y);
+			if (line[x] == MAP_ENEMY)
+				render_sprite(vars, &vars->sprites.enemy, x, y);
 			x++;
 		}
 		y++;

@@ -68,7 +68,7 @@ fclean_bonus: clean_bonus
 re_bonus: fclean_bonus bonus
 
 test_bonus: re_bonus
-	for file in "" invalid_nonexistant.ber $(wildcard maps/*); do \
+	for file in "" invalid_nonexistant.ber $(wildcard maps_bonus/*); do \
 		echo "-----> ./$(NAME) $$file"; \
 		./$(NAME) $$file; \
 	done

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:23:10 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 20:01:36 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:31:20 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ static void	try_move(t_vars *vars)
 
 static void	move(t_vars *vars, int direction)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	char	pos;
 
 	x = vars->player.x;
 	y = vars->player.y;
@@ -52,16 +53,18 @@ static void	move(t_vars *vars, int direction)
 	if (vars->player.x != x || vars->player.y != y)
 		vars->player.n_steps++;
 	render(vars, vars->sprites.player_current);
-	x = vars->player.x;
-	y = vars->player.y;
-	if (vars->map.content[y][x] == MAP_COLLECTIBLE)
+	pos = vars->map.content[vars->player.y][vars->player.x];
+	if (pos == MAP_COLLECTIBLE)
 	{
-		vars->map.content[y][x] = MAP_GROUND;
+		vars->map.content[vars->player.y][vars->player.x] = MAP_GROUND;
 		vars->map.collectible_count--;
 	}
-	if (vars->map.content[y][x] == MAP_EXIT && vars->map.collectible_count == 0)
+	if (pos == MAP_ENEMY || (pos == MAP_EXIT && !vars->map.collectible_count))
 	{
-		ft_printf("YOU WIN!\nSteps taken: %d\n", vars->player.n_steps);
+		if (pos == MAP_ENEMY)
+			ft_printf("YOU DIED!\nSteps taken: %d\n", vars->player.n_steps);
+		else
+			ft_printf("YOU WIN!\nSteps taken: %d\n", vars->player.n_steps);
 		on_destroy(vars);
 	}
 }

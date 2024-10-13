@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 21:20:41 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 17:21:30 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:16:28 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	validate_game_elements(t_vars *vars)
 			e_count += (c == MAP_EXIT);
 			p_count += (c == MAP_PLAYER);
 			if (c != MAP_COLLECTIBLE && c != MAP_EXIT && c != MAP_PLAYER
-				&& c != MAP_WALL && c != MAP_GROUND)
+				&& c != MAP_WALL && c != MAP_GROUND && c != MAP_ENEMY)
 				return (1);
 		}
 	}
@@ -98,7 +98,7 @@ static int	has_valid_path(char **map, int *collectible_count, int x, int y)
 	char	c;
 
 	c = map[y][x];
-	if (c == MAP_WALL)
+	if (c == MAP_WALL || c == MAP_ENEMY)
 		return (0);
 	if (c == MAP_COLLECTIBLE)
 		*collectible_count -= 1;

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:35:14 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/06 19:36:16 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:35:44 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,24 @@ int	load_sprites(t_vars *vars)
 		|| load_sprite(vars->mlx, &sprites->player_semi_right, SPRITE_PLAYER_SEMI_RIGHT)
 		|| load_sprite(vars->mlx, &sprites->wall, SPRITE_WALL)
 		|| load_sprite(vars->mlx, &sprites->collectible, SPRITE_COLLECTIBLE)
+		|| load_sprite(vars->mlx, &sprites->enemy, SPRITE_ENEMY)
 		|| load_sprite(vars->mlx, &sprites->exit, SPRITE_EXIT)
 	);
 }
 
 void	free_sprites(t_vars *vars)
 {
-	mlx_destroy_image(vars->mlx, vars->sprites.exit.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_closed.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_open_up.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_up.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_open_down.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_down.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_open_left.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_left.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_open_right.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_right.img);
 	mlx_destroy_image(vars->mlx, vars->sprites.wall.img);
 	mlx_destroy_image(vars->mlx, vars->sprites.collectible.img);
-	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_up.img);
-	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_down.img);
-	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_left.img);
-	mlx_destroy_image(vars->mlx, vars->sprites.player_semi_right.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.enemy.img);
+	mlx_destroy_image(vars->mlx, vars->sprites.exit.img);
 }
