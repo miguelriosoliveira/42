@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 19:17:26 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:33:02 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,12 @@ int	read_player_position(t_vars *vars)
 int	load_map(t_vars *vars, char *filename)
 {
 	if (validate_map_dimensions(vars, filename))
-	{
-		ft_printf("Error\nInvalid map dimensions! \"%s\"\n", filename);
-		exit(0);
-		return (1);
-	}
+		return (ft_printf("Error\nInvalid map dimensions! \"%s\"\n", filename));
 	if (read_map(vars, filename))
 		return (ft_printf("Error\nFailed reading map! \"%s\"\n", filename));
 	if (validate_game_elements(vars))
-		return (ft_printf("Error\nInvalid game elements! \"%s\"\n", filename));
+		return (free_matrix(vars->map.content, vars->map.height),
+			ft_printf("Error\nInvalid game elements! \"%s\"\n", filename));
 	if (read_player_position(vars))
 		return (ft_printf("Error\nFailed reading player! \"%s\"\n", filename));
 	if (validate_map_surrounded(vars))
