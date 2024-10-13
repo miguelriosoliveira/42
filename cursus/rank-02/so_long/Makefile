@@ -1,11 +1,14 @@
 NAME = so_long
 
-SRC = $(wildcard src/*.c)
+SRC_FILES = hooks.c print.c render.c so_long.c sprites.c utils.c validation.c
+SRC = $(addprefix src/, $(SRC_FILES))
 OBJ = $(SRC:.c=.o)
-SRC_BONUS = $(wildcard src_bonus/*.c)
+
+SRC_FILES_BONUS = hooks_bonus.c print_bonus.c render_bonus.c so_long_bonus.c sprites_bonus.c utils_bonus.c validation_bonus.c
+SRC_BONUS = $(addprefix src_bonus/, $(SRC_FILES_BONUS))
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
-CC = cc -Wall -Werror -Wextra
+CC = cc -Wall -Werror -Wextra -fsanitize=address -g3
 AR = ar -rcs
 RM = rm -rf
 MAKE = make -sC
@@ -48,7 +51,7 @@ fclean: clean
 re: fclean all
 
 test: re $(NAME)
-	for file in "" invalid_nonexistant.ber $(wildcard maps/*); do \
+	for file in "" invalid_nonexistant.ber maps/*; do \
 		echo "-----> ./$(NAME) $$file"; \
 		./$(NAME) $$file; \
 	done
@@ -68,7 +71,7 @@ fclean_bonus: clean_bonus
 re_bonus: fclean_bonus bonus
 
 test_bonus: re_bonus
-	for file in "" invalid_nonexistant.ber $(wildcard maps_bonus/*); do \
+	for file in "" invalid_nonexistant.ber maps_bonus/*; do \
 		echo "-----> ./$(NAME) $$file"; \
 		./$(NAME) $$file; \
 	done
