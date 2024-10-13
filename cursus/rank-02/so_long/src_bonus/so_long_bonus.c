@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 17:28:50 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:56:05 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,16 @@ int	load_map(t_vars *vars, char *filename)
 	if (read_map(vars, filename))
 		return (ft_printf("Error\nFailed reading map! \"%s\"\n", filename));
 	if (validate_game_elements(vars))
-		return (ft_printf("Error\nInvalid game elements! \"%s\"\n", filename));
+		return (free_matrix(vars->map.content, vars->map.height),
+			ft_printf("Error\nInvalid game elements! \"%s\"\n", filename));
 	if (read_player_position(vars))
 		return (ft_printf("Error\nFailed reading player! \"%s\"\n", filename));
 	if (validate_map_surrounded(vars))
-		return (ft_printf("Error\nNot enclosed by walls! \"%s\"\n", filename));
+		return (free_matrix(vars->map.content, vars->map.height),
+			ft_printf("Error\nNot enclosed by walls! \"%s\"\n", filename));
 	if (validate_path(vars))
-		return (ft_printf("Error\nMap has no valid path! \"%s\"\n", filename));
+		return (free_matrix(vars->map.content, vars->map.height),
+			ft_printf("Error\nMap has no valid path! \"%s\"\n", filename));
 	return (0);
 }
 
