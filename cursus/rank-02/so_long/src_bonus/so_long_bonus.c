@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 19:56:05 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/14 22:17:42 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,10 @@ int	init(t_vars *vars, char *map_path)
 		return (free(vars->mlx), 1);
 	err = load_sprites(vars);
 	if (err)
-		return (free(vars->mlx), free(vars->win),
-			ft_printf("Error\nFailed loading sprites!\n"));
+		return (free_matrix(vars->map.content, vars->map.height),
+			mlx_destroy_window(vars->mlx, vars->win),
+			mlx_destroy_display(vars->mlx),
+			free(vars->mlx), ft_printf("Error\nFailed loading sprites!\n"));
 	return (0);
 }
 

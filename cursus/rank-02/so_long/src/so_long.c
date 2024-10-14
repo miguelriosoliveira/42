@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:06:40 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 19:40:28 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/14 21:43:40 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,16 @@ int	init(t_vars *vars, char *map_path)
 	err = load_map(vars, map_path);
 	if (err)
 		return (free(vars->mlx), ft_printf("Error\nFailed loading map!\n"));
-	vars->win = mlx_new_window(
-			vars->mlx,
-			vars->map.width * TILE_SIZE,
-			vars->map.height * TILE_SIZE,
-			map_path
-			);
+	vars->win = mlx_new_window(vars->mlx, vars->map.width * TILE_SIZE,
+			vars->map.height * TILE_SIZE, map_path);
 	if (!vars->win)
 		return (free(vars->mlx), 1);
 	err = load_sprites(vars);
 	if (err)
-		return (free(vars->mlx), free(vars->win),
-			ft_printf("Error\nFailed loading sprites!\n"));
+		return (free_matrix(vars->map.content, vars->map.height),
+			mlx_destroy_window(vars->mlx, vars->win),
+			mlx_destroy_display(vars->mlx),
+			free(vars->mlx), ft_printf("Error\nFailed loading sprites!\n"));
 	return (0);
 }
 

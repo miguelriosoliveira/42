@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:35:14 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 17:32:52 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/14 21:58:51 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,25 @@ static int	load_sprite(void *mlx, t_sprite *sprite, char *sprite_file)
 	return (!sprite->img);
 }
 
+static int	validate_sprites()
+{
+	return (
+		check_file(SPRITE_PLAYER_CLOSED)
+		|| check_file(SPRITE_PLAYER_OPEN_UP)
+		|| check_file(SPRITE_PLAYER_SEMI_UP)
+		|| check_file(SPRITE_PLAYER_OPEN_DOWN)
+		|| check_file(SPRITE_PLAYER_SEMI_DOWN)
+		|| check_file(SPRITE_PLAYER_OPEN_LEFT)
+		|| check_file(SPRITE_PLAYER_SEMI_LEFT)
+		|| check_file(SPRITE_PLAYER_OPEN_RIGHT)
+		|| check_file(SPRITE_PLAYER_SEMI_RIGHT)
+		|| check_file(SPRITE_WALL)
+		|| check_file(SPRITE_COLLECTIBLE)
+		|| check_file(SPRITE_ENEMY)
+		|| check_file(SPRITE_EXIT)
+	);
+}
+
 int	load_sprites(t_vars *vars)
 {
 	void		*mlx;
@@ -31,7 +50,8 @@ int	load_sprites(t_vars *vars)
 	mlx = vars->mlx;
 	sp = &vars->sprites;
 	return (
-		load_sprite(mlx, &sp->player_closed, SPRITE_PLAYER_CLOSED)
+		validate_sprites()
+		|| load_sprite(mlx, &sp->player_closed, SPRITE_PLAYER_CLOSED)
 		|| load_sprite(mlx, &sp->player_open_up, SPRITE_PLAYER_OPEN_UP)
 		|| load_sprite(mlx, &sp->player_semi_up, SPRITE_PLAYER_SEMI_UP)
 		|| load_sprite(mlx, &sp->player_open_down, SPRITE_PLAYER_OPEN_DOWN)
