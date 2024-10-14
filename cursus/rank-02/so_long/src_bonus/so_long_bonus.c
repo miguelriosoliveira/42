@@ -98,18 +98,15 @@ int	init(t_vars *vars, char *map_path)
 	vars->player.direction = DIR_RIGHT;
 	err = load_map(vars, map_path);
 	if (err)
-		return (free(vars->mlx), 1);
-	vars->win = mlx_new_window(
-			vars->mlx,
-			vars->map.width * TILE_SIZE,
-			(vars->map.height + 1) * TILE_SIZE,
-			map_path
-			);
+		return (free(vars->mlx), ft_printf("Error\nFailed loading map!\n"));
+	vars->win = mlx_new_window(vars->mlx, vars->map.width * TILE_SIZE,
+			(vars->map.height + 1) * TILE_SIZE, map_path);
 	if (!vars->win)
 		return (free(vars->mlx), 1);
 	err = load_sprites(vars);
 	if (err)
-		return (free(vars->mlx), free(vars->win), 1);
+		return (free(vars->mlx), free(vars->win),
+			ft_printf("Error\nFailed loading sprites!\n"));
 	return (0);
 }
 
