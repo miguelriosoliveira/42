@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 21:35:14 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/14 21:58:51 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:01:07 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	load_sprite(void *mlx, t_sprite *sprite, char *sprite_file)
 	return (!sprite->img);
 }
 
-static int	validate_sprites()
+static int	validate_sprites(void)
 {
 	return (
 		check_file(SPRITE_PLAYER_CLOSED)
