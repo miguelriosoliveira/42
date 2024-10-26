@@ -87,7 +87,7 @@ Your project must comply with the following rules:
 	1P0011E000001
 	1111111111111
 	```
-- The map must contain **1 exit**, at least **1 collectible**, and **1 starting position** to be valid.
+- The map must contain **1 exit**, **at least 1 collectible**, and **1 starting position** to be valid.
 
 > ℹ️ If the map contains a duplicates characters (exit/start), you should display an error message.
 
@@ -121,13 +121,13 @@ You will get extra points if you:
 - Add some sprite animation.
 - Display the movement count directly on screen instead of writing it in the shell.
 
-![](./assets/so-long.png)
+![](./assets/docs/so-long.png)
 
 > ℹ️ You can add files/folders based on bonuses as needed.
 
 ## Examples
 
-![](./assets/example1.png)
-![](./assets/example2.png)
+![](./assets/docs/example1.png)
+![](./assets/docs/example2.png)
 
 `so_long` examples showing terrible taste in graphic design (almost worth some bonus points)!
