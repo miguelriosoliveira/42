@@ -15,7 +15,7 @@
 
 - [ft_printf](./cursus/rank-01/ft_printf/)
 - [get_next_line](./cursus/rank-01/get_next_line/)
-- [Born2beroot](./cursus/rank-01/Born2beroot/)
+- [Born2beroot](./cursus/rank-01/born2beroot/)
 
 ### Rank 02
 
