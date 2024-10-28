@@ -5,7 +5,6 @@ SRC = $(addprefix src/, $(SRC_FILES))
 OBJ = $(SRC:.c=.o)
 
 CC = cc -Wall -Werror -Wextra -fsanitize=address -g3
-AR = ar -rcs
 RM = rm -rf
 MAKE = make -sC
 
