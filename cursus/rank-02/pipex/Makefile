@@ -33,6 +33,10 @@ fclean: clean
 re: fclean all
 
 test: re
+	-./pipex
+	-./pipex infile
+	-./pipex infile "ls -l"
+	-./pipex infile "ls -l" "wc -l"
 	./pipex infile "ls -l" "wc -l" outfile
 
 .PHONY: all $(LIBFT_PATH) $(NAME) clean fclean re
