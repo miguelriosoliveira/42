@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/30 20:45:10 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/30 21:32:51 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ int	main(int argc, char **argv, char **env)
 	int		i;
 	char	*files[2];
 	char	*cmds[2];
+	char	*path;
+	char	**path_parts;
+	char	*found;
 
 	if (argc != 5)
 		return (ft_printf("Bad arguments!\n$ ./pipex file1 cmd1 cmd2 file2\n"));
@@ -26,15 +29,33 @@ int	main(int argc, char **argv, char **env)
 	cmds[0] = argv[2];
 	cmds[1] = argv[3];
 	files[1] = argv[4];
-	ft_printf("files[0]: \"%s\"\n", files[0]);
-	ft_printf(" cmds[0]: \"%s\"\n", cmds[0]);
-	ft_printf(" cmds[1]: \"%s\"\n", cmds[1]);
-	ft_printf("files[1]: \"%s\"\n", files[1]);
+	found = ft_strchr(cmds[0], ' ');
+	if (found)
+		found[0] = '\0';
+	found = ft_strchr(cmds[1], ' ');
+	if (found)
+		found[0] = '\0';
+	ft_printf("         files[0]: \"%s\"\n", files[0]);
+	ft_printf("          cmds[0]: \"%s\"\n", cmds[0]);
+	ft_printf("          cmds[1]: \"%s\"\n", cmds[1]);
+	ft_printf("         files[1]: \"%s\"\n", files[1]);
 
 	i = 0;
 	while (env[i])
 	{
-		ft_printf("[%2d] %s\n", i+1, env[i]);
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+		{
+			ft_printf("[%2d] %s\n", i+1, env[i]);
+			path = env[i];
+		}
+		i++;
+	}
+
+	path_parts = ft_split(ft_strchr(path, '=') + 1, ':');
+	i = 0;
+	while (path_parts[i])
+	{
+		ft_printf("path_parts[%2d] %s\n", i, path_parts[i]);
 		i++;
 	}
 
