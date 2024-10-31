@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/31 14:05:07 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:20:48 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_path(t_pipex *pipex, char *dir)
 		free(aux);
 		if (!cmd_path)
 			return (1);
-		if (access(cmd_path, F_OK) == 0)
+		if (access(cmd_path, X_OK) == 0)
 			pipex->cmds_full_path[i] = cmd_path;
 		else
 			free(cmd_path);
