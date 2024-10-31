@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 18:05:36 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/31 13:56:25 by mrios-es         ###   ########.fr       */
+/*   Created: 2024/10/31 13:31:51 by migrio            #+#    #+#             */
+/*   Updated: 2024/10/31 13:34:57 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include "../libft/libft.h"
-
-typedef struct s_pipex
+void	free_array(char **arr)
 {
-	char	*files[2];
-	char	*cmds[2];
-	char	*cmds_with_args[2];
-	char	*path;
-	char	*cmds_full_path[2];
-}				t_pipex;
+	int	i;
 
-// utils.c
-void	free_array(char **arr);
-
-#endif
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
