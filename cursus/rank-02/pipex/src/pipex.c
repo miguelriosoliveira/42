@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/31 18:20:48 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/03 17:55:44 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,13 @@ int	check_path(t_pipex *pipex, char *dir)
 	char	*cmd_path;
 
 	i = 0;
-	while (i < 2)
+	while (i < MAX_CMDS)
 	{
+		if (pipex->cmds_full_path[i] && ft_strlen(pipex->cmds_full_path[i]))
+		{
+			i++;
+			continue ;
+		}
 		aux = ft_strjoin(dir, "/");
 		if (!aux)
 			return (1);
@@ -117,5 +122,6 @@ int	main(int argc, char **argv, char **env)
 		return (ft_printf("PATH not found!\n"));
 	if (find_commands(&pipex))
 		return (ft_printf("Failed finding commands in PATH\n"));
+	free_pipex(&pipex);
 	return (0);
 }
