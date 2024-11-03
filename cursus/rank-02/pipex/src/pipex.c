@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/03 19:34:10 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:09:23 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,31 @@ int	find_path(t_pipex *pipex, char **env)
 
 int	init(t_pipex *pipex, char **argv)
 {
-	pipex->infile = argv[1];
+	pipex->infile.name = argv[1];
 	pipex->cmd1.cmd = ft_split(argv[2], ' ');
 	if (!pipex->cmd1.cmd)
 		return (1);
 	pipex->cmd2.cmd = ft_split(argv[3], ' ');
 	if (!pipex->cmd2.cmd)
 		return (free_array(pipex->cmd1.cmd), 1);
-	pipex->outfile = argv[4];
+	pipex->outfile.name = argv[4];
 	pipex->PATH = NULL;
 	pipex->cmd1.cmd_full_path = NULL;
 	pipex->cmd2.cmd_full_path = NULL;
 
 	print_pipex(pipex);
 
+	return (0);
+}
+
+int	find_files(t_pipex *pipex)
+{
+	pipex->infile.fd = open(pipex->infile.name, O_RDONLY);
+	if (pipex->infile.fd < 0)
+		return (ft_printf("Failed handling input file!\n"));
+	pipex->outfile.fd = open(pipex->outfile.name, O_WRONLY | O_CREAT);
+	if (pipex->outfile.fd < 0)
+		return (ft_printf("Failed handling output file!\n"));
 	return (0);
 }
 
@@ -126,6 +137,8 @@ int	main(int argc, char **argv, char **env)
 		return (ft_printf("Bad arguments!\n$ ./pipex file1 cmd1 cmd2 file2\n"));
 	if (init(&pipex, argv))
 		return (ft_printf("Failed initializing pipex!\n"));
+	if (find_files(&pipex))
+		return (free_pipex(&pipex), ft_printf("File(s) not found!\n"));
 	if (find_path(&pipex, env))
 		return (free_pipex(&pipex), ft_printf("PATH not found!\n"));
 	if (find_commands(&pipex))
