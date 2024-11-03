@@ -37,9 +37,10 @@ test: re
 	# -./pipex infile
 	# -./pipex infile "ls -l"
 	# -./pipex infile "ls -l" "wc -l"
+	# ./pipex test/infile "lssss -l" "wc -l" test/outfile1
 	# ./pipex test/infile "ls -l" "wc -l" test/outfile1 \
 	#  && < test/infile ls -l | wc -l > test/outfile2 \
 	#  && diff test/outfile1 test/outfile2
-	 ./pipex test/infile "ls -l" "wc -l" test/outfile1
+	./pipex test/infile "ls -l" "wc -l" test/outfile1
 
 .PHONY: all $(LIBFT_DIR) $(NAME) clean fclean re

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/03 18:43:32 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/03 19:16:46 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ int	find_commands(t_pipex *pipex)
 			return (free_array(path_parts), 1);
 		i++;
 	}
+	free_array(path_parts);
 	ft_printf("cmd 1 full path: %s\n", pipex->cmd1.cmd_full_path);
 	ft_printf("cmd 2 full path: %s\n", pipex->cmd2.cmd_full_path);
-	return (free_array(path_parts), 0);
+	return (!pipex->cmd1.cmd_full_path || !pipex->cmd2.cmd_full_path);
 }
 
 int	find_path(t_pipex *pipex, char **env)
@@ -126,11 +127,11 @@ int	main(int argc, char **argv, char **env)
 	if (argc != 5)
 		return (ft_printf("Bad arguments!\n$ ./pipex file1 cmd1 cmd2 file2\n"));
 	if (init(&pipex, argv))
-		return (ft_printf("Failed initializing pipex\n"));
+		return (ft_printf("Failed initializing pipex!\n"));
 	if (find_path(&pipex, env))
 		return (ft_printf("PATH not found!\n"));
 	if (find_commands(&pipex))
-		return (ft_printf("Failed finding commands in PATH\n"));
+		return (free_pipex(&pipex), ft_printf("Command(s) not found!\n"));
 	free_pipex(&pipex);
 	return (0);
 }
