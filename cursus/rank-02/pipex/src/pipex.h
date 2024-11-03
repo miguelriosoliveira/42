@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:05:36 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/03 17:55:31 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:26:02 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,19 @@
 
 # include "../libft/libft.h"
 
-# define MAX_CMDS 2
+typedef struct s_cmd
+{
+	char	**cmd;
+	char	*cmd_full_path;
+}	t_cmd;
 
 typedef struct s_pipex
 {
-	char	*files[2];
-	char	*cmds[2];
-	char	*cmds_with_args[2];
-	char	*path;
-	char	*cmds_full_path[2];
+	char	*PATH;
+	char	*infile;
+	char	*outfile;
+	t_cmd	cmd1;
+	t_cmd	cmd2;
 }	t_pipex;
 
 // utils.c
