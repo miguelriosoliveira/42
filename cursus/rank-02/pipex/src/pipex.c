@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/03 19:16:46 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/03 19:34:10 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	find_commands(t_pipex *pipex)
 	char	**path_parts;
 	int		i;
 
-	path_parts = ft_split(ft_strchr(pipex->PATH, '=') + 1, ':');
+	path_parts = ft_split(pipex->PATH, ':');
 	if (!path_parts)
 		return (free_array(path_parts), 1);
 	i = 0;
@@ -90,15 +90,13 @@ int	find_path(t_pipex *pipex, char **env)
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
-			pipex->PATH = env[i];
+			pipex->PATH = env[i] + 5;
 			break ;
 		}
 		i++;
 	}
-	if (!pipex->PATH)
-		return (1);
-	ft_printf("%s\n", pipex->PATH);
-	return (0);
+	ft_printf("PATH: %s\n", pipex->PATH);
+	return (!pipex->PATH);
 }
 
 int	init(t_pipex *pipex, char **argv)
@@ -129,7 +127,7 @@ int	main(int argc, char **argv, char **env)
 	if (init(&pipex, argv))
 		return (ft_printf("Failed initializing pipex!\n"));
 	if (find_path(&pipex, env))
-		return (ft_printf("PATH not found!\n"));
+		return (free_pipex(&pipex), ft_printf("PATH not found!\n"));
 	if (find_commands(&pipex))
 		return (free_pipex(&pipex), ft_printf("Command(s) not found!\n"));
 	free_pipex(&pipex);
