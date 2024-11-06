@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/03 20:09:23 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:50:10 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,16 @@ int	init(t_pipex *pipex, char **argv)
 
 int	find_files(t_pipex *pipex)
 {
+	int	err;
+
+	err = 0;
 	pipex->infile.fd = open(pipex->infile.name, O_RDONLY);
 	if (pipex->infile.fd < 0)
-		return (ft_printf("Failed handling input file!\n"));
-	pipex->outfile.fd = open(pipex->outfile.name, O_WRONLY | O_CREAT);
-	if (pipex->outfile.fd < 0)
-		return (ft_printf("Failed handling output file!\n"));
-	return (0);
+		err += ft_printf("%s: Permission denied\n", pipex->infile.name);
+	if (access(pipex->outfile.name, F_OK) == 0
+		&& access(pipex->outfile.name, W_OK) != 0)
+		err += ft_printf("%s: Permission denied\n", pipex->outfile.name);
+	return (err);
 }
 
 int	main(int argc, char **argv, char **env)
