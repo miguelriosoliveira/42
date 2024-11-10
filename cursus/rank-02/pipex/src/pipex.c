@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/06 20:50:10 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:32:35 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,22 @@ int	find_files(t_pipex *pipex)
 	return (err);
 }
 
+int	run_commands(t_pipex *pipex)
+{
+	int	fd[2];
+	int	pid;
+
+	if (pipe(fd))
+		return (ft_printf("Failed creating pipe!\n"));
+	pid = fork();
+	if (!pid)
+		return (ft_printf("Failed forking"));
+	if (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL))
+		return (ft_printf("Failed executing cmd1!\n"));
+	ft_printf("1 -----------------------------------------------------\n");
+	return (0);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_pipex	pipex;
@@ -146,6 +162,8 @@ int	main(int argc, char **argv, char **env)
 		return (free_pipex(&pipex), ft_printf("PATH not found!\n"));
 	if (find_commands(&pipex))
 		return (free_pipex(&pipex), ft_printf("Command(s) not found!\n"));
+	if (run_commands(&pipex))
+		return (free_pipex(&pipex), ft_printf("Failed running commands!\n"));
 	free_pipex(&pipex);
 	return (0);
 }
