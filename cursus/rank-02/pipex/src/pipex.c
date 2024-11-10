@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/10 17:32:35 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/10 19:01:29 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,20 @@ int	run_commands(t_pipex *pipex)
 	if (pipe(fd))
 		return (ft_printf("Failed creating pipe!\n"));
 	pid = fork();
-	if (!pid)
-		return (ft_printf("Failed forking"));
-	if (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL))
-		return (ft_printf("Failed executing cmd1!\n"));
-	ft_printf("1 -----------------------------------------------------\n");
+	if (pid == -1)
+		return (ft_printf("Failed forking!\n"));
+	else if (pid == 0)
+	{
+		dup2(fd[0], fd[1]);
+		ft_printf("I am the child process.\n");
+		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL));
+	}
+	else
+	{
+		ft_printf("I am the parent process.\n");
+		wait(NULL);
+		ft_printf("Child process terminated!\n");
+	}
 	return (0);
 }
 

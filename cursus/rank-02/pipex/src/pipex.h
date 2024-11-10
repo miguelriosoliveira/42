@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:05:36 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/03 20:00:24 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/10 18:30:45 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_H
 
 # include <fcntl.h>
+# include <sys/wait.h>
 # include "../libft/libft.h"
 
 typedef struct s_file
