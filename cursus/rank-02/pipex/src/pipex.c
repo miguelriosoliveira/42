@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/10 19:01:29 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/23 22:04:25 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,21 +136,28 @@ int	run_commands(t_pipex *pipex)
 {
 	int	fd[2];
 	int	pid;
+	int	fd_out;
 
-	if (pipe(fd))
+	fd_out = open("tmp.txt", O_WRONLY | O_CREAT, 0644);
+	if (fd_out < 0)
+		return (ft_printf("Failed creating temprary file!\n"));
+	if (pipe(fd) == -1)
 		return (ft_printf("Failed creating pipe!\n"));
 	pid = fork();
 	if (pid == -1)
 		return (ft_printf("Failed forking!\n"));
 	else if (pid == 0)
 	{
-		dup2(fd[0], fd[1]);
-		ft_printf("I am the child process.\n");
+		close(fd[0]);
+		dup2(fd_out, STDOUT_FILENO);
 		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL));
 	}
 	else
 	{
+		close(fd[1]);
 		ft_printf("I am the parent process.\n");
+		// read(fd[0], buffer, ft_strlen(buffer));
+		// ft_printf("Message from child: '%s'\n", buffer);
 		wait(NULL);
 		ft_printf("Child process terminated!\n");
 	}
