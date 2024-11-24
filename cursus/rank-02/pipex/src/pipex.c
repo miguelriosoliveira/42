@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/23 22:04:25 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:14:18 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,14 @@ int	find_files(t_pipex *pipex)
 
 int	run_commands(t_pipex *pipex)
 {
-	int	fd[2];
-	int	pid;
-	int	fd_out;
+	int		fd[2];
+	int		pid;
+	int		fd_out;
+	char	buffer[1024];  // Buffer to store the output from the child
+    int		bytes_read;
 
-	fd_out = open("tmp.txt", O_WRONLY | O_CREAT, 0644);
+	// buffer = ft_calloc(42, sizeof(char));
+	fd_out = open(TMP_FILE, O_RDWR | O_CREAT, 0644);
 	if (fd_out < 0)
 		return (ft_printf("Failed creating temprary file!\n"));
 	if (pipe(fd) == -1)
@@ -149,15 +152,27 @@ int	run_commands(t_pipex *pipex)
 	else if (pid == 0)
 	{
 		close(fd[0]);
-		dup2(fd_out, STDOUT_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
 		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL));
 	}
 	else
 	{
 		close(fd[1]);
 		ft_printf("I am the parent process.\n");
-		// read(fd[0], buffer, ft_strlen(buffer));
-		// ft_printf("Message from child: '%s'\n", buffer);
+
+		// read(fd[0], buffer, 42);
+		// buffer = get_next_line(fd[0]);
+		(void)buffer;
+		(void)bytes_read;
+		ft_printf("======== Message from child ========\n");
+		ft_printf("%s\n", get_next_line(fd[0]));
+		while ((bytes_read = read(fd[0], buffer, sizeof(buffer) - 1)) > 0) {
+            buffer[bytes_read] = '\0';  // Null-terminate the string
+            ft_printf("%s", buffer);
+        }
+		ft_printf("====================================\n");
+		close(fd[0]);
+
 		wait(NULL);
 		ft_printf("Child process terminated!\n");
 	}

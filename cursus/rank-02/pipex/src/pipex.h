@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:05:36 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/10 18:30:45 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:56:30 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include "../libft/libft.h"
+
+# define TMP_FILE "tmp.txt"
 
 typedef struct s_file
 {
