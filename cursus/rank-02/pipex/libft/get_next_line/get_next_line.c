@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:21:55 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/10/13 19:27:43 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:40:52 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ static void	init(int fd, char **buffer, char **line)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer_arr[_SC_OPEN_MAX];
+	static char	*buffer_arr[FOPEN_MAX];
 	char		*line;
 	int			bytes_read;
 	int			has_nl;
 
-	if (fd < 0 || fd > _SC_OPEN_MAX)
+	if (fd < 0 || fd > FOPEN_MAX)
 		return (NULL);
 	init(fd, &buffer_arr[fd], &line);
 	if (!buffer_arr[fd] || !line)

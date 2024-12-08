@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/11/24 18:14:18 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:39:20 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,10 +135,9 @@ int	find_files(t_pipex *pipex)
 int	run_commands(t_pipex *pipex)
 {
 	int		fd[2];
-	int		pid;
 	int		fd_out;
-	char	buffer[1024];  // Buffer to store the output from the child
-    int		bytes_read;
+	int		pid;
+	char	*line;
 
 	// buffer = ft_calloc(42, sizeof(char));
 	fd_out = open(TMP_FILE, O_RDWR | O_CREAT, 0644);
@@ -159,17 +158,12 @@ int	run_commands(t_pipex *pipex)
 	{
 		close(fd[1]);
 		ft_printf("I am the parent process.\n");
-
-		// read(fd[0], buffer, 42);
-		// buffer = get_next_line(fd[0]);
-		(void)buffer;
-		(void)bytes_read;
 		ft_printf("======== Message from child ========\n");
-		ft_printf("%s\n", get_next_line(fd[0]));
-		while ((bytes_read = read(fd[0], buffer, sizeof(buffer) - 1)) > 0) {
-            buffer[bytes_read] = '\0';  // Null-terminate the string
-            ft_printf("%s", buffer);
-        }
+		while ((line = get_next_line(fd[0])))
+		{
+			ft_printf("%s", line);
+			free(line);
+		}
 		ft_printf("====================================\n");
 		close(fd[0]);
 
