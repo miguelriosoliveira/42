@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/08 19:37:06 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:39:24 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,94 +134,42 @@ int	find_files(t_pipex *pipex)
 
 int	run_commands(t_pipex *pipex)
 {
-	int		fd[2];
-	int		fd2[2];
-	int		fd_out;
-	int		pid;
-	char	*line;
+	int	fd[2];
+	int	pid1;
+	int	pid2;
 
-	fd_out = open(TMP_FILE, O_RDWR | O_CREAT, 0644);
-	if (fd_out < 0)
-		return (ft_printf("Failed creating temprary file!\n"));
 	if (pipe(fd) == -1)
 		return (ft_printf("Failed creating pipe!\n"));
-	pid = fork();
-	if (pid == -1)
+
+	pid1 = fork();
+	if (pid1 == -1)
 		return (ft_printf("Failed forking!\n"));
-	else if (pid == 0)
+	if (pid1 == 0)
 	{
-		dup2(fd[0], STDIN_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
+		close(fd[0]);
+		close(fd[1]);
 		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL));
 	}
-	else
+
+	pid2 = fork();
+	if (pid2 == -1)
+		return (ft_printf("Failed forking!\n"));
+	if (pid2 == 0)
 	{
-		ft_printf("I am the parent process 1\n");
-
-		if (pipe(fd2) == -1)
-			return (ft_printf("Failed creating pipe!\n"));
-
-		// dup2(fd[0], STDIN_FILENO);
-		int stdoutCopy = dup(STDOUT_FILENO);
-		dup2(fd2[1], STDOUT_FILENO);
-
-		wait(NULL);
-
+		dup2(fd[0], STDIN_FILENO);
 		close(fd[1]);
-		ft_printf("======= Message from child 1 =======\n");
-		while ((line = get_next_line(fd[0])))
-		{
-			ft_printf("%s", line);
-			free(line);
-		}
-		ft_printf("====================================\n");
 		close(fd[0]);
-
-		dup2(stdoutCopy, STDOUT_FILENO);
-		close(stdoutCopy);
-
-		ft_printf("Child process 1 terminated!\n");
-
-		pid = fork();
-		if (pid == -1)
-			return (ft_printf("Failed forking!\n"));
-		else if (pid == 0)
-		{
-			dup2(fd2[0], STDIN_FILENO);
-
-			// close(fd2[1]);
-			// ft_printf("-------- reading in child 1 --------\n");
-			// while ((line = get_next_line(fd2[0])))
-			// {
-			// 	ft_printf("%s", line);
-			// 	free(line);
-			// }
-			// ft_printf("------------------------------------\n");
-			// close(fd2[0]);
-
-
-			dup2(fd2[1], STDOUT_FILENO);
-			return (execve(pipex->cmd2.cmd_full_path, pipex->cmd2.cmd, NULL));
-		}
-		else
-		{
-			ft_printf("I am the parent process 2\n");
-			wait(NULL);
-			ft_printf("Child process 2 terminated!\n");
-
-			close(fd2[1]);
-			// dup2(fd2[1], STDOUT_FILENO);
-			ft_printf("~~~~~~~ Message from child 2 ~~~~~~~\n");
-			while ((line = get_next_line(fd2[0])))
-			{
-				ft_printf("%s", line);
-				free(line);
-			}
-			ft_printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-			close(fd2[0]);
-
-		}
+		return (execve(pipex->cmd2.cmd_full_path, pipex->cmd2.cmd, NULL));
 	}
+
+	ft_printf("I am the parent process\n");
+	close(fd[1]);
+	close(fd[0]);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
+	ft_printf("Child processes terminated!\n");
+
 	return (0);
 }
 
