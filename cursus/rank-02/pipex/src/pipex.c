@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/10 22:14:05 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/10 22:22:17 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,7 @@ int	run_commands(t_pipex *pipex)
 {
 	int	fd[2];
 	int	pid;
-	int	fd_tmp;
 
-	fd_tmp = open(TMP_FILE, O_RDWR | O_CREAT, 0644);
-	if (fd_tmp < 0)
-		return (ft_printf("Failed creating temprary file!\n"));
 	if (pipe(fd) == -1)
 		return (ft_printf("Failed creating pipe!\n"));
 	pid = fork();
@@ -154,13 +150,16 @@ int	run_commands(t_pipex *pipex)
 		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL));
 	}
 	wait(NULL);
+	pipex->outfile.fd = open(pipex->outfile.name, O_RDWR | O_CREAT, 0644);
+	if (pipex->outfile.fd < 0)
+		return (ft_printf("Failed creating output file!\n"));
 	pid = fork();
 	if (pid == -1)
 		return (ft_printf("Failed forking!\n"));
 	if (pid == 0)
 	{
 		dup2(fd[0], STDIN_FILENO);
-		dup2(fd_tmp, STDOUT_FILENO);
+		dup2(pipex->outfile.fd, STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		return (execve(pipex->cmd2.cmd_full_path, pipex->cmd2.cmd, NULL));
