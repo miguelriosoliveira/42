@@ -9,7 +9,6 @@ SRC_BONUS = $(addprefix src_bonus/, $(SRC_FILES_BONUS))
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
 CC = cc -Wall -Werror -Wextra -fsanitize=address -g3
-AR = ar -rcs
 RM = rm -rf
 MAKE = make -sC
 
