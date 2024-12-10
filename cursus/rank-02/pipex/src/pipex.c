@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/10 22:03:40 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/10 22:14:05 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ int	run_commands(t_pipex *pipex)
 	if (pid == 0)
 	{
 		dup2(fd[0], STDIN_FILENO);
+		dup2(fd_tmp, STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		return (execve(pipex->cmd2.cmd_full_path, pipex->cmd2.cmd, NULL));
