@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/09 22:39:24 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/10 22:03:40 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,41 +135,38 @@ int	find_files(t_pipex *pipex)
 int	run_commands(t_pipex *pipex)
 {
 	int	fd[2];
-	int	pid1;
-	int	pid2;
+	int	pid;
+	int	fd_tmp;
 
+	fd_tmp = open(TMP_FILE, O_RDWR | O_CREAT, 0644);
+	if (fd_tmp < 0)
+		return (ft_printf("Failed creating temprary file!\n"));
 	if (pipe(fd) == -1)
 		return (ft_printf("Failed creating pipe!\n"));
-
-	pid1 = fork();
-	if (pid1 == -1)
+	pid = fork();
+	if (pid == -1)
 		return (ft_printf("Failed forking!\n"));
-	if (pid1 == 0)
+	if (pid == 0)
 	{
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL));
 	}
-
-	pid2 = fork();
-	if (pid2 == -1)
+	wait(NULL);
+	pid = fork();
+	if (pid == -1)
 		return (ft_printf("Failed forking!\n"));
-	if (pid2 == 0)
+	if (pid == 0)
 	{
 		dup2(fd[0], STDIN_FILENO);
-		close(fd[1]);
 		close(fd[0]);
+		close(fd[1]);
 		return (execve(pipex->cmd2.cmd_full_path, pipex->cmd2.cmd, NULL));
 	}
-
-	ft_printf("I am the parent process\n");
-	close(fd[1]);
 	close(fd[0]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
-	ft_printf("Child processes terminated!\n");
-
+	close(fd[1]);
+	wait(NULL);
 	return (0);
 }
 
