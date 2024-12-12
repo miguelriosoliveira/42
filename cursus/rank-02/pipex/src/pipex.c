@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/10 22:22:17 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/12 21:07:39 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int	find_commands(t_pipex *pipex)
 		i++;
 	}
 	free_array(path_parts);
-	ft_printf("cmd 1 full path: %s\n", pipex->cmd1.cmd_full_path);
-	ft_printf("cmd 2 full path: %s\n", pipex->cmd2.cmd_full_path);
 	return (!pipex->cmd1.cmd_full_path || !pipex->cmd2.cmd_full_path);
 }
 
@@ -95,7 +93,6 @@ int	find_path(t_pipex *pipex, char **env)
 		}
 		i++;
 	}
-	ft_printf("PATH: %s\n", pipex->PATH);
 	return (!pipex->PATH);
 }
 
@@ -112,9 +109,6 @@ int	init(t_pipex *pipex, char **argv)
 	pipex->PATH = NULL;
 	pipex->cmd1.cmd_full_path = NULL;
 	pipex->cmd2.cmd_full_path = NULL;
-
-	print_pipex(pipex);
-
 	return (0);
 }
 
@@ -123,9 +117,14 @@ int	find_files(t_pipex *pipex)
 	int	err;
 
 	err = 0;
-	pipex->infile.fd = open(pipex->infile.name, O_RDONLY);
-	if (pipex->infile.fd < 0)
-		err += ft_printf("%s: Permission denied\n", pipex->infile.name);
+	if (access(pipex->infile.name, F_OK) != 0)
+		err += ft_printf("%s: No such file or directory\n", pipex->infile.name);
+	else
+	{
+		pipex->infile.fd = open(pipex->infile.name, O_RDONLY);
+		if (pipex->infile.fd < 0)
+			err += ft_printf("%s: Permission denied\n", pipex->infile.name);
+	}
 	if (access(pipex->outfile.name, F_OK) == 0
 		&& access(pipex->outfile.name, W_OK) != 0)
 		err += ft_printf("%s: Permission denied\n", pipex->outfile.name);
@@ -144,12 +143,18 @@ int	run_commands(t_pipex *pipex)
 		return (ft_printf("Failed forking!\n"));
 	if (pid == 0)
 	{
+		ft_printf("inside child 1\n");
+
+		dup2(fd[0], STDIN_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL));
 	}
 	wait(NULL);
+
+	ft_printf("finished child 1\n");
+
 	pipex->outfile.fd = open(pipex->outfile.name, O_RDWR | O_CREAT, 0644);
 	if (pipex->outfile.fd < 0)
 		return (ft_printf("Failed creating output file!\n"));
@@ -158,6 +163,8 @@ int	run_commands(t_pipex *pipex)
 		return (ft_printf("Failed forking!\n"));
 	if (pid == 0)
 	{
+		ft_printf("inside child 2\n");
+
 		dup2(fd[0], STDIN_FILENO);
 		dup2(pipex->outfile.fd, STDOUT_FILENO);
 		close(fd[0]);
@@ -167,6 +174,9 @@ int	run_commands(t_pipex *pipex)
 	close(fd[0]);
 	close(fd[1]);
 	wait(NULL);
+
+	ft_printf("finished child 2\n");
+
 	return (0);
 }
 
