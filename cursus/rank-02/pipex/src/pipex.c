@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/12 21:07:39 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/14 18:35:31 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,18 +143,13 @@ int	run_commands(t_pipex *pipex)
 		return (ft_printf("Failed forking!\n"));
 	if (pid == 0)
 	{
-		ft_printf("inside child 1\n");
-
-		dup2(fd[0], STDIN_FILENO);
+		dup2(pipex->infile.fd, STDIN_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL));
 	}
 	wait(NULL);
-
-	ft_printf("finished child 1\n");
-
 	pipex->outfile.fd = open(pipex->outfile.name, O_RDWR | O_CREAT, 0644);
 	if (pipex->outfile.fd < 0)
 		return (ft_printf("Failed creating output file!\n"));
@@ -163,8 +158,6 @@ int	run_commands(t_pipex *pipex)
 		return (ft_printf("Failed forking!\n"));
 	if (pid == 0)
 	{
-		ft_printf("inside child 2\n");
-
 		dup2(fd[0], STDIN_FILENO);
 		dup2(pipex->outfile.fd, STDOUT_FILENO);
 		close(fd[0]);
@@ -174,9 +167,6 @@ int	run_commands(t_pipex *pipex)
 	close(fd[0]);
 	close(fd[1]);
 	wait(NULL);
-
-	ft_printf("finished child 2\n");
-
 	return (0);
 }
 

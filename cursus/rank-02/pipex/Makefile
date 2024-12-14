@@ -33,26 +33,6 @@ fclean: clean
 re: fclean all
 
 test: re
-	-./pipex || (echo "✅ it should fail by missing arguments (error code $$?)")
-	@echo ----
-	-./pipex infile
-	@echo ----
-	-./pipex infile "ls -l"
-	@echo ----
-	-./pipex infile "ls -l" "wc -l"
-	@echo ----
-	-./pipex test/infile "lssss -l" "wc -l" test/outfile1
-	@echo ----
-	-./pipex test/non-existent-file "ls -l" "wc -l" test/outfile1
-	@echo ----
-	-./pipex test/invalid_permission_read_infile "ls -l" "wc -l" test/outfile1
-	@echo ----
-	./pipex test/infile "ls -l" "wc -l"  test/outfile1 \
-	  &&  < test/infile  ls -l | wc -l > test/outfile2 \
-	  &&  diff -s test/outfile1 test/outfile2
-	@echo ----
-	./pipex test/infile_cat "cat" "wc -l"  test/outfile1 \
-	  &&  < test/infile_cat  cat | wc -l > test/outfile2 \
-	  &&  diff -s test/outfile1 test/outfile2
+	sh test/test.sh
 
 .PHONY: all $(LIBFT_DIR) $(NAME) clean fclean re
