@@ -1,3 +1,2 @@
 pipex
-test/outfile
-tmp.txt
+test/*_output_*
