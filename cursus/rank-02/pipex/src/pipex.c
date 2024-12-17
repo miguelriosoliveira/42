@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/16 21:50:09 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/17 21:25:24 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int	find_files(t_pipex *pipex)
 	return (err);
 }
 
-int	run_commands(t_pipex *pipex)
+int	run_commands(t_pipex *pipex, char** env)
 {
 	int	fd[2];
 	int	pid;
@@ -147,7 +147,7 @@ int	run_commands(t_pipex *pipex)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, NULL));
+		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, env));
 	}
 	wait(NULL);
 	pipex->outfile.fd = open(pipex->outfile.name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -162,7 +162,7 @@ int	run_commands(t_pipex *pipex)
 		dup2(pipex->outfile.fd, STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		return (execve(pipex->cmd2.cmd_full_path, pipex->cmd2.cmd, NULL));
+		return (execve(pipex->cmd2.cmd_full_path, pipex->cmd2.cmd, env));
 	}
 	close(fd[0]);
 	close(fd[1]);
@@ -184,7 +184,7 @@ int	main(int argc, char **argv, char **env)
 		return (free_pipex(&pipex), ft_printf("PATH not found!\n"));
 	if (find_commands(&pipex))
 		return (free_pipex(&pipex), ft_printf("Command(s) not found!\n"));
-	if (run_commands(&pipex))
+	if (run_commands(&pipex, env))
 		return (free_pipex(&pipex), ft_printf("Failed running commands!\n"));
 	free_pipex(&pipex);
 	return (0);
