@@ -6,113 +6,13 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/17 21:25:24 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/19 22:06:14 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	print_array(char **arr)
-{
-	int	i;
-
-	ft_printf("[ \"%s\"", arr[0]);
-	i = 1;
-	while (arr[i])
-	{
-		ft_printf(", \"%s\"", arr[i]);
-		i++;
-	}
-	ft_printf(" ]\n");
-}
-
-void	print_pipex(t_pipex *pipex)
-{
-	ft_printf("--------------------- pipex ---------------------\n");
-	ft_printf(" infile: \"%s\"\n", pipex->infile);
-	ft_printf("   cmd1: ");
-	print_array(pipex->cmd1.cmd);
-	ft_printf("   cmd2: ");
-	print_array(pipex->cmd2.cmd);
-	ft_printf("outfile: \"%s\"\n", pipex->outfile);
-	ft_printf("------------------- end pipex -------------------\n");
-}
-
-int	check_path(t_cmd *cmd, char *dir)
-{
-	char	*aux;
-	char	*cmd_path;
-
-	if (cmd->cmd_full_path && ft_strlen(cmd->cmd_full_path))
-		return (0);
-	aux = ft_strjoin(dir, "/");
-	if (!aux)
-		return (1);
-	cmd_path = ft_strjoin(aux, cmd->cmd[0]);
-	free(aux);
-	if (!cmd_path)
-		return (1);
-	if (access(cmd_path, X_OK) == 0)
-		cmd->cmd_full_path = cmd_path;
-	else
-		free(cmd_path);
-	return (0);
-}
-
-int	find_commands(t_pipex *pipex)
-{
-	char	**path_parts;
-	int		i;
-
-	path_parts = ft_split(pipex->PATH, ':');
-	if (!path_parts)
-		return (free_array(path_parts), 1);
-	i = 0;
-	while (path_parts[i])
-	{
-		if (check_path(&pipex->cmd1, path_parts[i])
-			|| check_path(&pipex->cmd2, path_parts[i]))
-			return (free_array(path_parts), 1);
-		i++;
-	}
-	free_array(path_parts);
-	return (!pipex->cmd1.cmd_full_path || !pipex->cmd2.cmd_full_path);
-}
-
-int	find_path(t_pipex *pipex, char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-		{
-			pipex->PATH = env[i] + 5;
-			break ;
-		}
-		i++;
-	}
-	return (!pipex->PATH);
-}
-
-int	init(t_pipex *pipex, char **argv)
-{
-	pipex->infile.name = argv[1];
-	pipex->cmd1.cmd = ft_split(argv[2], ' ');
-	if (!pipex->cmd1.cmd)
-		return (1);
-	pipex->cmd2.cmd = ft_split(argv[3], ' ');
-	if (!pipex->cmd2.cmd)
-		return (free_array(pipex->cmd1.cmd), 1);
-	pipex->outfile.name = argv[4];
-	pipex->PATH = NULL;
-	pipex->cmd1.cmd_full_path = NULL;
-	pipex->cmd2.cmd_full_path = NULL;
-	return (0);
-}
-
-int	find_files(t_pipex *pipex)
+static int	find_files(t_pipex *pipex)
 {
 	int	err;
 
@@ -131,7 +31,44 @@ int	find_files(t_pipex *pipex)
 	return (err);
 }
 
-int	run_commands(t_pipex *pipex, char** env)
+static int	find_path(t_pipex *pipex, char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+		{
+			pipex->the_path = env[i] + 5;
+			break ;
+		}
+		i++;
+	}
+	return (!pipex->the_path);
+}
+
+static int	find_commands(t_pipex *pipex)
+{
+	char	**path_parts;
+	int		i;
+
+	path_parts = ft_split(pipex->the_path, ':');
+	if (!path_parts)
+		return (free_array(path_parts), 1);
+	i = 0;
+	while (path_parts[i])
+	{
+		if (check_path(&pipex->cmd1, path_parts[i])
+			|| check_path(&pipex->cmd2, path_parts[i]))
+			return (free_array(path_parts), 1);
+		i++;
+	}
+	free_array(path_parts);
+	return (!pipex->cmd1.cmd_full_path || !pipex->cmd2.cmd_full_path);
+}
+
+static int	run_commands(t_pipex *pipex, char **env)
 {
 	int	fd[2];
 	int	pid;
@@ -142,32 +79,20 @@ int	run_commands(t_pipex *pipex, char** env)
 	if (pid == -1)
 		return (ft_printf("Failed forking!\n"));
 	if (pid == 0)
-	{
-		dup2(pipex->infile.fd, STDIN_FILENO);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		return (execve(pipex->cmd1.cmd_full_path, pipex->cmd1.cmd, env));
-	}
+		return (run_command((int [2]){pipex->infile.fd, fd[1]}, fd,
+			&pipex->cmd1, env));
 	wait(NULL);
-	pipex->outfile.fd = open(pipex->outfile.name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	pipex->outfile.fd = open(pipex->outfile.name, O_WRONLY | O_CREAT | O_TRUNC,
+			0644);
 	if (pipex->outfile.fd < 0)
 		return (ft_printf("Failed creating output file!\n"));
 	pid = fork();
 	if (pid == -1)
 		return (ft_printf("Failed forking!\n"));
 	if (pid == 0)
-	{
-		dup2(fd[0], STDIN_FILENO);
-		dup2(pipex->outfile.fd, STDOUT_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		return (execve(pipex->cmd2.cmd_full_path, pipex->cmd2.cmd, env));
-	}
-	close(fd[0]);
-	close(fd[1]);
-	wait(NULL);
-	return (0);
+		return (run_command((int [2]){fd[0], pipex->outfile.fd}, fd,
+			&pipex->cmd2, env));
+	return (close(fd[0]), close(fd[1]), wait(NULL), 0);
 }
 
 int	main(int argc, char **argv, char **env)
