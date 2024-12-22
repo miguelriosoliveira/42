@@ -1,6 +1,6 @@
 NAME = pipex
 
-SRC_FILES = pipex.c utils.c
+SRC_FILES = commands.c pipex.c utils.c
 SRC = $(addprefix src/, $(SRC_FILES))
 OBJ = $(SRC:.c=.o)
 

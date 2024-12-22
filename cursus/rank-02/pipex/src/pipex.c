@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/19 22:06:14 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/22 20:00:29 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,33 +66,6 @@ static int	find_commands(t_pipex *pipex)
 	}
 	free_array(path_parts);
 	return (!pipex->cmd1.cmd_full_path || !pipex->cmd2.cmd_full_path);
-}
-
-static int	run_commands(t_pipex *pipex, char **env)
-{
-	int	fd[2];
-	int	pid;
-
-	if (pipe(fd) == -1)
-		return (ft_printf("Failed creating pipe!\n"));
-	pid = fork();
-	if (pid == -1)
-		return (ft_printf("Failed forking!\n"));
-	if (pid == 0)
-		return (run_command((int [2]){pipex->infile.fd, fd[1]}, fd,
-			&pipex->cmd1, env));
-	wait(NULL);
-	pipex->outfile.fd = open(pipex->outfile.name, O_WRONLY | O_CREAT | O_TRUNC,
-			0644);
-	if (pipex->outfile.fd < 0)
-		return (ft_printf("Failed creating output file!\n"));
-	pid = fork();
-	if (pid == -1)
-		return (ft_printf("Failed forking!\n"));
-	if (pid == 0)
-		return (run_command((int [2]){fd[0], pipex->outfile.fd}, fd,
-			&pipex->cmd2, env));
-	return (close(fd[0]), close(fd[1]), wait(NULL), 0);
 }
 
 int	main(int argc, char **argv, char **env)

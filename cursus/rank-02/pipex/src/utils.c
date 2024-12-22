@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 13:31:51 by migrio            #+#    #+#             */
-/*   Updated: 2024/12/19 21:59:14 by mrios-es         ###   ########.fr       */
+/*   Created: 2024/10/31 13:31:51 by mrios-es          #+#    #+#             */
+/*   Updated: 2024/12/22 20:04:22 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,4 @@ int	init(t_pipex *pipex, char **argv)
 	pipex->cmd1.cmd_full_path = NULL;
 	pipex->cmd2.cmd_full_path = NULL;
 	return (0);
-}
-
-int	run_command(int std_pipe[2], int pipe[2], t_cmd *cmd, char **env)
-{
-	dup2(std_pipe[0], STDIN_FILENO);
-	dup2(std_pipe[1], STDOUT_FILENO);
-	close(pipe[0]);
-	close(pipe[1]);
-	return (execve(cmd->cmd_full_path, cmd->cmd, env));
 }
