@@ -33,6 +33,6 @@ fclean: clean
 re: fclean all
 
 test: re
-	bash -x test/test.sh
+	bash test/test.sh
 
 .PHONY: all $(LIBFT_DIR) $(NAME) clean fclean re

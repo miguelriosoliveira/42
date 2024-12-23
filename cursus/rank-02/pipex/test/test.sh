@@ -1,19 +1,33 @@
-./pipex
+./pipex \
+	> test/error_bad_arguments_output 2>&1 \
+	; diff -s test/error_bad_arguments_output test/error_bad_arguments.txt
 
-./pipex test/input
+./pipex test/input \
+	> test/error_bad_arguments_output 2>&1 \
+	; diff -s test/error_bad_arguments_output test/error_bad_arguments.txt
 
-./pipex test/input "ls -l"
+./pipex test/input "ls -l" \
+	> test/error_bad_arguments_output 2>&1 \
+	; diff -s test/error_bad_arguments_output test/error_bad_arguments.txt
 
-./pipex test/input "ls -l" "wc -l"
+./pipex test/input "ls -l" "wc -l" \
+	> test/error_bad_arguments_output 2>&1 \
+	; diff -s test/error_bad_arguments_output test/error_bad_arguments.txt
 
-./pipex test/input "lssss -l" "wc -l" test/output_pipex
+./pipex test/input "lssss -l" "wc -l" test/output_pipex \
+	> test/error_unknown_cmd_output 2>&1 \
+	; diff -s test/error_unknown_cmd_output test/error_unknown_cmd.txt
 
-./pipex test/non-existent-file "ls -l" "wc -l" test/output_pipex
+./pipex test/non-existent-file "ls -l" "wc -l" test/output_pipex \
+	> test/error_invalid_file_output 2>&1 \
+	; diff -s test/error_invalid_file_output test/error_invalid_file.txt
 
 touch test/invalid_permission_read_input \
 	&& chmod -r test/invalid_permission_read_input \
 	&& ./pipex test/invalid_permission_read_input "ls -l" "wc -l" test/output_pipex \
-	; rm test/invalid_permission_read_input
+	> test/error_invalid_permission_output 2>&1 \
+	; rm test/invalid_permission_read_input \
+	&& diff -s test/error_invalid_permission_output test/error_invalid_permission.txt
 
 ./pipex test/input "ls -l" "wc -l"  test/input_output_pipex \
 	&& <  test/input  ls -l | wc -l > test/input_output_shell \
