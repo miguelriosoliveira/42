@@ -32,4 +32,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all $(LIBFT_PATH) $(NAME) clean fclean re
+test: re
+	bash test/test.sh
+
+.PHONY: all $(LIBFT_PATH) $(NAME) clean fclean re test
