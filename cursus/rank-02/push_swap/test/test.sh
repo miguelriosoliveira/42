@@ -20,6 +20,18 @@
 	> test/error_lower_than_INT_MIN.received 2>&1 \
 	; diff -s test/error_lower_than_INT_MIN.received test/error.expected
 
-./push_swap 0 1 2 3 2 4 \
+./push_swap 0 1 2 3 2 \
 	> test/error_contains_duplicates.received 2>&1 \
 	; diff -s test/error_contains_duplicates.received test/error.expected
+
+./push_swap 0 1 2 3 \
+	> test/ok_numbers.received \
+	&& diff -s test/ok_numbers.received test/ok.expected
+
+./push_swap "0 1 2 3" \
+	> test/ok_string.received \
+	&& diff -s test/ok_string.received test/ok.expected
+
+./push_swap "0 1 2       3" \
+	> test/ok_string_with_spaces.received \
+	&& diff -s test/ok_string_with_spaces.received test/ok.expected

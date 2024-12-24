@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/24 15:09:03 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/24 15:31:37 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,24 @@ int	is_present(char *str, char **words)
 
 int	validate_args(int argc, char **argv)
 {
+	char	**args;
 	int		i;
 	long	number;
 
 	if (argc < 2)
 		return (EXIT_SUCCESS);
-	i = 1;
-	while (argv[i])
+	args = argv + 1;
+	if (argc == 2)
+		args = ft_split(argv[1], ' ');
+	i = 0;
+	while (args[i])
 	{
-		if (!is_numeric(argv[i]))
+		if (!is_numeric(args[i]))
 			return (EXIT_FAILURE);
-		number = ft_atoi(argv[i]);
+		number = ft_atoi(args[i]);
 		if (number < INT_MIN || number > INT_MAX)
 			return (EXIT_FAILURE);
-		if (is_present(argv[i], argv + i + 1))
+		if (is_present(args[i], args + i + 1))
 			return (EXIT_FAILURE);
 		i++;
 	}
@@ -71,5 +75,6 @@ int	main(int argc, char **argv)
 {
 	if (validate_args(argc, argv))
 		return (ft_printf("Error\n"));
+	ft_printf("ok\n");
 	return (EXIT_SUCCESS);
 }
