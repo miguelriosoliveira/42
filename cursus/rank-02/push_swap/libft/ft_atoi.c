@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrios-es <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 19:05:10 by mrios-es          #+#    #+#             */
-/*   Updated: 2023/09/13 19:05:10 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/24 14:31:28 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	is_space(char c)
 	return (ft_strchr("\t\n\v\f\r ", c) != NULL);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	int		i;
 	long	result;

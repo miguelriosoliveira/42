@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/24 14:01:37 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/24 14:26:23 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ int	is_numeric(char *str)
 
 int	validate_args(int argc, char **argv)
 {
-	int	i;
+	int		i;
+	long	number;
 
 	if (argc < 2)
 		return (EXIT_SUCCESS);
-	// TODO: validate non-numeric args
 	i = 1;
 	while (argv[i])
 	{
@@ -43,7 +43,14 @@ int	validate_args(int argc, char **argv)
 			return (EXIT_FAILURE);
 		i++;
 	}
-	// TODO: validate numbers that don't fit into the int type
+	i = 1;
+	while (argv[i])
+	{
+		number = ft_atoi(argv[i]);
+		if (number < INT_MIN || number > INT_MAX)
+			return (EXIT_FAILURE);
+		i++;
+	}
 	// TODO: validate duplucates
 	return (EXIT_SUCCESS);
 }
