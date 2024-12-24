@@ -21,3 +21,4 @@
 
 - [so_long](./cursus/rank-02/so_long/)
 - [pipex](./cursus/rank-02/pipex/)
+- [push_swap](./cursus/rank-02/push_swap/)
