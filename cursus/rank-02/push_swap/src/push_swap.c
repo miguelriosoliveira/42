@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/24 14:26:23 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/24 15:09:03 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,22 @@ int	is_numeric(char *str)
 	return (1);
 }
 
+int	is_present(char *str, char **words)
+{
+	int	i;
+	int	largest_len;
+
+	i = 0;
+	while (words[i])
+	{
+		largest_len = max(ft_strlen(str), ft_strlen(words[i]));
+		if (ft_strncmp(str, words[i], largest_len) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	validate_args(int argc, char **argv)
 {
 	int		i;
@@ -41,17 +57,13 @@ int	validate_args(int argc, char **argv)
 	{
 		if (!is_numeric(argv[i]))
 			return (EXIT_FAILURE);
-		i++;
-	}
-	i = 1;
-	while (argv[i])
-	{
 		number = ft_atoi(argv[i]);
 		if (number < INT_MIN || number > INT_MAX)
 			return (EXIT_FAILURE);
+		if (is_present(argv[i], argv + i + 1))
+			return (EXIT_FAILURE);
 		i++;
 	}
-	// TODO: validate duplucates
 	return (EXIT_SUCCESS);
 }
 
