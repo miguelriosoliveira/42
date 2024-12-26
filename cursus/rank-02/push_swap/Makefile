@@ -1,6 +1,6 @@
 NAME = push_swap
 
-SRC_FILES = push_swap.c
+SRC_FILES = push_swap.c validation.c
 SRC = $(addprefix src/, $(SRC_FILES))
 OBJ = $(SRC:.c=.o)
 
