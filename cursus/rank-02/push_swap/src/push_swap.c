@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/27 16:13:56 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:28:52 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,22 @@ int	init_stacks(t_stack *stack_a, t_stack *stack_b, int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
+static void	shift(t_stack *stack, int direction)
+{
+	int	head;
+
+	(void)direction;
+	head = stack->stack[0];
+
+	print_stacks(stack, stack);
+
+	ft_memmove(stack->stack, stack->stack, stack->size - 1);
+
+	print_stacks(stack, stack);
+
+	stack->stack[stack->size - 1] = head;
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	stack_a;
@@ -69,12 +85,14 @@ int	main(int argc, char **argv)
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
 	print_stacks(&stack_a, &stack_b);
-	ft_printf("testing swaps:\n");
-	s(&stack_a, A);
-	print_stacks(&stack_a, &stack_b);
-	s(&stack_b, B);
-	print_stacks(&stack_a, &stack_b);
-	ss(&stack_a, &stack_b);
+	// ft_printf("testing swaps:\n");
+	// s(&stack_a, A);
+	// print_stacks(&stack_a, &stack_b);
+	// s(&stack_b, B);
+	// print_stacks(&stack_a, &stack_b);
+	// ss(&stack_a, &stack_b);
+	// print_stacks(&stack_a, &stack_b);
+	shift(&stack_a, DOWN);
 	print_stacks(&stack_a, &stack_b);
 	ft_printf("ok\n");
 	return (EXIT_SUCCESS);
