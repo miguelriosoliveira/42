@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/27 09:24:22 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:13:56 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\n"));
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
+	print_stacks(&stack_a, &stack_b);
+	ft_printf("testing swaps:\n");
+	s(&stack_a, A);
+	print_stacks(&stack_a, &stack_b);
+	s(&stack_b, B);
+	print_stacks(&stack_a, &stack_b);
+	ss(&stack_a, &stack_b);
 	print_stacks(&stack_a, &stack_b);
 	ft_printf("ok\n");
 	return (EXIT_SUCCESS);
