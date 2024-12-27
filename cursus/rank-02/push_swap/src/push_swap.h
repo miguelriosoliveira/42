@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:41:29 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/26 13:01:49 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/27 09:33:21 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_stack
 }	t_stack;
 
 // utils.c
+int		is_sorted(t_stack *stack);
 void	print_stacks(t_stack *stack_a, t_stack *stack_b);
 void	free_str_array(char **arr);
 void	strarr_to_intarr(char **strarr, int *intarr);

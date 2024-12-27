@@ -6,11 +6,25 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 12:53:06 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/26 12:54:17 by mrios-es         ###   ########.fr       */
+/*   Updated: 2024/12/27 09:34:45 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	is_sorted(t_stack *stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack->stack[i] && stack->stack[i + 1])
+	{
+		if (stack->stack[i] > stack->stack[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 {
@@ -25,6 +39,11 @@ void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 	}
 	ft_printf("\t_\t_\n");
 	ft_printf("\ta\tb\n");
+	ft_printf("Is sorted? ");
+	if (is_sorted(stack_a))
+		ft_printf("Yes\n");
+	else
+		ft_printf("No\n");
 }
 
 void	free_str_array(char **arr)
