@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations.c                                       :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 09:43:38 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/27 16:24:04 by mrios-es         ###   ########.fr       */
+/*   Created: 2024/12/30 15:37:23 by mrios-es          #+#    #+#             */
+/*   Updated: 2024/12/30 15:37:24 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void	swap(t_stack *stack)
 	stack->stack[1] = aux;
 }
 
-void	s(t_stack *stack, char stack_id)
+void	s(t_stack *stack)
 {
 	swap(stack);
-	ft_printf("s%c\n", stack_id);
+	ft_printf("s%c\n", stack->id);
 }
 
 void	ss(t_stack *stack_a, t_stack *stack_b)
