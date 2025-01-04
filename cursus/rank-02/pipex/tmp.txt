@@ -1,8 +1,0 @@
-total 1316
--rw-r--r-- 1 mrios-es 2019     913 Nov  3 20:06 Makefile
--rw-r--r-- 1 mrios-es 2019    3695 Oct 30 20:30 README.md
-drwxr-xr-x 4 mrios-es 2019    4096 Nov 24 16:00 libft
--rwxr-xr-x 1 mrios-es 2019 1327824 Nov 24 16:00 pipex
-drwxr-xr-x 2 mrios-es 2019      81 Nov 24 16:00 src
-drwxr-xr-x 2 mrios-es 2019      20 Nov  6 20:51 test
--rw-r--r-- 1 mrios-es 2019       0 Nov 24 16:00 tmp.txt
