@@ -26,6 +26,18 @@
 	> test/error_empty_cmd2_output 2>&1 \
 	; diff -s test/error_empty_cmd2_output test/error_unknown_cmd.txt
 
+./pipex "" "ls -l" "wc -l" test/output_pipex \
+	> test/error_empty_infile_arg_output 2>&1 \
+	; diff -s test/error_empty_infile_arg_output test/error_empty_file_arg_file.txt
+
+./pipex test/input "ls -l" "wc -l" "" \
+	> test/error_empty_outfile_arg_output 2>&1 \
+	; diff -s test/error_empty_outfile_arg_output test/error_empty_file_arg_file.txt
+
+./pipex "" "ls -l" "wc -l" "" \
+	> test/error_empty_both_files_arg_output 2>&1 \
+	; diff -s test/error_empty_both_files_arg_output test/error_empty_both_files_arg_file.txt
+
 ./pipex test/non-existent-file "ls -l" "wc -l" test/output_pipex \
 	> test/error_invalid_file_output 2>&1 \
 	; diff -s test/error_invalid_file_output test/error_invalid_file.txt
