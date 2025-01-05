@@ -18,6 +18,14 @@
 	> test/error_unknown_cmd_output 2>&1 \
 	; diff -s test/error_unknown_cmd_output test/error_unknown_cmd.txt
 
+./pipex test/input "" "cat" test/output_pipex \
+	> test/error_empty_cmd1_output 2>&1 \
+	; diff -s test/error_empty_cmd1_output test/error_unknown_cmd.txt
+
+./pipex test/input "ls -l" "" test/output_pipex \
+	> test/error_empty_cmd2_output 2>&1 \
+	; diff -s test/error_empty_cmd2_output test/error_unknown_cmd.txt
+
 ./pipex test/non-existent-file "ls -l" "wc -l" test/output_pipex \
 	> test/error_invalid_file_output 2>&1 \
 	; diff -s test/error_invalid_file_output test/error_invalid_file.txt
