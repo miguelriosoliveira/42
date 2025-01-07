@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:31:51 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/07 19:26:40 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:56:12 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,22 @@ int	check_path(t_cmd *cmd, char *dir)
 	char	*aux;
 	char	*cmd_path;
 
+	if (!cmd->cmd[0])
+		return (EXIT_FAILURE);
 	if (cmd->cmd_full_path && ft_strlen(cmd->cmd_full_path))
-		return (0);
+		return (EXIT_SUCCESS);
 	aux = ft_strjoin(dir, "/");
 	if (!aux)
-		return (1);
+		return (EXIT_FAILURE);
 	cmd_path = ft_strjoin(aux, cmd->cmd[0]);
 	free(aux);
 	if (!cmd_path)
-		return (1);
+		return (EXIT_FAILURE);
 	if (access(cmd_path, X_OK) == 0)
 		cmd->cmd_full_path = cmd_path;
 	else
 		free(cmd_path);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	init(t_pipex *pipex, char **argv)

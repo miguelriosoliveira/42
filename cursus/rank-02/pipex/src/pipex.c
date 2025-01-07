@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/07 19:50:52 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/07 20:31:12 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	find_commands(t_pipex *pipex)
 {
 	char	**path_parts;
 	int		i;
+	int		result;
 
 	path_parts = ft_split(pipex->the_path, ':');
 	if (!path_parts)
@@ -60,17 +61,19 @@ static int	find_commands(t_pipex *pipex)
 	i = 0;
 	while (path_parts[i])
 	{
-		if (check_path(&pipex->cmd1, path_parts[i])
-			|| check_path(&pipex->cmd2, path_parts[i]))
-			break ;
+		check_path(&pipex->cmd1, path_parts[i]);
+		check_path(&pipex->cmd2, path_parts[i]);
 		i++;
 	}
 	free_array(path_parts);
+	result = !pipex->cmd1.cmd_full_path || !pipex->cmd2.cmd_full_path;
 	if (!pipex->cmd1.cmd_full_path)
 		print_command_not_found(&pipex->cmd1);
 	if (!pipex->cmd2.cmd_full_path)
 		print_command_not_found(&pipex->cmd2);
-	return (!pipex->cmd1.cmd_full_path || !pipex->cmd2.cmd_full_path);
+	if (result)
+		return (result);
+	return (result);
 }
 
 int	main(int argc, char **argv, char **env)

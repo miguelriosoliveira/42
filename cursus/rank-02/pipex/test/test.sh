@@ -1,27 +1,54 @@
+# missing all arguments
 ./pipex > test/output_stdout_pipex 2>test/output_stderr_pipex
 diff -s test/output_stderr_pipex test/error_bad_arguments.txt
 
+# missing cmd1 cmd2 outfile
 ./pipex test/input > test/output_stdout_pipex 2>test/output_stderr_pipex
 diff -s test/output_stderr_pipex test/error_bad_arguments.txt
 
+# missing cmd2 outfile
 ./pipex test/input "ls -l" > test/output_stdout_pipex 2>test/output_stderr_pipex
 diff -s test/output_stderr_pipex test/error_bad_arguments.txt
 
+# missing outfile
 ./pipex test/input "ls -l" "wc -l" > test/output_stdout_pipex 2>test/output_stderr_pipex
 diff -s test/output_stderr_pipex test/error_bad_arguments.txt
 
+# invalid cmd1
 ./pipex test/input "lz -l" "wc -l"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
 (<      test/input  lz -l | wc -l > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
 diff -s test/output_stdout_pipex test/output_stdout_shell
 diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/input "" "cat" test/output_pipex \
-# 	> test/error_empty_cmd1_output 2>&1 \
-# 	; diff -s test/error_empty_cmd1_output test/error_unknown_cmd.txt
+# invalid cmd2
+./pipex test/input "ls -l" "wz -l"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input  ls -l | wz -l > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/input "ls -l" "" test/output_pipex \
-# 	> test/error_empty_cmd2_output 2>&1 \
-# 	; diff -s test/error_empty_cmd2_output test/error_unknown_cmd.txt
+# invalid cmd1 and cmd2
+./pipex test/input "lz -l" "wz -l"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input  lz -l | wz -l > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
+# empty cmd1
+./pipex test/input ""  "cat"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input "" | cat > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
+# empty cmd2
+./pipex test/input "ls"  ""   test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input  ls | "" > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
+# empty cmd1 and cmd2
+./pipex test/input ""   ""   test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input "" | "" > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
 # ./pipex "" "ls -l" "wc -l" test/output_pipex \
 # 	> test/error_empty_infile_arg_output 2>&1 \
