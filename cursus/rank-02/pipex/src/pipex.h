@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:05:36 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/22 20:01:39 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:25:56 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ typedef struct s_pipex
 
 // commands.c
 int		run_commands(t_pipex *pipex, char **env);
+
+// errors.c
+void	print_command_not_found(t_cmd *cmd);
+void	print_error(char *prefix);
 
 // utils.c
 void	free_array(char **arr);

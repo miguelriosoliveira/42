@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:31:51 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/05 18:41:16 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:26:40 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	check_path(t_cmd *cmd, char *dir)
 	char	*aux;
 	char	*cmd_path;
 
-	if (!cmd->cmd[0])
-		return (1);
 	if (cmd->cmd_full_path && ft_strlen(cmd->cmd_full_path))
 		return (0);
 	aux = ft_strjoin(dir, "/");
