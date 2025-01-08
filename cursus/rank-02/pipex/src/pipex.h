@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:05:36 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/07 19:25:56 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:13:02 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	print_error(char *prefix);
 // utils.c
 void	free_array(char **arr);
 void	free_pipex(t_pipex *pipex);
+int		is_local_bin(char *path);
 int		check_path(t_cmd *cmd, char *dir);
 int		init(t_pipex *pipex, char **argv);
 

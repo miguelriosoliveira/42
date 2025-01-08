@@ -92,6 +92,24 @@ diff -s test/output_stderr_pipex test/output_stderr_shell
 diff -s test/output_stdout_pipex test/output_stdout_shell
 diff -s test/output_stderr_pipex test/output_stderr_shell
 
+# cmd1 as nonexistent local command
+./pipex test/input "./lz" "ls"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input  ./lz | ls > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
+# cmd2 as nonexistent local command
+./pipex test/input "ls" "./lz"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input  ls | ./lz > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
+# cmd1 and cmd2 as nonexistent local commands
+./pipex test/input "./lz" "./lz"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input  ./lz | ./lz > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
 # ----------------------------------------------------------
 #  valid test cases
 # ----------------------------------------------------------
@@ -153,5 +171,23 @@ diff -s test/output_stderr_pipex test/output_stderr_shell
 # count number of lines with 'a' in lorem
 ./pipex test/lorem "grep a" "wc -l"  test/output_stdout_pipex  2>test/output_stderr_pipex
 (<      test/lorem  grep a | wc -l > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
+# cmd1 as local command
+./pipex test/lorem "./ls" "ls"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/lorem  ./ls | ls > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
+# cmd2 as local command
+./pipex test/lorem "ls" "./ls"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/lorem  ls | ./ls > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
+# cmd1 and cmd2 as local commands
+./pipex test/lorem "./ls" "./ls"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/lorem  ./ls | ./ls > test/output_stdout_shell) 2>test/output_stderr_shell
 diff -s test/output_stdout_pipex test/output_stdout_shell
 diff -s test/output_stderr_pipex test/output_stderr_shell
