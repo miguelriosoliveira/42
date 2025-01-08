@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:04:12 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/07 20:31:12 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:14:17 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ static int	find_input_file(t_pipex *pipex)
 static int	find_output_file(t_pipex *pipex)
 {
 	if (access(pipex->outfile.name, F_OK) != 0)
-		if (!pipex->outfile.name || ft_strlen(pipex->outfile.name) == 0)
-			return (print_error(": "), EXIT_FAILURE);
-	if (access(pipex->outfile.name, W_OK) != 0)
+	{
+		if (ft_strlen(pipex->outfile.name) == 0)
+			return (print_error(pipex->outfile.name), EXIT_FAILURE);
+	}
+	else if (access(pipex->outfile.name, W_OK) != 0)
 		return (print_error(pipex->outfile.name), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -85,9 +87,7 @@ int	main(int argc, char **argv, char **env)
 				STDERR_FILENO));
 	if (init(&pipex, argv))
 		return (ft_putstr_fd("Failed initializing pipex!\n", STDERR_FILENO));
-	if (find_input_file(&pipex))
-		return (free_pipex(&pipex), EXIT_FAILURE);
-	if (find_output_file(&pipex))
+	if (find_input_file(&pipex) + find_output_file(&pipex))
 		return (free_pipex(&pipex), EXIT_FAILURE);
 	if (find_path(&pipex, env))
 		return (free_pipex(&pipex), ft_putstr_fd("PATH not found!\n",

@@ -1,3 +1,7 @@
+# ----------------------------------------------------------
+#  error test cases
+# ----------------------------------------------------------
+
 # missing all arguments
 ./pipex > test/output_stdout_pipex 2>test/output_stderr_pipex
 diff -s test/output_stderr_pipex test/error_bad_arguments.txt
@@ -14,6 +18,20 @@ diff -s test/output_stderr_pipex test/error_bad_arguments.txt
 ./pipex test/input "ls -l" "wc -l" > test/output_stdout_pipex 2>test/output_stderr_pipex
 diff -s test/output_stderr_pipex test/error_bad_arguments.txt
 
+# invalid infile
+./pipex test/nonexistent "ls -l" "wc -l"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/nonexistent  ls -l | wc -l > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
+# infile missing read permission
+chmod -r test/input
+./pipex test/input "ls -l" "wc -l"  ""  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input  ls -l | wc -l > "") > test/output_stdout_shell 2>test/output_stderr_shell
+chmod +r test/input
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
 # invalid cmd1
 ./pipex test/input "lz -l" "wc -l"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
 (<      test/input  lz -l | wc -l > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
@@ -29,6 +47,12 @@ diff -s test/output_stderr_pipex test/output_stderr_shell
 # invalid cmd1 and cmd2
 ./pipex test/input "lz -l" "wz -l"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
 (<      test/input  lz -l | wz -l > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
+# empty infile
+./pipex "" "ls"  "cat"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      ""  ls |  cat > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
 diff -s test/output_stdout_pipex test/output_stdout_shell
 diff -s test/output_stderr_pipex test/output_stderr_shell
 
@@ -50,65 +74,84 @@ diff -s test/output_stderr_pipex test/output_stderr_shell
 diff -s test/output_stdout_pipex test/output_stdout_shell
 diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex "" "ls -l" "wc -l" test/output_pipex \
-# 	> test/error_empty_infile_arg_output 2>&1 \
-# 	; diff -s test/error_empty_infile_arg_output test/error_empty_file_arg_file.txt
+# empty outfile
+./pipex test/input "ls"  "cat"  ""  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input  ls |  cat > "") > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/input "ls -l" "wc -l" "" \
-# 	> test/error_empty_outfile_arg_output 2>&1 \
-# 	; diff -s test/error_empty_outfile_arg_output test/error_empty_file_arg_file.txt
+# empty infile and outfile
+./pipex "" "ls"  "cat"  ""  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      ""  ls |  cat > "") > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex "" "ls -l" "wc -l" "" \
-# 	> test/error_empty_both_files_arg_output 2>&1 \
-# 	; diff -s test/error_empty_both_files_arg_output test/error_empty_both_files_arg_file.txt
+# all arguments empty
+./pipex "" ""   ""   ""  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      "" "" | "" > "") > test/output_stdout_shell 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/non-existent-file "ls -l" "wc -l" test/output_pipex \
-# 	> test/error_invalid_file_output 2>&1 \
-# 	; diff -s test/error_invalid_file_output test/error_invalid_file.txt
+# ----------------------------------------------------------
+#  valid test cases
+# ----------------------------------------------------------
 
-# chmod -r test/input
-# ./pipex test/input "ls -l" "wc -l"  ""  > test/output_stdout_pipex 2>test/output_stderr_pipex
-# (<      test/input  ls -l | wc -l > "") > test/output_stdout_shell 2>test/output_stderr_shell
-# chmod +r test/input
-# diff -s test/output_stdout_pipex test/output_stdout_shell
-# diff -s test/output_stderr_pipex test/output_stderr_shell
+# count lines in ls -l output
+./pipex test/input "ls -l" "wc -l"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/input  ls -l | wc -l > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/input "ls -l" "wc -l"  test/input_output_pipex \
-# 	&& <  test/input  ls -l | wc -l > test/input_output_shell \
-# 	&& diff -s test/input_output_pipex test/input_output_shell
+# count characters in lorem output
+./pipex test/lorem "cat" "wc -m"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/lorem  cat | wc -m > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/lorem "cat" "wc -m"  test/lorem_output_pipex \
-# 	&& <  test/lorem  cat | wc -m > test/lorem_output_shell \
-# 	&& diff -s test/lorem_output_pipex test/lorem_output_shell
+# sort letters in letters file
+./pipex test/letters "cat" "sort"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/letters  cat | sort > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/letters "cat" "sort"  test/letters_output_pipex \
-# 	&& <  test/letters  cat | sort > test/letters_output_shell \
-# 	&& diff -s test/letters_output_pipex test/letters_output_shell
+# sort pokemon names
+./pipex test/pokemon "cat" "sort"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/pokemon  cat | sort > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/pokemon "cat" "sort"  test/pokemon_output_pipex \
-# 	&& <  test/pokemon  cat | sort > test/pokemon_output_shell \
-# 	&& diff -s test/pokemon_output_pipex test/pokemon_output_shell
+# sort names case-insensitively
+./pipex test/names "cat" "sort -f"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/names  cat | sort -f > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/names "cat" "sort -f"  test/names_output_pipex \
-# 	&& <  test/names  cat | sort -f > test/names_output_shell \
-# 	&& diff -s test/names_output_pipex test/names_output_shell
+# sort letters in /dev/null
+./pipex /dev/null "cat" "sort"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      /dev/null  cat | sort > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex /dev/null "cat" "sort"  test/null_output_pipex \
-# 	&& <  /dev/null  cat | sort > test/null_output_shell \
-# 	&& diff -s test/null_output_pipex test/null_output_shell
+# sort pokemon names in reverse order
+./pipex test/pokemon "rev" "sort"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/pokemon  rev | sort > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/pokemon "rev" "sort"  test/pokemon_rev_output_pipex \
-# 	&& <  test/pokemon  rev | sort > test/pokemon_rev_output_shell \
-# 	&& diff -s test/pokemon_rev_output_pipex test/pokemon_rev_output_shell
+# sort lowercased names
+./pipex test/names "tr '[:upper:]' '[:lower:]'" "sort"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/names  tr '[:upper:]' '[:lower:]' | sort > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/names "tr '[:upper:]' '[:lower:]'" "sort"  test/names_lowercase_output_pipex \
-# 	&& <  test/names  tr '[:upper:]' '[:lower:]' | sort > test/names_lowercase_output_shell \
-# 	&& diff -s test/names_lowercase_output_pipex test/names_lowercase_output_shell
+# get 5th to 10th line of lorem
+./pipex test/lorem "head -n 10" "tail -n 5"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/lorem  head -n 10 | tail -n 5 > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
 
-# ./pipex test/lorem "head -n 10" "tail -n 5"  test/lorem_head_tail_output_pipex \
-# 	&& <  test/lorem  head -n 10 | tail -n 5 > test/lorem_head_tail_output_shell \
-# 	&& diff -s test/lorem_head_tail_output_pipex test/lorem_head_tail_output_shell
-
-# ./pipex test/lorem "grep a" "wc -l"  test/lorem_count_a_output_pipex \
-# 	&& <  test/lorem  grep a | wc -l > test/lorem_count_a_output_shell \
-# 	&& diff -s test/lorem_count_a_output_pipex test/lorem_count_a_output_shell
+# count number of lines with 'a' in lorem
+./pipex test/lorem "grep a" "wc -l"  test/output_stdout_pipex  2>test/output_stderr_pipex
+(<      test/lorem  grep a | wc -l > test/output_stdout_shell) 2>test/output_stderr_shell
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
