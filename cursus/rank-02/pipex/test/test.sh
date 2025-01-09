@@ -32,6 +32,14 @@ chmod +r test/input
 diff -s test/output_stdout_pipex test/output_stdout_shell
 diff -s test/output_stderr_pipex test/output_stderr_shell
 
+# outfile missing write permission
+chmod -w test/lorem
+./pipex test/input "ls -l" "wc -l"  test/lorem  > test/output_stdout_pipex 2>test/output_stderr_pipex
+(<      test/input  ls -l | wc -l > test/lorem) > test/output_stdout_shell 2>test/output_stderr_shell
+chmod +w test/lorem
+diff -s test/output_stdout_pipex test/output_stdout_shell
+diff -s test/output_stderr_pipex test/output_stderr_shell
+
 # invalid cmd1
 ./pipex test/input "lz -l" "wc -l"  test/output  > test/output_stdout_pipex 2>test/output_stderr_pipex
 (<      test/input  lz -l | wc -l > test/output) > test/output_stdout_shell 2>test/output_stderr_shell
