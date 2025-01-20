@@ -1,0 +1,2 @@
+test/non-existent-file: No such file or directory
+Failed handling files!

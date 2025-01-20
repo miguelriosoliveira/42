@@ -1,0 +1,2 @@
+test/invalid_permission_read_input: Permission denied
+Failed handling files!
