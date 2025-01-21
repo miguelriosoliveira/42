@@ -6,13 +6,13 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 15:35:31 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/30 15:35:54 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:16:43 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	rotate(t_stack *stack, int direction)
+void	rotate(t_stack *stack, int direction)
 {
 	int	aux;
 	int	size;
@@ -32,19 +32,21 @@ static void	rotate(t_stack *stack, int direction)
 	}
 }
 
-void	r(t_stack *stack, int direction)
+void	ra(t_stack *stack_a)
 {
-	rotate(stack, direction);
-	if (direction == DOWN)
-		ft_printf("r");
-	ft_printf("r%c\n", stack->id);
+	rotate(stack_a, UP);
+	ft_printf("ra\n");
 }
 
-void	rr(t_stack *stack_a, t_stack *stack_b, int direction)
+void	rb(t_stack *stack_b)
 {
-	rotate(stack_a, direction);
-	rotate(stack_b, direction);
-	if (direction == DOWN)
-		ft_printf("r");
+	rotate(stack_b, UP);
+	ft_printf("rb\n");
+}
+
+void	rr(t_stack *stack_a, t_stack *stack_b)
+{
+	rotate(stack_a, UP);
+	rotate(stack_b, UP);
 	ft_printf("rr\n");
 }

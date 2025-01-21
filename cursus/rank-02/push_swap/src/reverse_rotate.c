@@ -1,43 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   reverse_rotate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 15:37:23 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/21 20:10:40 by mrios-es         ###   ########.fr       */
+/*   Created: 2024/12/30 15:35:31 by mrios-es          #+#    #+#             */
+/*   Updated: 2025/01/21 20:15:36 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	swap(t_stack *stack)
+void	rra(t_stack *stack_a)
 {
-	int	aux;
-
-	if (stack->size <= 1)
-		return ;
-	aux = stack->stack[0];
-	stack->stack[0] = stack->stack[1];
-	stack->stack[1] = aux;
+	rotate(stack_a, DOWN);
+	ft_printf("rra\n");
 }
 
-void	sa(t_stack *stack_a)
+void	rrb(t_stack *stack_b)
 {
-	swap(stack_a);
-	ft_printf("sa\n");
+	rotate(stack_b, DOWN);
+	ft_printf("rrb\n");
 }
 
-void	sb(t_stack *stack_b)
+void	rrr(t_stack *stack_a, t_stack *stack_b)
 {
-	swap(stack_b);
-	ft_printf("sb\n");
-}
-
-void	ss(t_stack *stack_a, t_stack *stack_b)
-{
-	swap(stack_a);
-	swap(stack_b);
-	ft_printf("ss\n");
+	rotate(stack_a, DOWN);
+	rotate(stack_b, DOWN);
+	ft_printf("rrr\n");
 }

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 12:53:06 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/30 15:56:49 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:57:00 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 {
 	int	i;
 
-	ft_printf("stack size: %d\n", stack_a->size);
+	ft_printf("stack_a size: %d\n", stack_a->size);
+	ft_printf("stack_b size: %d\n", stack_b->size);
 	i = 0;
-	while (stack_a->stack[i])
+	while (i < max(stack_a->size, stack_b->size))
 	{
 		ft_printf("[%d]\t%d\t%d\n", i, stack_a->stack[i], stack_b->stack[i]);
 		i++;

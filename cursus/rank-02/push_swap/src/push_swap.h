@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:41:29 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/30 15:39:36 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:38:41 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,24 @@ typedef struct s_stack
 	int		*stack;
 }	t_stack;
 
+// push.c
+void	pa(t_stack *stack_a, t_stack *stack_b);
+void	pb(t_stack *stack_a, t_stack *stack_b);
+
+// reverse_rotate.c
+void	rra(t_stack *stack_a);
+void	rrb(t_stack *stack_b);
+void	rrr(t_stack *stack_a, t_stack *stack_b);
+
 // rotate.c
-void	r(t_stack *stack, int direction);
-void	rr(t_stack *stack_a, t_stack *stack_b, int direction);
+void	rotate(t_stack *stack, int direction);
+void	ra(t_stack *stack_a);
+void	rb(t_stack *stack_b);
+void	rr(t_stack *stack_a, t_stack *stack_b);
 
 // swap.c
-void	s(t_stack *stack);
+void	sa(t_stack *stack_a);
+void	sb(t_stack *stack_b);
 void	ss(t_stack *stack_a, t_stack *stack_b);
 
 // utils.c

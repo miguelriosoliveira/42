@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/30 16:14:41 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/21 21:13:45 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,51 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\n"));
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
-	print_stacks(&stack_a, &stack_b);
-	r(&stack_a, UP);
-	print_stacks(&stack_a, &stack_b);
-	r(&stack_a, UP);
-	print_stacks(&stack_a, &stack_b);
-	r(&stack_a, UP);
-	print_stacks(&stack_a, &stack_b);
-	r(&stack_a, DOWN);
-	print_stacks(&stack_a, &stack_b);
-	r(&stack_a, DOWN);
-	print_stacks(&stack_a, &stack_b);
-	r(&stack_a, DOWN);
-	print_stacks(&stack_a, &stack_b);
 	ft_printf("ok\n");
 	return (EXIT_SUCCESS);
 }
+
+/*
+print_stacks(&stack_a, &stack_b);
+	sa(&stack_a);
+	print_stacks(&stack_a, &stack_b);
+	sa(&stack_a);
+	print_stacks(&stack_a, &stack_b);
+
+	pb(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pb(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pb(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pb(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+
+	sb(&stack_b);
+	print_stacks(&stack_a, &stack_b);
+	sb(&stack_b);
+	print_stacks(&stack_a, &stack_b);
+
+	rb(&stack_b);
+	print_stacks(&stack_a, &stack_b);
+	rb(&stack_b);
+	print_stacks(&stack_a, &stack_b);
+	rb(&stack_b);
+	print_stacks(&stack_a, &stack_b);
+
+	pa(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pa(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pa(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pa(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+
+	ra(&stack_a);
+	print_stacks(&stack_a, &stack_b);
+	ra(&stack_a);
+	print_stacks(&stack_a, &stack_b);
+	ra(&stack_a);
+	print_stacks(&stack_a, &stack_b);
+*/
