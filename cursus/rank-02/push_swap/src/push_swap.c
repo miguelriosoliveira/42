@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/22 19:06:39 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:38:43 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ int	init_stacks(t_stack *stack_a, t_stack *stack_b, int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
+void	sort_2(t_stack *stack_a)
+{
+	if (!is_sorted(stack_a))
+		sa(stack_a);
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	stack_a;
@@ -79,45 +85,45 @@ int	main(int argc, char **argv)
 
 /*
 print_stacks(&stack_a, &stack_b);
-	sa(&stack_a);
-	print_stacks(&stack_a, &stack_b);
-	sa(&stack_a);
-	print_stacks(&stack_a, &stack_b);
+sa(&stack_a);
+print_stacks(&stack_a, &stack_b);
+sa(&stack_a);
+print_stacks(&stack_a, &stack_b);
 
-	pb(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pb(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pb(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pb(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
+pb(&stack_a, &stack_b);
+print_stacks(&stack_a, &stack_b);
+pb(&stack_a, &stack_b);
+print_stacks(&stack_a, &stack_b);
+pb(&stack_a, &stack_b);
+print_stacks(&stack_a, &stack_b);
+pb(&stack_a, &stack_b);
+print_stacks(&stack_a, &stack_b);
 
-	sb(&stack_b);
-	print_stacks(&stack_a, &stack_b);
-	sb(&stack_b);
-	print_stacks(&stack_a, &stack_b);
+sb(&stack_b);
+print_stacks(&stack_a, &stack_b);
+sb(&stack_b);
+print_stacks(&stack_a, &stack_b);
 
-	rb(&stack_b);
-	print_stacks(&stack_a, &stack_b);
-	rb(&stack_b);
-	print_stacks(&stack_a, &stack_b);
-	rb(&stack_b);
-	print_stacks(&stack_a, &stack_b);
+rb(&stack_b);
+print_stacks(&stack_a, &stack_b);
+rb(&stack_b);
+print_stacks(&stack_a, &stack_b);
+rb(&stack_b);
+print_stacks(&stack_a, &stack_b);
 
-	pa(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pa(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pa(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pa(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
+pa(&stack_a, &stack_b);
+print_stacks(&stack_a, &stack_b);
+pa(&stack_a, &stack_b);
+print_stacks(&stack_a, &stack_b);
+pa(&stack_a, &stack_b);
+print_stacks(&stack_a, &stack_b);
+pa(&stack_a, &stack_b);
+print_stacks(&stack_a, &stack_b);
 
-	ra(&stack_a);
-	print_stacks(&stack_a, &stack_b);
-	ra(&stack_a);
-	print_stacks(&stack_a, &stack_b);
-	ra(&stack_a);
-	print_stacks(&stack_a, &stack_b);
+ra(&stack_a);
+print_stacks(&stack_a, &stack_b);
+ra(&stack_a);
+print_stacks(&stack_a, &stack_b);
+ra(&stack_a);
+print_stacks(&stack_a, &stack_b);
 */
