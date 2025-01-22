@@ -18,6 +18,9 @@ diff -s test/error.expected test/error_lower_than_INT_MIN.received
 ./push_swap 0 1 2 3 2 > test/error_contains_duplicates.received 2>&1
 diff -s test/error.expected test/error_contains_duplicates.received
 
+./push_swap 3 03 > test/error_contains_duplicates_with_zero.received 2>&1
+diff -s test/error.expected test/error_contains_duplicates_with_zero.received
+
 ./push_swap 0 1 2 3 > test/ok_numbers.received
 diff -s test/ok.expected test/ok_numbers.received
 

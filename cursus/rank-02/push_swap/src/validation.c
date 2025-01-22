@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 10:56:54 by mrios-es          #+#    #+#             */
-/*   Updated: 2024/12/26 10:57:37 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:21:04 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,11 @@ static int	is_numeric(char *str)
 static int	is_present(char *str, char **words)
 {
 	int	i;
-	int	largest_len;
 
 	i = 0;
 	while (words[i])
 	{
-		largest_len = max(ft_strlen(str), ft_strlen(words[i]));
-		if (ft_strncmp(str, words[i], largest_len) == 0)
+		if (ft_atoi(str) == ft_atoi(words[i]))
 			return (1);
 		i++;
 	}
