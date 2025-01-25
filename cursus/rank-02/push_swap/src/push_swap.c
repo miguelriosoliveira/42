@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/22 20:38:43 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/25 23:27:38 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,52 @@ void	sort_2(t_stack *stack_a)
 		sa(stack_a);
 }
 
+int	find_smallest_index(t_stack *stack)
+{
+	int	i;
+	int	smallest;
+	int	smallest_index;
+
+	smallest = INT_MAX;
+	smallest_index = 0;
+	i = 0;
+	while (i < stack->size)
+	{
+		if (stack->stack[i] < smallest)
+		{
+			smallest = stack->stack[i];
+			smallest_index = i;
+		}
+		i++;
+	}
+	return (smallest_index);
+}
+
+void	sort(t_stack *stack_a, t_stack *stack_b)
+{
+	int	i;
+	int	smallest_index;
+
+	i = stack_a->size;
+	while (i--)
+	{
+		smallest_index = find_smallest_index(stack_a);
+		if (smallest_index < stack_a->size / 2)
+			while (smallest_index--)
+				ra(stack_a);
+		else
+			while (smallest_index < stack_a->size)
+			{
+				rra(stack_a);
+				smallest_index++;
+			}
+		pb(stack_a, stack_b);
+	}
+	i = stack_b->size;
+	while (i--)
+		pa(stack_a, stack_b);
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	stack_a;
@@ -78,8 +124,7 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\n"));
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
-	print_stacks(&stack_a, &stack_b);
-	ft_printf("ok\n");
+	sort(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
 }
 
