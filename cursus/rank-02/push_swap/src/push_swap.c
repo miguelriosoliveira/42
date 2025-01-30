@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/30 09:13:08 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/30 22:41:20 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,75 @@ int	init_stacks(t_stack *stack_a, t_stack *stack_b, int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
+int	min_value(t_stack *stack)
+{
+	int	min;
+	int	i;
+
+	min = INT_MAX;
+	i = 0;
+	while (i < stack->size)
+	{
+		if (stack->stack[i] < min)
+			min = stack->stack[i];
+		i++;
+	}
+	return (min);
+}
+
+int	max_value(t_stack *stack)
+{
+	int	max;
+	int	i;
+
+	max = INT_MIN;
+	i = 0;
+	while (i < stack->size)
+	{
+		if (stack->stack[i] > max)
+			max = stack->stack[i];
+		i++;
+	}
+	return (max);
+}
+
 /*
 123 - none
 132 - rra - 213 - sa - 123
 213 - sa  - 123
 231 - rra - 123
 312 - ra  - 123
-321 - sa  - 231 - ra - 123
+321 - sa  - 231 - rra - 123
 */
 void	sort_3(t_stack *stack_a)
 {
-	if (is_sorted(stack_a))
-		return ;
-	// continue...
+	int	min;
+	int	max;
+	int	first;
+	int	second;
+	int	third;
+
+	min = min_value(stack_a);
+	max = max_value(stack_a);
+	first = stack_a->stack[0];
+	second = stack_a->stack[1];
+	third = stack_a->stack[2];
+	if (first == min && second == max)
+	{
+		rra(stack_a);
+		sa(stack_a);
+	}
+	else if (first == max && third == min)
+	{
+		sa(stack_a);
+		rra(stack_a);
+	}
+	else if (second == min && third == max)
+		sa(stack_a);
+	else if (second == max && third == min)
+		rra(stack_a);
+	else if (first == max && second == min)
+		ra(stack_a);
 }
 
 int	find_smallest_index(t_stack *stack)
@@ -129,11 +185,15 @@ int	main(int argc, char **argv)
 	t_stack	stack_a;
 	t_stack	stack_b;
 
+	if (argc < 2)
+		return (EXIT_SUCCESS);
 	if (validate_args(argc, argv))
 		return (ft_printf("Error\n"));
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
-	sort(&stack_a, &stack_b);
+	// print_stacks(&stack_a, &stack_b);
+	sort_3(&stack_a);
+	// print_stacks(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
 }
 

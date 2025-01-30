@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 10:56:54 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/22 19:21:04 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/30 22:30:22 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	validate_args(int argc, char **argv)
 	int		i;
 	long	number;
 
-	if (argc < 2)
-		return (EXIT_SUCCESS);
 	args = argv + 1;
 	if (argc == 2)
 		args = ft_split(argv[1], ' ');
