@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/25 23:27:38 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/01/30 09:13:08 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,19 @@ int	init_stacks(t_stack *stack_a, t_stack *stack_b, int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-void	sort_2(t_stack *stack_a)
+/*
+123 - none
+132 - rra - 213 - sa - 123
+213 - sa  - 123
+231 - rra - 123
+312 - ra  - 123
+321 - sa  - 231 - ra - 123
+*/
+void	sort_3(t_stack *stack_a)
 {
-	if (!is_sorted(stack_a))
-		sa(stack_a);
+	if (is_sorted(stack_a))
+		return ;
+	// continue...
 }
 
 int	find_smallest_index(t_stack *stack)
