@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/30 22:41:20 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:38:42 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,17 +121,14 @@ void	sort_3(t_stack *stack_a)
 		rra(stack_a);
 		sa(stack_a);
 	}
-	else if (first == max && third == min)
-	{
-		sa(stack_a);
-		rra(stack_a);
-	}
 	else if (second == min && third == max)
 		sa(stack_a);
 	else if (second == max && third == min)
 		rra(stack_a);
 	else if (first == max && second == min)
 		ra(stack_a);
+	else if (first == max && third == min)
+		return (sa(stack_a), rra(stack_a));
 }
 
 int	find_smallest_index(t_stack *stack)
