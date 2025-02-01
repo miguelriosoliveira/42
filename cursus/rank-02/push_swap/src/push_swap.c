@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/01 17:38:42 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/01 22:26:49 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,50 +131,37 @@ void	sort_3(t_stack *stack_a)
 		return (sa(stack_a), rra(stack_a));
 }
 
-int	find_smallest_index(t_stack *stack)
+void	insertion_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	int	i;
-	int	smallest;
-	int	smallest_index;
 
-	smallest = INT_MAX;
-	smallest_index = 0;
-	i = 0;
-	while (i < stack->size)
+	while (stack_a->size > 3 && !is_sorted(stack_a))
 	{
-		if (stack->stack[i] < smallest)
-		{
-			smallest = stack->stack[i];
-			smallest_index = i;
-		}
-		i++;
+		// TODO
 	}
-	return (smallest_index);
+}
+
+void	turk_sort(t_stack *stack_a, t_stack *stack_b)
+{
+	if (stack_a->size > 3 && !is_sorted(stack_a))
+		pb(stack_a, stack_b);
+	if (stack_a->size > 3 && !is_sorted(stack_a))
+		pb(stack_a, stack_b);
+
+	// keep pushing into B until A has size 3
+	insertion_sort(stack_a, stack_b);
+
+	if (!is_sorted(stack_a))
+		sort_3(stack_a);
 }
 
 void	sort(t_stack *stack_a, t_stack *stack_b)
 {
-	int	i;
-	int	smallest_index;
-
-	i = stack_a->size;
-	while (i--)
-	{
-		smallest_index = find_smallest_index(stack_a);
-		if (smallest_index < stack_a->size / 2)
-			while (smallest_index--)
-				ra(stack_a);
-		else
-			while (smallest_index < stack_a->size)
-			{
-				rra(stack_a);
-				smallest_index++;
-			}
-		pb(stack_a, stack_b);
-	}
-	i = stack_b->size;
-	while (i--)
-		pa(stack_a, stack_b);
+	if (is_sorted(stack_a))
+		return ;
+	if (stack_a->size == 2)
+		sa(stack_a);
+	turk_sort(stack_a, stack_b);
 }
 
 int	main(int argc, char **argv)
@@ -188,9 +175,7 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\n"));
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
-	// print_stacks(&stack_a, &stack_b);
-	sort_3(&stack_a);
-	// print_stacks(&stack_a, &stack_b);
+	sort(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
 }
 
