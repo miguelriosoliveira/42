@@ -6,16 +6,51 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/01 22:26:49 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/02 22:22:56 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	*init_args(int argc, char **argv)
+// int	*init_args(int argc, char **argv)
+// {
+// 	char	**args;
+// 	int		*numbers;
+// 	int		should_split;
+// 	int		i;
+
+// 	args = argv + 1;
+// 	should_split = argc == 2;
+// 	if (should_split)
+// 		args = ft_split(argv[1], ' ');
+// 	if (!args)
+// 		return (NULL);
+// 	i = 0;
+// 	while (args[i])
+// 		i++;
+// 	numbers = ft_calloc(i + 1, sizeof(int));
+// 	if (!numbers)
+// 	{
+// 		if (should_split)
+// 			free_str_array(args);
+// 		return (NULL);
+// 	}
+// 	strarr_to_intarr(args, numbers);
+// 	if (should_split)
+// 		free_str_array(args);
+// 	return (numbers);
+// }
+
+void	del(int content)
+{
+	(void)content;
+}
+
+t_list	*init_args(int argc, char **argv)
 {
 	char	**args;
-	int		*numbers;
+	t_list	*numbers;
+	t_list	*aux;
 	int		should_split;
 	int		i;
 
@@ -25,17 +60,19 @@ int	*init_args(int argc, char **argv)
 		args = ft_split(argv[1], ' ');
 	if (!args)
 		return (NULL);
+	numbers = NULL;
 	i = 0;
 	while (args[i])
-		i++;
-	numbers = ft_calloc(i + 1, sizeof(int));
-	if (!numbers)
 	{
-		if (should_split)
-			free_str_array(args);
-		return (NULL);
+		aux = ft_lstnew(ft_atoi(args[i]));
+		if (!aux)
+		{
+			ft_lstclear(&numbers, del);
+			break ;
+		}
+		ft_lstadd_back(numbers, aux);
+		i++;
 	}
-	strarr_to_intarr(args, numbers);
 	if (should_split)
 		free_str_array(args);
 	return (numbers);
@@ -45,8 +82,6 @@ int	init_stacks(t_stack *stack_a, t_stack *stack_b, int argc, char **argv)
 {
 	int	i;
 
-	stack_a->id = A;
-	stack_b->id = B;
 	stack_a->stack = init_args(argc, argv);
 	if (!stack_a->stack)
 		return (EXIT_FAILURE);
@@ -65,32 +100,32 @@ int	init_stacks(t_stack *stack_a, t_stack *stack_b, int argc, char **argv)
 
 int	min_value(t_stack *stack)
 {
-	int	min;
-	int	i;
+	int		min;
+	t_list	*curr;
 
-	min = INT_MAX;
-	i = 0;
-	while (i < stack->size)
+	curr = stack->stack;
+	min = curr->content;
+	while (curr)
 	{
-		if (stack->stack[i] < min)
-			min = stack->stack[i];
-		i++;
+		if (curr->content < min)
+			min = curr->content;
+		curr = curr->next;
 	}
 	return (min);
 }
 
 int	max_value(t_stack *stack)
 {
-	int	max;
-	int	i;
+	int		max;
+	t_list	*curr;
 
-	max = INT_MIN;
-	i = 0;
-	while (i < stack->size)
+	curr = stack->stack;
+	max = curr->content;
+	while (curr)
 	{
-		if (stack->stack[i] > max)
-			max = stack->stack[i];
-		i++;
+		if (curr->content > max)
+			max = curr->content;
+		curr = curr->next;
 	}
 	return (max);
 }
@@ -113,9 +148,9 @@ void	sort_3(t_stack *stack_a)
 
 	min = min_value(stack_a);
 	max = max_value(stack_a);
-	first = stack_a->stack[0];
-	second = stack_a->stack[1];
-	third = stack_a->stack[2];
+	first = stack_a->stack->content;
+	second = stack_a->stack->next->content;
+	third = stack_a->stack->next->next->content;
 	if (first == min && second == max)
 	{
 		rra(stack_a);
@@ -137,7 +172,10 @@ void	insertion_sort(t_stack *stack_a, t_stack *stack_b)
 
 	while (stack_a->size > 3 && !is_sorted(stack_a))
 	{
-		// TODO
+		// for each element in A
+			// calculate cheapest element to push to B by saving the steps needed
+			// update the reference to the cheapest when new cheapest is found
+		// execute the steps of the cheapest
 	}
 }
 
@@ -151,8 +189,7 @@ void	turk_sort(t_stack *stack_a, t_stack *stack_b)
 	// keep pushing into B until A has size 3
 	insertion_sort(stack_a, stack_b);
 
-	if (!is_sorted(stack_a))
-		sort_3(stack_a);
+	sort_3(stack_a);
 }
 
 void	sort(t_stack *stack_a, t_stack *stack_b)

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 15:37:23 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/21 20:10:40 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/02 19:42:44 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 static void	swap(t_stack *stack)
 {
-	int	aux;
+	t_list	*elem_2;
 
-	if (stack->size <= 1)
-		return ;
-	aux = stack->stack[0];
-	stack->stack[0] = stack->stack[1];
-	stack->stack[1] = aux;
+	elem_2 = stack->stack->next;
+	stack->stack = stack->stack->next->next;
+	elem_2->next = stack->stack;
+	stack->stack = elem_2;
 }
 
 void	sa(t_stack *stack_a)

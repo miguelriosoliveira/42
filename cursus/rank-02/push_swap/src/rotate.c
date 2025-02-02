@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 15:35:31 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/21 20:16:43 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:25:11 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,26 @@
 
 void	rotate(t_stack *stack, int direction)
 {
-	int	aux;
-	int	size;
+	t_list	*second;
+	t_list	*pre_last;
+	t_list	*last;
 
-	size = sizeof(int) * (stack->size - 1);
+	last = ft_lstlast(stack);
 	if (direction == UP)
 	{
-		aux = stack->stack[0];
-		ft_memmove(stack->stack, stack->stack + 1, size);
-		stack->stack[stack->size - 1] = aux;
+		second = stack->stack->next;
+		last->next = stack->stack;
+		stack->stack->next = NULL;
+		stack->stack = second;
 	}
 	else
 	{
-		aux = stack->stack[stack->size - 1];
-		ft_memmove(stack->stack + 1, stack->stack, size);
-		stack->stack[0] = aux;
+		pre_last = stack->stack;
+		while (pre_last->next->next)
+			pre_last = pre_last->next;
+		last->next = stack->stack;
+		pre_last->next = NULL;
+		stack->stack = last;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:41:29 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/21 20:38:41 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/02 19:30:55 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,13 @@
 
 # include "../libft/libft.h"
 
-# define A 'a'
-# define B 'b'
-
 # define UP 0
 # define DOWN 1
 
 typedef struct s_stack
 {
-	char	id;
 	int		size;
-	int		total;
-	int		*stack;
+	t_list	*stack;
 }	t_stack;
 
 // push.c

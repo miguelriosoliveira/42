@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:20:15 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/21 21:22:40 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:31:00 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,10 @@
 
 static void	push(t_stack *stack_dst, t_stack *stack_src)
 {
-	int	size;
-	int	aux;
-
-	if (stack_src->size == 0)
-		return ;
-	aux = stack_src->stack[0];
-	rotate(stack_src, UP);
-	stack_src->size--;
-	stack_src->stack[stack_src->size] = 0;
-	if (stack_dst->size > 0)
-	{
-		size = sizeof(int) * (stack_dst->size);
-		ft_memmove(stack_dst->stack + 1, stack_dst->stack, size);
-	}
-	stack_dst->stack[0] = aux;
+	ft_lstadd_front(&stack_dst->stack, stack_src->stack);
 	stack_dst->size++;
+	stack_src->stack = stack_src->stack->next;
+	stack_src->size--;
 }
 
 void	pa(t_stack *stack_a, t_stack *stack_b)
