@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 15:35:31 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/02 20:25:11 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:35:38 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	rotate(t_stack *stack, int direction)
 	t_list	*pre_last;
 	t_list	*last;
 
-	last = ft_lstlast(stack);
+	last = ft_lstlast(stack->stack);
 	if (direction == UP)
 	{
 		second = stack->stack->next;

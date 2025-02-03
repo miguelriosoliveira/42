@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 12:53:06 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/21 20:57:00 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/03 22:20:14 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,44 @@
 
 int	is_sorted(t_stack *stack)
 {
-	int	i;
+	t_list	*curr;
 
-	i = 0;
-	while (stack->stack[i] && stack->stack[i + 1])
+	curr = stack->stack;
+	while (curr && curr->next)
 	{
-		if (stack->stack[i] > stack->stack[i + 1])
+		if (curr->content > curr->next->content)
 			return (0);
-		i++;
+		curr = curr->next;
 	}
 	return (1);
 }
 
 void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 {
-	int	i;
+	t_list	*curr_a;
+	t_list	*curr_b;
+	int		i;
 
 	ft_printf("stack_a size: %d\n", stack_a->size);
 	ft_printf("stack_b size: %d\n", stack_b->size);
+	curr_a = stack_a->stack;
+	curr_b = stack_b->stack;
 	i = 0;
-	while (i < max(stack_a->size, stack_b->size))
+	while (curr_a || curr_b)
 	{
-		ft_printf("[%d]\t%d\t%d\n", i, stack_a->stack[i], stack_b->stack[i]);
+		ft_printf("[%d]\t", i);
+		if (curr_a)
+		{
+			ft_printf("%d", curr_a->content);
+			curr_a = curr_a->next;
+		}
+		ft_printf("\t");
+		if (curr_b)
+		{
+			ft_printf("%d", curr_b->content);
+			curr_b = curr_b->next;
+		}
+		ft_printf("\n");
 		i++;
 	}
 	ft_printf("\t_\t_\n");

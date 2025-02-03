@@ -6,42 +6,13 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/02 22:22:56 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/03 22:25:31 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// int	*init_args(int argc, char **argv)
-// {
-// 	char	**args;
-// 	int		*numbers;
-// 	int		should_split;
-// 	int		i;
-
-// 	args = argv + 1;
-// 	should_split = argc == 2;
-// 	if (should_split)
-// 		args = ft_split(argv[1], ' ');
-// 	if (!args)
-// 		return (NULL);
-// 	i = 0;
-// 	while (args[i])
-// 		i++;
-// 	numbers = ft_calloc(i + 1, sizeof(int));
-// 	if (!numbers)
-// 	{
-// 		if (should_split)
-// 			free_str_array(args);
-// 		return (NULL);
-// 	}
-// 	strarr_to_intarr(args, numbers);
-// 	if (should_split)
-// 		free_str_array(args);
-// 	return (numbers);
-// }
-
-void	del(int content)
+void	del(void *content)
 {
 	(void)content;
 }
@@ -64,13 +35,13 @@ t_list	*init_args(int argc, char **argv)
 	i = 0;
 	while (args[i])
 	{
-		aux = ft_lstnew(ft_atoi(args[i]));
+		aux = ft_lstnew((void *)ft_atoi(args[i]));
 		if (!aux)
 		{
 			ft_lstclear(&numbers, del);
 			break ;
 		}
-		ft_lstadd_back(numbers, aux);
+		ft_lstadd_back(&numbers, aux);
 		i++;
 	}
 	if (should_split)
@@ -80,54 +51,49 @@ t_list	*init_args(int argc, char **argv)
 
 int	init_stacks(t_stack *stack_a, t_stack *stack_b, int argc, char **argv)
 {
-	int	i;
-
 	stack_a->stack = init_args(argc, argv);
 	if (!stack_a->stack)
 		return (EXIT_FAILURE);
-	i = 0;
-	while (stack_a->stack[i])
-		i++;
-	stack_a->total = i;
-	stack_b->total = stack_a->total;
-	stack_a->size = stack_a->total;
+	stack_b->stack = NULL;
+	stack_a->size = ft_lstsize(stack_a->stack);
 	stack_b->size = 0;
-	stack_b->stack = ft_calloc(stack_a->size + 1, sizeof(int));
-	if (!stack_b->stack)
-		return (free(stack_a->stack), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
 int	min_value(t_stack *stack)
 {
-	int		min;
+	int		*min;
+	int		*curr_content;
 	t_list	*curr;
 
 	curr = stack->stack;
 	min = curr->content;
 	while (curr)
 	{
-		if (curr->content < min)
-			min = curr->content;
+		curr_content = curr->content;
+		if (*curr_content < *min)
+			*min = *curr_content;
 		curr = curr->next;
 	}
-	return (min);
+	return (*min);
 }
 
 int	max_value(t_stack *stack)
 {
-	int		max;
+	int		*max;
+	int		*curr_content;
 	t_list	*curr;
 
 	curr = stack->stack;
 	max = curr->content;
 	while (curr)
 	{
-		if (curr->content > max)
-			max = curr->content;
+		curr_content = curr->content;
+		if (*curr_content > *max)
+			*max = *curr_content;
 		curr = curr->next;
 	}
-	return (max);
+	return (*max);
 }
 
 /*
@@ -142,34 +108,33 @@ void	sort_3(t_stack *stack_a)
 {
 	int	min;
 	int	max;
-	int	first;
-	int	second;
-	int	third;
+	int	*first;
+	int	*second;
+	int	*third;
 
 	min = min_value(stack_a);
 	max = max_value(stack_a);
 	first = stack_a->stack->content;
 	second = stack_a->stack->next->content;
 	third = stack_a->stack->next->next->content;
-	if (first == min && second == max)
+	if (*first == min && *second == max)
 	{
 		rra(stack_a);
 		sa(stack_a);
 	}
-	else if (second == min && third == max)
+	else if (*second == min && *third == max)
 		sa(stack_a);
-	else if (second == max && third == min)
+	else if (*second == max && *third == min)
 		rra(stack_a);
-	else if (first == max && second == min)
+	else if (*first == max && *second == min)
 		ra(stack_a);
-	else if (first == max && third == min)
+	else if (*first == max && *third == min)
 		return (sa(stack_a), rra(stack_a));
 }
 
 void	insertion_sort(t_stack *stack_a, t_stack *stack_b)
 {
-	int	i;
-
+	(void)stack_b;
 	while (stack_a->size > 3 && !is_sorted(stack_a))
 	{
 		// for each element in A
@@ -212,7 +177,32 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\n"));
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
-	sort(&stack_a, &stack_b);
+	// sort(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	sa(&stack_a);
+	print_stacks(&stack_a, &stack_b);
+	ra(&stack_a);
+	print_stacks(&stack_a, &stack_b);
+	ra(&stack_a);
+	print_stacks(&stack_a, &stack_b);
+	rra(&stack_a);
+	print_stacks(&stack_a, &stack_b);
+	pb(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pb(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pb(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pb(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	rrb(&stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pa(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pa(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
+	pa(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
 }
 
