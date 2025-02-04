@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/03 22:25:31 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:16:20 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,51 @@ void	sort_3(t_stack *stack_a)
 		return (sa(stack_a), rra(stack_a));
 }
 
-void	insertion_sort(t_stack *stack_a, t_stack *stack_b)
+int	count_steps(t_stack *stack_a, t_stack *stack_b)
 {
+	t_list	*curr_a;
+	t_list	*curr_b;
+	int		i;
+	int		j;
+	int		max_b;
+	int		max_b_index;
+	int		min_steps;
+
+	min_steps = INT_MAX;
+	i = 0;
+	curr_a = stack_a->stack;
+	while (curr_a)
+	{
+		// find largest number smaller than curr_a
+		j = 0;
+		curr_b = stack_b->stack;
+		max_b = curr_b;
+		while (curr_b)
+		{
+			if (curr_b->content < curr_a->content && curr_b->content > max_b)
+			{
+				max_b = curr_b->content;
+				max_b_index = j;
+			}
+			j++;
+			curr_b = curr_b->next;
+		}
+		// min_steps = d(curr_a->content, stack_a) + d(max_b, stack_b);
+		if (i + max_b_index < min_steps)
+			min_steps = i + max_b_index;
+		i++;
+		curr_a = curr_a->next;
+	}
+}
+
+int	insertion_sort(t_stack *stack_a, t_stack *stack_b)
+{
+	t_list	*curr;
+	t_list	*steps;
+	int	i;
+	int	cheapest;
+	int	cheapest_index;
+
 	(void)stack_b;
 	while (stack_a->size > 3 && !is_sorted(stack_a))
 	{
@@ -141,7 +184,25 @@ void	insertion_sort(t_stack *stack_a, t_stack *stack_b)
 			// calculate cheapest element to push to B by saving the steps needed
 			// update the reference to the cheapest when new cheapest is found
 		// execute the steps of the cheapest
+		steps = ft_lstmap(stack_a->stack, count_steps, del);
+		if (!steps)
+			return (EXIT_FAILURE);
+		curr = steps;
+		cheapest = curr->content;
+		i = 0;
+		while (curr)
+		{
+			if (curr->content < cheapest)
+			{
+				cheapest = curr->content;
+				cheapest_index = i;
+			}
+			i++;
+			curr = curr->next;
+		}
+		ft_lstclear(&steps, del);
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	turk_sort(t_stack *stack_a, t_stack *stack_b)
@@ -152,7 +213,7 @@ void	turk_sort(t_stack *stack_a, t_stack *stack_b)
 		pb(stack_a, stack_b);
 
 	// keep pushing into B until A has size 3
-	insertion_sort(stack_a, stack_b);
+	if (insertion_sort(stack_a, stack_b));
 
 	sort_3(stack_a);
 }
@@ -177,32 +238,7 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\n"));
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
-	// sort(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	sa(&stack_a);
-	print_stacks(&stack_a, &stack_b);
-	ra(&stack_a);
-	print_stacks(&stack_a, &stack_b);
-	ra(&stack_a);
-	print_stacks(&stack_a, &stack_b);
-	rra(&stack_a);
-	print_stacks(&stack_a, &stack_b);
-	pb(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pb(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pb(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pb(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	rrb(&stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pa(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pa(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
-	pa(&stack_a, &stack_b);
-	print_stacks(&stack_a, &stack_b);
+	sort(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
 }
 
