@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/04 22:16:20 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/05 23:22:45 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ t_list	*init_args(int argc, char **argv)
 	return (numbers);
 }
 
+int	get_zero(void)
+{
+	return (0);
+}
+
 int	init_stacks(t_stack *stack_a, t_stack *stack_b, int argc, char **argv)
 {
 	stack_a->stack = init_args(argc, argv);
@@ -60,40 +65,42 @@ int	init_stacks(t_stack *stack_a, t_stack *stack_b, int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
+#include <stdint.h>
+
 int	min_value(t_stack *stack)
 {
-	int		*min;
-	int		*curr_content;
+	int		min;
+	int		content;
 	t_list	*curr;
 
 	curr = stack->stack;
-	min = curr->content;
+	min = INT_MAX;
 	while (curr)
 	{
-		curr_content = curr->content;
-		if (*curr_content < *min)
-			*min = *curr_content;
+		content = (int)(intptr_t)curr->content;
+		if (content < min)
+			min = content;
 		curr = curr->next;
 	}
-	return (*min);
+	return (min);
 }
 
 int	max_value(t_stack *stack)
 {
-	int		*max;
-	int		*curr_content;
+	int		max;
+	int		content;
 	t_list	*curr;
 
 	curr = stack->stack;
-	max = curr->content;
+	max = INT_MIN;
 	while (curr)
 	{
-		curr_content = curr->content;
-		if (*curr_content > *max)
-			*max = *curr_content;
+		content = (int)(intptr_t)curr->content;
+		if (content > max)
+			max = content;
 		curr = curr->next;
 	}
-	return (*max);
+	return (max);
 }
 
 /*
@@ -108,99 +115,98 @@ void	sort_3(t_stack *stack_a)
 {
 	int	min;
 	int	max;
-	int	*first;
-	int	*second;
-	int	*third;
+	int	first;
+	int	second;
+	int	third;
 
 	min = min_value(stack_a);
 	max = max_value(stack_a);
-	first = stack_a->stack->content;
-	second = stack_a->stack->next->content;
-	third = stack_a->stack->next->next->content;
-	if (*first == min && *second == max)
+	first = (int)(intptr_t)stack_a->stack->content;
+	second = (int)(intptr_t)stack_a->stack->next->content;
+	third = (int)(intptr_t)stack_a->stack->next->next->content;
+	if (first == min && second == max)
 	{
 		rra(stack_a);
 		sa(stack_a);
 	}
-	else if (*second == min && *third == max)
+	else if (second == min && third == max)
 		sa(stack_a);
-	else if (*second == max && *third == min)
+	else if (second == max && third == min)
 		rra(stack_a);
-	else if (*first == max && *second == min)
+	else if (first == max && second == min)
 		ra(stack_a);
-	else if (*first == max && *third == min)
+	else if (first == max && third == min)
 		return (sa(stack_a), rra(stack_a));
 }
 
-int	count_steps(t_stack *stack_a, t_stack *stack_b)
+int	get_right_position(int number, t_stack *stack_b)
 {
-	t_list	*curr_a;
-	t_list	*curr_b;
+	t_list	*curr;
 	int		i;
-	int		j;
 	int		max_b;
 	int		max_b_index;
-	int		min_steps;
+	int		content;
 
-	min_steps = INT_MAX;
+	max_b = INT_MIN;
 	i = 0;
-	curr_a = stack_a->stack;
-	while (curr_a)
+	curr = stack_b->stack;
+	while (curr)
 	{
-		// find largest number smaller than curr_a
-		j = 0;
-		curr_b = stack_b->stack;
-		max_b = curr_b;
-		while (curr_b)
+		content = *(int *)curr->content;
+		if (content < number && content > max_b)
 		{
-			if (curr_b->content < curr_a->content && curr_b->content > max_b)
-			{
-				max_b = curr_b->content;
-				max_b_index = j;
-			}
-			j++;
-			curr_b = curr_b->next;
+			max_b = content;
+			max_b_index = i;
 		}
-		// min_steps = d(curr_a->content, stack_a) + d(max_b, stack_b);
-		if (i + max_b_index < min_steps)
-			min_steps = i + max_b_index;
-		i++;
-		curr_a = curr_a->next;
+		curr = curr->next;
 	}
+	return (max_b_index);
+}
+
+void	execute_steps(int index, int number, t_stack *stack_a, t_stack *stack_b)
+{
+	int	steps_b;
+
+	steps_b = get_right_position(number, stack_b);
+	while (index--)
+		ra(stack_a);
+	while (steps_b--)
+		rb(stack_b);
+	pb(stack_a, stack_b);
 }
 
 int	insertion_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	t_list	*curr;
-	t_list	*steps;
-	int	i;
-	int	cheapest;
-	int	cheapest_index;
+	int		steps;
+	int		i;
+	int		min_steps;
+	int		cheapest;
+	int		cheapest_index;
 
 	(void)stack_b;
 	while (stack_a->size > 3 && !is_sorted(stack_a))
 	{
 		// for each element in A
-			// calculate cheapest element to push to B by saving the steps needed
-			// update the reference to the cheapest when new cheapest is found
+			// calculate how many steps are needed to push to B in the right position
+			// save index of the cheapest when new cheapest is found
 		// execute the steps of the cheapest
-		steps = ft_lstmap(stack_a->stack, count_steps, del);
-		if (!steps)
-			return (EXIT_FAILURE);
-		curr = steps;
-		cheapest = curr->content;
+		curr = stack_a->stack;
+		min_steps = INT_MAX;
 		i = 0;
 		while (curr)
 		{
-			if (curr->content < cheapest)
+			steps = i + get_right_position(*(int *)curr->content, stack_b);
+			if (steps < min_steps)
 			{
-				cheapest = curr->content;
+				min_steps = steps;
+				cheapest = *(int *)curr->content;
 				cheapest_index = i;
 			}
 			i++;
 			curr = curr->next;
 		}
-		ft_lstclear(&steps, del);
+		execute_steps(cheapest_index, cheapest, stack_a, stack_b);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -213,7 +219,7 @@ void	turk_sort(t_stack *stack_a, t_stack *stack_b)
 		pb(stack_a, stack_b);
 
 	// keep pushing into B until A has size 3
-	if (insertion_sort(stack_a, stack_b));
+	insertion_sort(stack_a, stack_b);
 
 	sort_3(stack_a);
 }
@@ -238,7 +244,9 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\n"));
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
+	print_stacks(&stack_a, &stack_b);
 	sort(&stack_a, &stack_b);
+	print_stacks(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
 }
 
