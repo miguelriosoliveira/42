@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/05 23:22:45 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:36:56 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	init_stacks(t_stack *stack_a, t_stack *stack_b, int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-#include <stdint.h>
-
 int	min_value(t_stack *stack)
 {
 	int		min;
@@ -77,7 +75,7 @@ int	min_value(t_stack *stack)
 	min = INT_MAX;
 	while (curr)
 	{
-		content = (int)(intptr_t)curr->content;
+		content = (int)(unsigned long)curr->content;
 		if (content < min)
 			min = content;
 		curr = curr->next;
@@ -95,7 +93,7 @@ int	max_value(t_stack *stack)
 	max = INT_MIN;
 	while (curr)
 	{
-		content = (int)(intptr_t)curr->content;
+		content = (int)(unsigned long)curr->content;
 		if (content > max)
 			max = content;
 		curr = curr->next;
@@ -121,9 +119,9 @@ void	sort_3(t_stack *stack_a)
 
 	min = min_value(stack_a);
 	max = max_value(stack_a);
-	first = (int)(intptr_t)stack_a->stack->content;
-	second = (int)(intptr_t)stack_a->stack->next->content;
-	third = (int)(intptr_t)stack_a->stack->next->next->content;
+	first = (int)(unsigned long)stack_a->stack->content;
+	second = (int)(unsigned long)stack_a->stack->next->content;
+	third = (int)(unsigned long)stack_a->stack->next->next->content;
 	if (first == min && second == max)
 	{
 		rra(stack_a);
@@ -152,7 +150,7 @@ int	get_right_position(int number, t_stack *stack_b)
 	curr = stack_b->stack;
 	while (curr)
 	{
-		content = *(int *)curr->content;
+		content = (int)(unsigned long)curr->content;
 		if (content < number && content > max_b)
 		{
 			max_b = content;
@@ -196,11 +194,11 @@ int	insertion_sort(t_stack *stack_a, t_stack *stack_b)
 		i = 0;
 		while (curr)
 		{
-			steps = i + get_right_position(*(int *)curr->content, stack_b);
+			steps = i + get_right_position((int)(unsigned long)curr->content, stack_b);
 			if (steps < min_steps)
 			{
 				min_steps = steps;
-				cheapest = *(int *)curr->content;
+				cheapest = (int)(unsigned long)curr->content;
 				cheapest_index = i;
 			}
 			i++;
@@ -211,17 +209,94 @@ int	insertion_sort(t_stack *stack_a, t_stack *stack_b)
 	return (EXIT_SUCCESS);
 }
 
+int	get_index(int number, t_stack *stack)
+{
+	int		i;
+	t_list	*curr;
+
+	i = 0;
+	curr = stack->stack;
+	while (curr)
+	{
+		if ((int)(unsigned long)curr->content == number)
+			return (i);
+		i++;
+		curr = curr->next;
+	}
+	return (-1);
+}
+
+int	find_smallest_bigger_pos(int number, t_stack *stack)
+{
+	int		i;
+	int		index;
+	int		elem;
+	t_list	*curr;
+
+	i = 0;
+	curr = stack->stack;
+	elem = (int)(unsigned long)curr->content;
+	index = -1;
+	while (curr)
+	{
+		if ((int)(unsigned long)curr->content > number && (int)(unsigned long)curr->content < elem)
+		{
+			elem = (int)(unsigned long)curr->content;
+			index = i;
+		}
+		i++;
+		curr = curr->next;
+	}
+	if (index >= 0)
+		return (index);
+	return (get_index(min_value(stack), stack));
+}
+
+void	push_back_to_a(t_stack *stack_a, t_stack *stack_b)
+{
+	int	index;
+
+	while (stack_b->stack)
+	{
+		// find index of proper element (smallest element bigger than current)
+		index = find_smallest_bigger_pos((int)(unsigned long)stack_b->stack->content, stack_a);
+		// if index <= stack_a.size/2 rotate A until proper element is on top
+		if (index <= stack_a->size)
+			while (index--)
+				ra(stack_a);
+		// else reverse rotate A until proper element is on top
+		else
+			while (index++ < stack_a->size)
+				rra(stack_a);
+		// push from B to A
+		pa(stack_a, stack_b);
+	}
+}
+
 void	turk_sort(t_stack *stack_a, t_stack *stack_b)
 {
-	if (stack_a->size > 3 && !is_sorted(stack_a))
-		pb(stack_a, stack_b);
-	if (stack_a->size > 3 && !is_sorted(stack_a))
-		pb(stack_a, stack_b);
+	int	min_elem_index;
 
-	// keep pushing into B until A has size 3
+	// push first 2 elements to B
+	if (stack_a->size > 3 && !is_sorted(stack_a))
+		pb(stack_a, stack_b);
+	if (stack_a->size > 3 && !is_sorted(stack_a))
+		pb(stack_a, stack_b);
+	// keep pushing to B until A has size 3
 	insertion_sort(stack_a, stack_b);
-
+	// sort remaining 3
 	sort_3(stack_a);
+	// push back from B to A
+	push_back_to_a(stack_a, stack_b);
+	// rotate A until minimum element is on top
+	min_elem_index = get_index(min_value(stack_a), stack_a);
+	if (min_elem_index <= stack_a->size)
+		while (min_elem_index--)
+			ra(stack_a);
+	// else reverse rotate A until proper element is on top
+	else
+		while (min_elem_index++ < stack_a->size)
+			rra(stack_a);
 }
 
 void	sort(t_stack *stack_a, t_stack *stack_b)
@@ -244,7 +319,6 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\n"));
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
-	print_stacks(&stack_a, &stack_b);
 	sort(&stack_a, &stack_b);
 	print_stacks(&stack_a, &stack_b);
 	return (EXIT_SUCCESS);
