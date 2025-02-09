@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 12:53:06 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/03 22:20:14 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:24:29 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_sorted(t_stack *stack)
 	curr = stack->stack;
 	while (curr && curr->next)
 	{
-		if (curr->content > curr->next->content)
+		if ((int)(unsigned long)curr->content > (int)(unsigned long)curr->next->content)
 			return (0);
 		curr = curr->next;
 	}
@@ -32,6 +32,7 @@ void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 	t_list	*curr_b;
 	int		i;
 
+	ft_printf("-------------------------- STACKS --------------------------\n");
 	ft_printf("stack_a size: %d\n", stack_a->size);
 	ft_printf("stack_b size: %d\n", stack_b->size);
 	curr_a = stack_a->stack;
@@ -61,6 +62,7 @@ void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 		ft_printf("Yes\n");
 	else
 		ft_printf("No\n");
+	ft_printf("======================== STACKS END ========================\n");
 }
 
 void	free_str_array(char **arr)
