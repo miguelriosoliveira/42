@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/09 19:34:31 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/10 22:02:41 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,26 +180,6 @@ int	get_right_position(int number, t_stack *stack_b)
 	return (get_index(max_value(stack_b), stack_b));
 }
 
-void	execute_steps(int index, int number, t_stack *stack_a, t_stack *stack_b)
-{
-	int	index_b;
-
-	index_b = get_right_position(number, stack_b);
-	if (index <= stack_a->size / 2)
-		while (index--)
-			ra(stack_a);
-	else
-		while (index++ < stack_a->size)
-			rra(stack_a);
-	if (index_b <= stack_b->size / 2)
-		while (index_b--)
-			rb(stack_b);
-	else
-		while (index_b++ < stack_b->size)
-			rrb(stack_b);
-	pb(stack_a, stack_b);
-}
-
 int	get_value(int index, t_stack *stack)
 {
 	int		i;
@@ -213,6 +193,45 @@ int	get_value(int index, t_stack *stack)
 		curr = curr->next;
 	}
 	return ((int)(unsigned long)curr->content);
+}
+
+void	execute_steps(int index, int number, t_stack *stack_a, t_stack *stack_b)
+{
+	int	index_b;
+
+	index_b = get_right_position(number, stack_b);
+	if (index > stack_a->size / 2)
+		index = -1 * (stack_a->size - index);
+	if (index_b > stack_b->size / 2)
+		index_b = -1 * (stack_b->size - index_b);
+	if (index > 0 && index_b > 0)
+		while (index && index_b)
+		{
+			rr(stack_a, stack_b);
+			index--;
+			index_b--;
+		}
+	else if (index < 0 && index_b < 0)
+		while (index && index_b)
+		{
+			rrr(stack_a, stack_b);
+			index++;
+			index_b++;
+		}
+	if (index >= 0)
+		while (index--)
+			ra(stack_a);
+	else
+		while (index++)
+			rra(stack_a);
+	if (index_b >= 0)
+		while (index_b--)
+			rb(stack_b);
+	else
+		while (index_b++)
+			rrb(stack_b);
+
+	pb(stack_a, stack_b);
 }
 
 int	insertion_sort(t_stack *stack_a, t_stack *stack_b)
