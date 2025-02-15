@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:41:29 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/15 23:21:37 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/16 00:23:59 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ void	rb(t_stack *stack_b);
 void	rr(t_stack *stack_a, t_stack *stack_b);
 
 // sort.c
-void	sort_3(t_stack *stack_a);
-int		get_right_position(int number, t_stack *stack_b);
-void	execute_steps(int index, int number, t_stack *sa, t_stack *sb);
-int		insertion_sort(t_stack *stack_a, t_stack *stack_b);
-int		find_smallest_bigger_pos(int number, t_stack *stack);
-void	push_back_to_a(t_stack *stack_a, t_stack *stack_b);
-void	turk_sort(t_stack *stack_a, t_stack *stack_b);
 void	sort(t_stack *stack_a, t_stack *stack_b);
 
 // stack.c

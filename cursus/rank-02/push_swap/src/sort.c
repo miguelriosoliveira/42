@@ -6,47 +6,11 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 22:35:02 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/15 22:35:16 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/16 00:22:29 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-/*
-123 - none
-132 - rra - 213 - sa - 123
-213 - sa  - 123
-231 - rra - 123
-312 - ra  - 123
-321 - sa  - 231 - rra - 123
-*/
-void	sort_3(t_stack *stack_a)
-{
-	int	min;
-	int	max;
-	int	first;
-	int	second;
-	int	third;
-
-	min = min_value(stack_a);
-	max = max_value(stack_a);
-	first = (int)(unsigned long)stack_a->stack->content;
-	second = (int)(unsigned long)stack_a->stack->next->content;
-	third = (int)(unsigned long)stack_a->stack->next->next->content;
-	if (first == min && second == max)
-	{
-		rra(stack_a);
-		sa(stack_a);
-	}
-	else if (second == min && third == max)
-		sa(stack_a);
-	else if (second == max && third == min)
-		rra(stack_a);
-	else if (first == max && second == min)
-		ra(stack_a);
-	else if (first == max && third == min)
-		return (sa(stack_a), rra(stack_a));
-}
 
 /**
  * Find biggest element in `stack_b` smaller than `number`.
@@ -77,6 +41,52 @@ int	get_right_position(int number, t_stack *stack_b)
 	if (max_b_index >= 0)
 		return (max_b_index);
 	return (get_index(max_value(stack_b), stack_b));
+}
+
+int	calculate_steps(int index_a, int index_b, int sa_size, int sb_size)
+{
+	if (index_a <= sa_size / 2)
+	{
+		if (index_b <= sb_size / 2)
+			return (max(index_a, index_b));
+		return (index_a + sb_size - index_b);
+	}
+	if (index_b <= sb_size / 2)
+		return (sa_size - index_a + index_b);
+	return (max(sa_size - index_a, sb_size - index_b));
+}
+
+void	update_cheapest(int i, int steps, int *min_steps, int *cheapest_index)
+{
+	if (steps < *min_steps)
+	{
+		*min_steps = steps;
+		*cheapest_index = i;
+	}
+}
+
+int	calculate_cheapest(t_stack *stack_a, t_stack *stack_b)
+{
+	t_list	*curr;
+	int		min_steps;
+	int		index_b;
+	int		i;
+	int		cheapest_index;
+
+	curr = stack_a->stack;
+	min_steps = INT_MAX;
+	i = 0;
+	while (curr)
+	{
+		index_b = get_right_position(
+				(int)(unsigned long)curr->content, stack_b);
+		update_cheapest(i,
+			calculate_steps(i, index_b, stack_a->size, stack_b->size),
+			&min_steps, &cheapest_index);
+		i++;
+		curr = curr->next;
+	}
+	return (cheapest_index);
 }
 
 void	execute_steps(int index, int number, t_stack *stack_a, t_stack *stack_b)
@@ -121,48 +131,48 @@ void	execute_steps(int index, int number, t_stack *stack_a, t_stack *stack_b)
 	pb(stack_a, stack_b);
 }
 
-int	insertion_sort(t_stack *stack_a, t_stack *stack_b)
+void	insertion_sort(t_stack *stack_a, t_stack *stack_b)
 {
-	t_list	*curr;
-	int		steps;
-	int		i;
-	int		min_steps;
-	int		cheapest;
-	int		cheapest_index;
-	int		index_b;
+	int	index;
 
 	while (stack_a->size > 3 && !is_sorted(stack_a))
 	{
-		curr = stack_a->stack;
-		min_steps = INT_MAX;
-		i = 0;
-		while (curr)
-		{
-			index_b = get_right_position(
-					(int)(unsigned long)curr->content, stack_b);
-			if (i <= stack_a->size / 2)
-			{
-				if (index_b <= stack_b->size / 2)
-					steps = max(i, index_b);
-				else
-					steps = i + stack_b->size - index_b;
-			}
-			else if (index_b <= stack_b->size / 2)
-				steps = stack_a->size - i + index_b;
-			else
-				steps = max(stack_a->size - i, stack_b->size - index_b);
-			if (steps < min_steps)
-			{
-				min_steps = steps;
-				cheapest = (int)(unsigned long)curr->content;
-				cheapest_index = i;
-			}
-			i++;
-			curr = curr->next;
-		}
-		execute_steps(cheapest_index, cheapest, stack_a, stack_b);
+		index = calculate_cheapest(stack_a, stack_b);
+		execute_steps(index, get_value(index, stack_a), stack_a, stack_b);
 	}
-	return (EXIT_SUCCESS);
+}
+
+/*
+123 - none
+132 - rra - 213 - sa - 123
+213 - sa  - 123
+231 - rra - 123
+312 - ra  - 123
+321 - sa  - 231 - rra - 123
+*/
+void	sort_3(t_stack *stack_a)
+{
+	int	min;
+	int	max;
+	int	first;
+	int	second;
+	int	third;
+
+	min = min_value(stack_a);
+	max = max_value(stack_a);
+	first = (int)(unsigned long)stack_a->stack->content;
+	second = (int)(unsigned long)stack_a->stack->next->content;
+	third = (int)(unsigned long)stack_a->stack->next->next->content;
+	if (first == min && second == max)
+		return (rra(stack_a), sa(stack_a));
+	if (second == min && third == max)
+		return (sa(stack_a));
+	if (second == max && third == min)
+		return (rra(stack_a));
+	if (first == max && second == min)
+		return (ra(stack_a));
+	if (first == max && third == min)
+		return (sa(stack_a), rra(stack_a));
 }
 
 int	find_smallest_bigger_pos(int number, t_stack *stack)
@@ -210,10 +220,14 @@ void	push_back_to_a(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
-void	turk_sort(t_stack *stack_a, t_stack *stack_b)
+void	sort(t_stack *stack_a, t_stack *stack_b)
 {
 	int	min_elem_index;
 
+	if (is_sorted(stack_a))
+		return ;
+	if (stack_a->size == 2)
+		sa(stack_a);
 	if (stack_a->size > 3 && !is_sorted(stack_a))
 		pb(stack_a, stack_b);
 	if (stack_a->size > 3 && !is_sorted(stack_a))
@@ -228,13 +242,4 @@ void	turk_sort(t_stack *stack_a, t_stack *stack_b)
 	else
 		while (min_elem_index++ < stack_a->size)
 			rra(stack_a);
-}
-
-void	sort(t_stack *stack_a, t_stack *stack_b)
-{
-	if (is_sorted(stack_a))
-		return ;
-	if (stack_a->size == 2)
-		sa(stack_a);
-	turk_sort(stack_a, stack_b);
 }
