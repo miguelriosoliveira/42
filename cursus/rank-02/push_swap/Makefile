@@ -1,6 +1,6 @@
 NAME = push_swap
 
-SRC_FILES = push_swap.c push.c reverse_rotate.c rotate.c swap.c utils.c validation.c
+SRC_FILES = push_swap.c push.c reverse_rotate.c rotate.c sort.c stack.c swap.c utils.c validation.c
 SRC = $(addprefix src/, $(SRC_FILES))
 OBJ = $(SRC:.c=.o)
 
