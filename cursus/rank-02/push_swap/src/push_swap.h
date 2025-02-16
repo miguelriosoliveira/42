@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:41:29 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/16 00:23:59 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:30:10 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ void	rotate(t_stack *stack, int direction);
 void	ra(t_stack *stack_a);
 void	rb(t_stack *stack_b);
 void	rr(t_stack *stack_a, t_stack *stack_b);
+
+// sort_utils.c
+int		get_right_position(int number, t_stack *stack_b);
+int		calculate_steps(int index_a, int index_b, int sa_size, int sb_size);
+void	update_cheapest(int i, int steps, int *min_steps, int *cheapest_index);
+int		calculate_cheapest(t_stack *stack_a, t_stack *stack_b);
+
+// sort_utils2.c
+int		rotate_ab(int index_a, int index_b, t_stack *sa, t_stack *sb);
+void	rotate_a(int index, t_stack *stack_a);
+void	rotate_b(int index, t_stack *stack_b);
+void	execute_steps(int index_a, int index_b, t_stack *sa, t_stack *sb);
+int		find_smallest_bigger_pos(int number, t_stack *stack);
 
 // sort.c
 void	sort(t_stack *stack_a, t_stack *stack_b);
