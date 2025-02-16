@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/15 23:19:07 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/16 20:53:06 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	main(int argc, char **argv)
 	if (init_stacks(&stack_a, &stack_b, argc, argv))
 		return (ft_printf("Failed initializing stacks!\n"));
 	sort(&stack_a, &stack_b);
+	ft_lstclear(&stack_a.stack, noop);
+	ft_lstclear(&stack_b.stack, noop);
 	return (EXIT_SUCCESS);
 }
 

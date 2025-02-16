@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 16:26:21 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/16 16:26:58 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/16 20:49:40 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ int	find_smallest_bigger_pos(int number, t_stack *stack)
 {
 	int		i;
 	int		index;
-	int		min_elem;
+	long	min_elem;
 	t_list	*curr;
 
 	i = 0;
 	curr = stack->stack;
-	min_elem = INT_MAX;
+	min_elem = (long)INT_MAX + 1;
 	index = -1;
 	while (curr)
 	{

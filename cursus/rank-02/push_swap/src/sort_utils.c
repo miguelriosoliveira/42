@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 16:18:59 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/16 16:27:36 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/16 20:50:37 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	get_right_position(int number, t_stack *stack_b)
 {
 	t_list	*curr;
 	int		i;
-	int		max_b;
+	long	max_b;
 	int		max_b_index;
 	int		content;
 
 	i = 0;
-	max_b = INT_MIN;
+	max_b = (long)INT_MIN - 1;
 	max_b_index = -1;
 	curr = stack_b->stack;
 	while (curr)

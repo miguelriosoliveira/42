@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 10:56:54 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/01/30 22:30:22 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/16 20:22:39 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,39 @@ static int	is_present(char *str, char **words)
 	return (0);
 }
 
+static int	validate_number(char **args, int i)
+{
+	long	number;
+
+	if (!is_numeric(args[i]))
+		return (EXIT_FAILURE);
+	number = ft_atoi(args[i]);
+	if (number < INT_MIN || number > INT_MAX)
+		return (EXIT_FAILURE);
+	if (is_present(args[i], args + i + 1))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
 int	validate_args(int argc, char **argv)
 {
 	char	**args;
 	int		i;
-	long	number;
+	int		should_split;
+	int		err;
 
+	err = 0;
 	args = argv + 1;
-	if (argc == 2)
+	should_split = argc == 2;
+	if (should_split)
 		args = ft_split(argv[1], ' ');
 	i = 0;
 	while (args[i])
 	{
-		if (!is_numeric(args[i]))
-			return (EXIT_FAILURE);
-		number = ft_atoi(args[i]);
-		if (number < INT_MIN || number > INT_MAX)
-			return (EXIT_FAILURE);
-		if (is_present(args[i], args + i + 1))
-			return (EXIT_FAILURE);
+		err += validate_number(args, i);
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	if (should_split)
+		free_str_array(args);
+	return (err > 0);
 }

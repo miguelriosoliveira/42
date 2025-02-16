@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 12:53:06 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/15 22:14:01 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/16 20:38:53 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	print_stacks(t_stack *stack_a, t_stack *stack_b)
 		}
 		ft_printf("\n");
 	}
-	ft_printf("\t_\t_\n\tA\tB\nIs sorted? %d", is_sorted(stack_a));
+	ft_printf("\t_\t_\n\tA\tB\nIs sorted? %d\n", is_sorted(stack_a));
 }
 
 void	free_str_array(char **arr)
