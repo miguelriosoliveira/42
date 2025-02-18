@@ -20,7 +20,7 @@ $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(LIBFT_LIB) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(INCLUDES) -c $< -o $@
+	$(CC) -c $< -o $@
 
 clean:
 	$(MAKE) $(LIBFT_PATH) clean
