@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 22:35:02 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/16 20:53:28 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:59:34 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 	if (is_sorted(stack_a))
 		return ;
 	if (stack_a->size == 2)
+	{
 		sa(stack_a);
+		return ;
+	}
 	if (stack_a->size > 3 && !is_sorted(stack_a))
 		pb(stack_a, stack_b);
 	if (stack_a->size > 3 && !is_sorted(stack_a))
