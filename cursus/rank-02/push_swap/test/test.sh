@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ./push_swap > test/empty.received
 diff -s test/empty.expected test/empty.received
 
