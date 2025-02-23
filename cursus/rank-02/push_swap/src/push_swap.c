@@ -6,7 +6,7 @@
 /*   By: mrios-es <mrios-es@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 11:33:01 by mrios-es          #+#    #+#             */
-/*   Updated: 2025/02/16 20:53:06 by mrios-es         ###   ########.fr       */
+/*   Updated: 2025/02/23 11:32:50 by mrios-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,9 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (EXIT_SUCCESS);
-	if (validate_args(argc, argv))
-		return (ft_printf("Error\n"));
-	if (init_stacks(&stack_a, &stack_b, argc, argv))
-		return (ft_printf("Failed initializing stacks!\n"));
+	if (validate_args(argc, argv)
+		|| init_stacks(&stack_a, &stack_b, argc, argv))
+		return (ft_putstr_fd("Error\n", STDERR_FILENO));
 	sort(&stack_a, &stack_b);
 	ft_lstclear(&stack_a.stack, noop);
 	ft_lstclear(&stack_b.stack, noop);

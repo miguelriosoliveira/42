@@ -4,7 +4,8 @@ SRC_FILES = push_swap.c push.c reverse_rotate.c rotate.c sort_utils.c sort_utils
 SRC = $(addprefix src/, $(SRC_FILES))
 OBJ = $(SRC:.c=.o)
 
-CC = cc -Wall -Werror -Wextra -fsanitize=address -g3
+CC = cc -Wall -Werror -Wextra
+CC += -fsanitize=address -g3
 RM = rm -rf
 MAKE = make -sC
 
