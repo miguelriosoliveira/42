@@ -11,13 +11,13 @@ MAKE = make -sC
 LIBFT_PATH = libft/
 LIBFT_LIB = $(LIBFT_PATH)libft.a
 
-all: $(LIBFT_PATH) $(NAME)
+all: $(NAME)
 
-$(LIBFT_PATH):
+$(LIBFT_LIB):
 	$(MAKE) $(LIBFT_PATH)
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) $(LIBFT_LIB) -o $(NAME)
+$(NAME): $(LIBFT_LIB) $(OBJ)
+	$(CC) $(LIBFT_LIB) $(OBJ) -o $(NAME)
 
 %.o: %.c
 	$(CC) -c $< -o $@
@@ -35,4 +35,4 @@ re: fclean all
 test: re
 	bash test/test.sh
 
-.PHONY: all $(LIBFT_PATH) $(NAME) clean fclean re test
+.PHONY: all clean fclean re test
