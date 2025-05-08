@@ -29,7 +29,7 @@ You have to write a program for the mandatory part and another one for the bonus
 They both have to comply with the following rules:
 
 - Global variables are forbidden!
-- Your(s) program(s) should take the following arguments:
+- Your program(s) should take the following arguments:
 	```
 	number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
 	```
